@@ -5,7 +5,12 @@
     <option name="CUSTOM_SCOPE_NAME" value="Audio" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3728e77c-2457-4419-8d52-5bd271b4c5ef" name="Default" comment="audio-1 test #1 fixed" />
+    <list default="true" id="3728e77c-2457-4419-8d52-5bd271b4c5ef" name="Default" comment="audio-1 test #1 fixed">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/audio.iml" afterPath="$PROJECT_DIR$/.idea/audio.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/audio/player/player.py" afterPath="$PROJECT_DIR$/audio/player/player.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="audio.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,10 +32,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="audio.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="audio.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/audio/audio.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="0" selection-start="451" selection-end="451" vertical-scroll-proportion="0.4305136" vertical-offset="120" max-vertical-offset="3645">
+            <state line="0" column="0" selection-start="0" selection-end="21" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3645">
               <folding>
                 <element signature="e#38#47#0" expanded="true" />
               </folding>
@@ -38,11 +43,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="player.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="player.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/audio/player/player.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="62" column="0" selection-start="1742" selection-end="1742" vertical-scroll-proportion="0.0" vertical-offset="930" max-vertical-offset="1245">
-              <folding />
+            <state line="25" column="0" selection-start="367" selection-end="367" vertical-scroll-proportion="0.37414965" vertical-offset="210" max-vertical-offset="1095">
+              <folding>
+                <element signature="e#38#47#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -50,7 +57,7 @@
       <file leaf-file-name="mainwindow.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/audio/ui/mainwindow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="21" selection-start="354" selection-end="354" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="2595">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2595">
               <folding />
             </state>
           </provider>
@@ -59,7 +66,7 @@
       <file leaf-file-name="helpform.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/audio/helpform/helpform.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="62" column="8" selection-start="2307" selection-end="2307" vertical-scroll-proportion="0.0" vertical-offset="930" max-vertical-offset="1185">
+            <state line="62" column="8" selection-start="2307" selection-end="2307" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1185">
               <folding />
             </state>
           </provider>
@@ -98,9 +105,9 @@
         <option value="$PROJECT_DIR$/audio/ui/mainwindow.py" />
         <option value="$PROJECT_DIR$/audio/helpform/helpform.py" />
         <option value="$PROJECT_DIR$/audio/player/__init__.py" />
-        <option value="$PROJECT_DIR$/audio/player/player.py" />
         <option value="$PROJECT_DIR$/audio/resources.qrc" />
         <option value="$PROJECT_DIR$/audio/audio.py" />
+        <option value="$PROJECT_DIR$/audio/player/player.py" />
       </list>
     </option>
   </component>
@@ -160,7 +167,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -189,20 +195,21 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="140" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="142" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="recentsLimit" value="5" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="145" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="recentsLimit" value="5" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$USER_HOME$/Downloads/Gereqi-0.4.2" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="152" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="945" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="940" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="945" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="150" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="147" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
@@ -215,7 +222,7 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
     <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
-    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="options.lastSelected" value="tasks" />
     <property name="TODO_SCOPE" value="Project Files" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="options.searchVisible" value="true" />
@@ -417,7 +424,7 @@
         <option name="shouldFormatCommitMessage" value="true" />
         <option name="useHttpAuthentication" value="false" />
         <option name="useProxy" value="false" />
-        <option name="user" value="springermac" />
+        <option name="user" value="" />
         <username />
       </GitHub>
     </servers>
@@ -450,21 +457,21 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289855" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289855" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24963072" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14608328" sideWeight="0.6710145" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14587738" sideWeight="0.6710145" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25849336" sideWeight="0.42753622" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289855" sideWeight="0.50035286" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32307693" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32225433" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289855" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" x="120" y="122" width="1200" height="610" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289855" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -487,6 +494,11 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
     </layout-to-restore>
   </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
@@ -503,6 +515,38 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/audio/audio.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="7" selection-start="450" selection-end="450" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="3645">
+          <folding>
+            <element signature="e#38#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/audio/player/player.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="62" column="0" selection-start="1742" selection-end="1742" vertical-scroll-proportion="0.0" vertical-offset="930" max-vertical-offset="1245">
+          <folding>
+            <element signature="e#38#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/audio/ui/mainwindow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="21" selection-start="354" selection-end="354" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="2595">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/audio/helpform/helpform.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="62" column="8" selection-start="2307" selection-end="2307" vertical-scroll-proportion="0.0" vertical-offset="930" max-vertical-offset="1185">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/audio/audio.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="0" selection-start="289" selection-end="289" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="4500">
@@ -567,9 +611,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/audio/resources.qrc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="1" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="386">
-          <folding />
-        </state>
+        <state line="0" column="1" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="386" />
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Library/Caches/PyCharm30/python_stubs/802780667/PyQt4/QtGui.py">
@@ -577,16 +619,18 @@
         <state line="21733" column="8" selection-start="836425" selection-end="836425" vertical-scroll-proportion="0.53351206" vertical-offset="325796" max-vertical-offset="580860" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/audio/player/player.py">
+    <entry file="file://$PROJECT_DIR$/audio/audio.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="0" selection-start="1742" selection-end="1742" vertical-scroll-proportion="0.0" vertical-offset="930" max-vertical-offset="1245">
-          <folding />
+        <state line="0" column="0" selection-start="0" selection-end="21" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3645">
+          <folding>
+            <element signature="e#38#47#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/audio/ui/mainwindow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="21" selection-start="354" selection-end="354" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="2595">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2595">
           <folding />
         </state>
       </provider>
@@ -598,9 +642,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/audio/audio.py">
+    <entry file="file://$PROJECT_DIR$/audio/player/player.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="0" selection-start="451" selection-end="451" vertical-scroll-proportion="0.4305136" vertical-offset="120" max-vertical-offset="3645">
+        <state line="25" column="0" selection-start="367" selection-end="367" vertical-scroll-proportion="0.37414965" vertical-offset="210" max-vertical-offset="1095">
           <folding>
             <element signature="e#38#47#0" expanded="true" />
           </folding>

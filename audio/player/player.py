@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # coding=utf-8
 
 import os
@@ -27,24 +28,12 @@ class Player():
     def __init__(self):
         self.filepath = "/Users/jonathanspringer/Music/3-1.wav"
 
-        # pipeline = gst.Pipeline("pipeline")
-        # level = gst.element_factory_make("level", "volume-level")
-        # pipeline.add(level)
-        # pad = level.get_pad("sink")
-        # ghostpad = gst.GhostPad("sink", pad)
-        # pipeline.add_pad(ghostpad)
-        # audiosink = gst.element_factory_make("autoaudiosink")
-        # pipeline.add(audiosink)
-        # gst.element_link_many(level, audiosink)
-
         self.player = gst.element_factory_make("playbin2", None)
         self.player.set_property("volume", 1)
-        #pipeline.get_by_name("volume-level").set_property('peak-ttl', 0)
-        #pipeline.get_by_name("volume-level").set_property('peak-falloff', 20)
-        #self.player.set_property("audio_sink", pipeline)
         bus = self.player.get_bus()
         bus.add_signal_watch()
-        bus.connect("message", self.on_message)
+        bus.enable_sync_message_emission()
+        bus.connect('message', self.on_message)
         self.audio_player = PlayerThread(self)
         self.audio_player.start()
 
