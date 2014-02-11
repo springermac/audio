@@ -9,7 +9,7 @@ from PyQt4 import QtCore, QtGui
 
 from helpform.helpform import HelpForm
 from ui.mainwindow import Ui_MainWindow
-from player.player import Player
+from player.recorder import Recorder
 
 RECORDING_STYLE = """
     QPushButton {
@@ -39,7 +39,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.dirty = False
         self.filename = None
         self.image = None
-        self.player = Player()
+        self.recorder = Recorder()
 
         self.setupUi(self)
         self.statusbar.showMessage("Ready", 5000)
@@ -210,17 +210,17 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if not self.pushButton.isChecked():
             self.pushButton.setText(QtCore.QString("Resume\n Recording"))
             self.pushButton.setStyleSheet(RECORDING_STYLE)
-            self.player.pause()
+            self.recorder.pause()
         elif self.pushButton.isChecked():
             self.pushButton.setText(QtCore.QString("Pause"))
             self.pushButton.setStyleSheet(RECORDING_STYLE)
-            self.player.play()
+            self.recorder.record()
 
     def on_button_2_clicked(self):
         self.pushButton.setStyleSheet("")
         self.pushButton.setChecked(False)
         self.pushButton.setText(QtCore.QString("Record"))
-        self.player.stop()
+        self.recorder.stop()
 
 
 def main():

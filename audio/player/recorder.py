@@ -11,21 +11,16 @@ import gst
 
 from PyQt4 import QtCore
 
-class PlayerThread(QtCore.QThread):
-    """
-
-    :param player:
-    """
-
-    def __init__(self, player):
-        super(PlayerThread, self).__init__(None)
-        self.audio_player = player
+class RecorderThread(QtCore.QThread):
+    def __init__(self, recorder):
+        super(RecorderThread, self).__init__(None)
+        self.audio_recorder = recorder
 
     def run(self):
-        self.audio_player.load_file()
+        self.audio_recorder.load_file()
 
 
-class Player():
+class Recorder():
     def __init__(self):
         self.filepath = "/Users/jonathanspringer/projects/audio/output.wav"
         self.playmode = False
@@ -41,13 +36,12 @@ class Player():
 
         bus = self.pipeline.get_bus()
         bus.add_signal_watch()
-        bus.enable_sync_message_emission()
         bus.connect('message', self.on_message)
 
-        self.audio_player = PlayerThread(self)
-        self.audio_player.start()
+        self.audio_recorder = RecorderThread(self)
+        self.audio_recorder.start()
 
-    def play(self):
+    def record(self):
         self.pipeline.set_state(gst.STATE_PLAYING)
         self.playmode = True
 
