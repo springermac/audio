@@ -31,8 +31,13 @@ class Player():
         self.playmode = False
 
         if sys.platform == 'darwin':
-            gst_command = ('osxaudiosrc ! audioconvert ! wavenc ! filesink location=%s') % self.filepath
-            self.pipeline = gst.parse_launch(gst_command)
+            self.pipeline = gst.Pipeline("Recording Pipeline")
+            self.osxaudiosrc = gst.element_factory_make("osxaudiosrc", "audiosrc")
+            self.audioconvert = gst.element_factory_make("audioconvert", "audioconvert")
+            self.wavenc = gst.element_factory_make("wavenc", "wavenc")
+            self.filesink = gst.element_factory_make("filesink", "filesink")
+            self.pipeline.add(self.osxaudiosrc, self.audioconvert, self.wavenc, self.filesink)
+            gst.element_link_many(self.osxaudiosrc, self.audioconvert, self.wavenc, self.filesink)
 
         bus = self.pipeline.get_bus()
         bus.add_signal_watch()
@@ -74,4 +79,4 @@ class Player():
 
     def load_file(self):
         if os.path.isfile(self.filepath):
-            self.sink.set_property("location", self.filepath)
+            self.filesink.set_property("location", self.filepath)
