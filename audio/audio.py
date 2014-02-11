@@ -225,9 +225,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
 def main():
     app = QtGui.QApplication(sys.argv)
-    app.setOrganizationName("Qtrac Ltd.")
-    app.setOrganizationDomain("qtrac.eu")
-    app.setApplicationName("Image Changer")
+    app.setOrganizationName("springermac")
+    app.setApplicationName("Audio")
     app.setWindowIcon(QtGui.QIcon(":/icon.png"))
     form = MainWindow()
     form.show()
