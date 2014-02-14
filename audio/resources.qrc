@@ -9,8 +9,8 @@
     <file alias="back.png">images/back.png</file>
     <file alias="home.png">images/home.png</file>
     <file alias="icon.png">images/icon.png</file>
-    <file>helpform/help/editmenu.html</file>
-    <file>helpform/help/filemenu.html</file>
-    <file>helpform/help/index.html</file>
+    <file>help/helpfiles/editmenu.html</file>
+    <file>help/helpfiles/filemenu.html</file>
+    <file>help/helpfiles/index.html</file>
   </qresource>
 </RCC>

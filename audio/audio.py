@@ -7,7 +7,7 @@ import sys
 
 from PyQt4 import QtCore, QtGui
 
-from helpform.helpform import HelpForm
+from help.helpform import HelpForm
 from ui.mainwindow import Ui_MainWindow
 from player.recorder import Recorder
 

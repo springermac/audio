@@ -54,7 +54,7 @@ class HelpForm(QtGui.QDialog):
         self.connect(self.textbrowser, QtCore.SIGNAL("sourceChanged(QUrl)"),
                      self.updatepagetitle)
 
-        self.textbrowser.setSearchPaths([":/helpform/help"])
+        self.textbrowser.setSearchPaths([":/help/helpfiles"])
         self.textbrowser.setSource(QtCore.QUrl(page))
         self.resize(400, 600)
         self.setWindowTitle("{0} Help".format(
