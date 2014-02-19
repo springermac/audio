@@ -6,8 +6,6 @@ import sys
 
 import gst
 
-from PyQt4 import QtCore
-
 from .meter import Meter
 
 

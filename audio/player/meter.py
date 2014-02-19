@@ -38,13 +38,13 @@ class Meter(QtCore.QObject):
             #get the structure of the message
             struc = message.structure
             #if the structure message is rms
-            if struc.has_key('rms'):
+            if struc.has_field("rms"):
                 print("meter")
                 rms = struc["rms"]
                 #get the values of rms in a list
                 rms0 = abs(float(rms[0]))
                 #compute for rms to decibels
-                rmsdb = 10 * math.log(rms0 / 32768 )
+                rmsdb = 10 * math.log(rms0 / 32768)
                 #compute for progress bar
                 vlrms = (rmsdb-MIN_DB) * 100 / (MAX_DB-MIN_DB)
                 #emit the signal to the qt progress bar
