@@ -6,6 +6,7 @@ import platform
 import sys
 
 from PyQt4 import QtCore, QtGui
+from PyQt4.uic import compileUiDir
 
 from audio.help.helpform import HelpForm
 from audio.ui.mainwindow import Ui_MainWindow
@@ -33,6 +34,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         """
         super(MainWindow, self).__init__(parent)
 
+        compileUiDir(os.path.join(os.path.dirname(__file__), 'audio/ui'), pyqt3_wrapper=True)
+
         self.dirty = False
         self.filename = None
         self.image = None
@@ -41,7 +44,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.recorder = Recorder()
 
         self.setupUi(self)
-        self.audioMeter.setStyleSheet(METER_STYLE)
+        self.recordingTab.audioMeter.setStyleSheet(METER_STYLE)
         self.statusbar.showMessage("Ready", 5000)
         self.action_About.triggered.connect(self.helpabout)
         self.action_Save.setShortcut(QtGui.QKeySequence.Save)
@@ -51,9 +54,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.action_Help.triggered.connect(self.helphelp)
         self.action_Help.setShortcut(QtGui.QKeySequence.HelpContents)
 
-        self.pushButton.clicked.connect(self.on_button_clicked)
-        self.pushButton_2.clicked.connect(self.on_button_2_clicked)
-        self.monitorAudio.clicked.connect(self.savesettings)
+        self.recordingTab.pushButton.clicked.connect(self.on_button_clicked)
+        self.recordingTab.pushButton_2.clicked.connect(self.on_button_2_clicked)
+        self.settingsTab.monitorAudio.clicked.connect(self.savesettings)
 
         self.connect(self.meter, QtCore.SIGNAL("setmeterlevel"), self.setvalue)
 
@@ -64,7 +67,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.recentfiles = settings.value("RecentFiles").toStringList()
         self.restoreGeometry(settings.value("MainWindow/Geometry").toByteArray())
         self.restoreState(settings.value("MainWindow/State").toByteArray())
-        self.monitorAudio.setChecked(settings.value("MonitorCheckBox").toBool())
+        self.settingsTab.monitorAudio.setChecked(settings.value("MonitorCheckBox").toBool())
 
         QtCore.QTimer.singleShot(0, self.loadinitialfile)
 
@@ -205,19 +208,19 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         form.show()
 
     def on_button_clicked(self):
-        if not self.pushButton.isChecked():
-            self.pushButton.setText(QtCore.QString("Resume\n Recording"))
-            self.pushButton.setStyleSheet(RECORDING_STYLE)
+        if not self.recordingTab.pushButton.isChecked():
+            self.recordingTab.pushButton.setText(QtCore.QString("Resume\n Recording"))
+            self.recordingTab.pushButton.setStyleSheet(RECORDING_STYLE)
             self.recorder.pause()
-        elif self.pushButton.isChecked():
-            self.pushButton.setText(QtCore.QString("Pause"))
-            self.pushButton.setStyleSheet(RECORDING_STYLE)
+        elif self.recordingTab.pushButton.isChecked():
+            self.recordingTab.pushButton.setText(QtCore.QString("Pause"))
+            self.recordingTab.pushButton.setStyleSheet(RECORDING_STYLE)
             self.recorder.record()
 
     def on_button_2_clicked(self):
-        self.pushButton.setStyleSheet("")
-        self.pushButton.setChecked(False)
-        self.pushButton.setText(QtCore.QString("Record"))
+        self.recordingTab.pushButton.setStyleSheet("")
+        self.recordingTab.pushButton.setChecked(False)
+        self.recordingTab.pushButton.setText(QtCore.QString("Record"))
         self.recorder.stop()
 
     def savesettings(self):
@@ -232,7 +235,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.saveGeometry()))
         settings.setValue("MainWindow/State", QtCore.QVariant(
             self.saveState()))
-        settings.setValue("MonitorCheckBox", QtCore.QVariant(self.monitorAudio.isChecked()))
+        settings.setValue("MonitorCheckBox", QtCore.QVariant(self.settingsTab.monitorAudio.isChecked()))
 
     def setvalue(self, value):
         """
