@@ -14,12 +14,6 @@ from PyQt4 import QtCore, QtGui
 
 
 class HelpForm(QtGui.QDialog):
-    """
-
-    :param page:
-    :param parent:
-    """
-
     def __init__(self, page, parent=None):
         """
 
@@ -58,7 +52,7 @@ class HelpForm(QtGui.QDialog):
         self.textbrowser.setSource(QtCore.QUrl(page))
         self.resize(400, 600)
         self.setWindowTitle("{0} Help".format(
-                QtGui.QApplication.applicationName()))
+            QtGui.QApplication.applicationName()))
 
     def updatepagetitle(self):
         self.pagelabel.setText(self.textbrowser.documentTitle())

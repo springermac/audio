@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/">
+    <file>images/meter.png</file>
     <file alias="filenew.png">images/filenew.png</file>
     <file alias="fileopen.png">images/fileopen.png</file>
     <file alias="filesave.png">images/filesave.png</file>

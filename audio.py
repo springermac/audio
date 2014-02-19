@@ -7,9 +7,11 @@ import sys
 
 from PyQt4 import QtCore, QtGui
 
-from help.helpform import HelpForm
-from ui.mainwindow import Ui_MainWindow
-from player.recorder import Recorder
+from audio.help.helpform import HelpForm
+from audio.ui.mainwindow import Ui_MainWindow
+from audio.player.recorder import Recorder
+from audio.player.meter import Meter, METER_STYLE
+from audio.player.messages import Message
 
 RECORDING_STYLE = """
     QPushButton {
@@ -24,11 +26,6 @@ __version__ = "1.0.0"
 
 
 class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
-    """
-
-    :param parent:
-    """
-
     def __init__(self, parent=None):
         """
 
@@ -39,9 +36,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.dirty = False
         self.filename = None
         self.image = None
+        self.meter = Meter()
+        self.message = Message()
         self.recorder = Recorder()
 
         self.setupUi(self)
+        self.audioMeter.setStyleSheet(METER_STYLE)
         self.statusbar.showMessage("Ready", 5000)
         self.action_About.triggered.connect(self.helpabout)
         self.action_Save.setShortcut(QtGui.QKeySequence.Save)
@@ -53,11 +53,18 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
         self.pushButton.clicked.connect(self.on_button_clicked)
         self.pushButton_2.clicked.connect(self.on_button_2_clicked)
+        self.monitorAudio.clicked.connect(self.savesettings)
+
+        self.connect(self.meter, QtCore.SIGNAL("setmeterlevel"), self.setvalue)
+
+        self.recorder.load_file()
+        self.message.start()
 
         settings = QtCore.QSettings()
         self.recentfiles = settings.value("RecentFiles").toStringList()
         self.restoreGeometry(settings.value("MainWindow/Geometry").toByteArray())
         self.restoreState(settings.value("MainWindow/State").toByteArray())
+        self.monitorAudio.setChecked(settings.value("MonitorCheckBox").toBool())
 
         QtCore.QTimer.singleShot(0, self.loadinitialfile)
 
@@ -67,17 +74,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :param event:
         """
         if self.oktocontinue():
-            settings = QtCore.QSettings()
-            filename = (QtCore.QVariant(QtCore.QString(self.filename))
-                        if self.filename is not None else QtCore.QVariant())
-            settings.setValue("LastFile", filename)
-            recentfiles = (QtCore.QVariant(self.recentfiles)
-                           if self.recentfiles else QtCore.QVariant())
-            settings.setValue("RecentFiles", recentfiles)
-            settings.setValue("MainWindow/Geometry", QtCore.QVariant(
-                self.saveGeometry()))
-            settings.setValue("MainWindow/State", QtCore.QVariant(
-                self.saveState()))
+            self.recorder.stop()
+            self.savesettings()
         else:
             event.ignore()
 
@@ -221,6 +219,28 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.pushButton.setChecked(False)
         self.pushButton.setText(QtCore.QString("Record"))
         self.recorder.stop()
+
+    def savesettings(self):
+        settings = QtCore.QSettings()
+        filename = (QtCore.QVariant(QtCore.QString(self.filename))
+                    if self.filename is not None else QtCore.QVariant())
+        settings.setValue("LastFile", filename)
+        recentfiles = (QtCore.QVariant(self.recentfiles)
+                       if self.recentfiles else QtCore.QVariant())
+        settings.setValue("RecentFiles", recentfiles)
+        settings.setValue("MainWindow/Geometry", QtCore.QVariant(
+            self.saveGeometry()))
+        settings.setValue("MainWindow/State", QtCore.QVariant(
+            self.saveState()))
+        settings.setValue("MonitorCheckBox", QtCore.QVariant(self.monitorAudio.isChecked()))
+
+    def setvalue(self, value):
+        """
+
+        :param value:
+        """
+        print(2)
+        self.audioMeter.setValue(value)
 
 
 def main():
