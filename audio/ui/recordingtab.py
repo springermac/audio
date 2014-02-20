@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/Users/jonathanspringer/projects/audio/audio_program/audio/ui/recordingtab.ui'
 #
-# Created: Wed Feb 19 12:58:31 2014
+# Created: Wed Feb 19 19:52:25 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!

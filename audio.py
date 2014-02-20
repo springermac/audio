@@ -9,10 +9,13 @@ from PyQt4 import QtCore, QtGui
 from PyQt4.uic import compileUiDir
 
 from audio.help.helpform import HelpForm
-from audio.ui.mainwindow import Ui_MainWindow
 from audio.player.recorder import Recorder
 from audio.player.meter import Meter, METER_STYLE
 from audio.player.messages import Message
+
+compileUiDir(os.path.join(os.path.dirname(__file__), 'audio/ui'), pyqt3_wrapper=True)
+
+from audio.ui.mainwindow import Ui_MainWindow
 
 RECORDING_STYLE = """
     QPushButton {
@@ -33,9 +36,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :param parent:
         """
         super(MainWindow, self).__init__(parent)
-
-        compileUiDir(os.path.join(os.path.dirname(__file__), 'audio/ui'), pyqt3_wrapper=True)
-
         self.dirty = False
         self.filename = None
         self.image = None
@@ -58,7 +58,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.recordingTab.pushButton_2.clicked.connect(self.on_button_2_clicked)
         self.settingsTab.monitorAudio.clicked.connect(self.savesettings)
 
-        self.connect(self.meter, QtCore.SIGNAL("setmeterlevel"), self.setvalue)
+        self.meter.updateMeter.connect(self.setvalue)
 
         self.recorder.load_file()
         self.message.start()

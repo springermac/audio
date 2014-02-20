@@ -25,8 +25,10 @@ MAX_DB = 0
 
 
 class Meter(QtCore.QObject):
-    def __init__(self):
-        super(Meter, self).__init__()
+    updateMeter = QtCore.pyqtSignal(float)
+
+    def __init__(self, parent=None):
+        super(Meter, self).__init__(parent)
         self.settings = QtCore.QSettings()
 
     def update(self, message):
@@ -49,4 +51,4 @@ class Meter(QtCore.QObject):
                 vlrms = (rmsdb-MIN_DB) * 100 / (MAX_DB-MIN_DB)
                 #emit the signal to the qt progress bar
                 vlrms_inverted = ((abs(vlrms) / 100.0) * -100.0) + 100.0
-                self.emit(QtCore.SIGNAL("setmeterlevel"), vlrms_inverted)
+                self.updateMeter.emit(vlrms_inverted)

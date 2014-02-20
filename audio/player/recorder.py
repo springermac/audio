@@ -6,12 +6,14 @@ import sys
 
 import gst
 
+from PyQt4 import QtCore
+
 from .meter import Meter
 
 
-class Recorder(object):
-    def __init__(self):
-        super(Recorder, self).__init__()
+class Recorder(QtCore.QObject):
+    def __init__(self, parent=None):
+        super(Recorder, self).__init__(parent)
         self.filepath = "/Users/jonathanspringer/projects/audio/output.wav"
         self.playmode = False
         self.meter = Meter()
