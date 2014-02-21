@@ -53,3 +53,6 @@ docs/_build/
 
 # PyCharm files
 .idea/
+
+# Media Files
+*.wav
