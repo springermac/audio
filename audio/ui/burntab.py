@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '/Users/jonathanspringer/projects/audio/audio_program/audio/resources/burntab.ui'
 #
-# Created: Fri Feb 21 17:54:12 2014
-#      by: PyQt4 UI code generator 4.10.3
+#
+#
 #
 # WARNING! All changes made in this file will be lost!
 
