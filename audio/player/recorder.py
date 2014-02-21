@@ -14,7 +14,7 @@ class Recorder(QtCore.QObject):
 
     def __init__(self, parent=None):
         super(Recorder, self).__init__(parent)
-        self.filepath = "/Users/jonathanspringer/projects/audio/output.wav"
+        self.filepath = (os.path.join(os.path.dirname(__file__), 'output.wav'))
         self.playmode = False
 
         if sys.platform == 'darwin':
@@ -72,5 +72,4 @@ class Recorder(QtCore.QObject):
             self.updatemeter.emit(message)
 
     def load_file(self):
-        if os.path.isfile(self.filepath):
-            self.filesink.set_property("location", self.filepath)
+        self.filesink.set_property("location", self.filepath)
