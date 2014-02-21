@@ -26,6 +26,15 @@ class Recorder(QtCore.QObject):
             self.filesink = gst.element_factory_make("filesink", "filesink")
             self.pipeline.add(self.osxaudiosrc, self.audioconvert, self.level, self.wavenc, self.filesink)
             gst.element_link_many(self.osxaudiosrc, self.audioconvert, self.level, self.wavenc, self.filesink)
+        else:
+            self.pipeline = gst.Pipeline("Recording Pipeline")
+            self.audiosrc = gst.element_factory_make("autoaudiosrc", "audiosrc")
+            self.audioconvert = gst.element_factory_make("audioconvert", "audioconvert")
+            self.level = gst.element_factory_make("level", "level")
+            self.wavenc = gst.element_factory_make("wavenc", "wavenc")
+            self.filesink = gst.element_factory_make("filesink", "filesink")
+            self.pipeline.add(self.audiosrc, self.audioconvert, self.level, self.wavenc, self.filesink)
+            gst.element_link_many(self.audiosrc, self.audioconvert, self.level, self.wavenc, self.filesink)
 
         self.bus = self.pipeline.get_bus()
         self.bus.add_signal_watch()
@@ -57,7 +66,7 @@ class Recorder(QtCore.QObject):
         elif t == gst.MESSAGE_ERROR:
             self.pipeline.set_state(gst.STATE_NULL)
             err, debug = message.parse_error()
-            print "Error: %s" % err, debug
+            print("Error: %s" % err, debug)
             self.playmode = False
         elif message.src == self.level:
             self.updatemeter.emit(message)

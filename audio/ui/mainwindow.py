@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/Users/jonathanspringer/projects/audio/audio_program/audio/resources/mainwindow.ui'
+# Form implementation generated from reading ui file '/Users/jonathanspringer/projects/audio/audio-program/audio/resources/mainwindow.ui'
 #
-# Created: Fri Feb 21 02:32:34 2014
+# Created: Fri Feb 21 03:32:52 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
