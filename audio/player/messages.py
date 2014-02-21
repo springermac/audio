@@ -7,7 +7,7 @@ import gst
 
 from PyQt4 import QtCore
 
-from .recorder import Recorder
+from audio.player.recorder import Recorder
 
 
 class Message(QtCore.QThread):

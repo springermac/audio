@@ -8,15 +8,14 @@ import gst
 
 from PyQt4 import QtCore
 
-from .meter import Meter
-
 
 class Recorder(QtCore.QObject):
+    updatemeter = QtCore.pyqtSignal()
+
     def __init__(self, parent=None):
         super(Recorder, self).__init__(parent)
         self.filepath = "/Users/jonathanspringer/projects/audio/output.wav"
         self.playmode = False
-        self.meter = Meter()
 
         if sys.platform == 'darwin':
             self.pipeline = gst.Pipeline("Recording Pipeline")
@@ -61,7 +60,7 @@ class Recorder(QtCore.QObject):
             print "Error: %s" % err, debug
             self.playmode = False
         elif message.src == self.level:
-            self.meter.update(message)
+            self.updatemeter.emit(message)
 
     def load_file(self):
         if os.path.isfile(self.filepath):

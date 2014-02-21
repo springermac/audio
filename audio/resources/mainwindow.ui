@@ -20,7 +20,7 @@
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="recordingTab" name="recordingTab">
+      <widget class="RecordingTab" name="recordingTab">
        <attribute name="title">
         <string>Record</string>
        </attribute>
@@ -28,7 +28,7 @@
         <string>Record Audio</string>
        </attribute>
       </widget>
-      <widget class="QWidget" name="burnTab">
+      <widget class="BurnTab" name="burnTab">
        <attribute name="title">
         <string>Burn</string>
        </attribute>
@@ -36,7 +36,7 @@
         <string>Burn a CD</string>
        </attribute>
       </widget>
-      <widget class="settingsTab" name="settingsTab">
+      <widget class="SettingsTab" name="settingsTab">
        <attribute name="title">
         <string>Settings</string>
        </attribute>
@@ -145,15 +145,21 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>settingsTab</class>
+   <class>SettingsTab</class>
    <extends>QWidget</extends>
-   <header>settingstab</header>
+   <header>settingstabform</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>recordingTab</class>
+   <class>RecordingTab</class>
    <extends>QWidget</extends>
-   <header>recordingtab</header>
+   <header>recordingtabform</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>BurnTab</class>
+   <extends>QWidget</extends>
+   <header>burntabform</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

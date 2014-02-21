@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/Users/jonathanspringer/projects/audio/audio_program/audio/ui/settingstab.ui'
+# Form implementation generated from reading ui file '/Users/jonathanspringer/projects/audio/audio_program/audio/resources/settingstab.ui'
 #
-# Created: Wed Feb 19 19:52:25 2014
+# Created: Fri Feb 21 02:32:34 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -32,6 +32,7 @@ class Ui_settingsTab(object):
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem, 0, 1, 1, 1)
         self.monitorAudio = QtGui.QCheckBox(settingsTab)
+        self.monitorAudio.setChecked(True)
         self.monitorAudio.setObjectName(_fromUtf8("monitorAudio"))
         self.gridLayout.addWidget(self.monitorAudio, 0, 0, 1, 1)
         spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
@@ -43,11 +44,4 @@ class Ui_settingsTab(object):
     def retranslateUi(self, settingsTab):
         settingsTab.setWindowTitle(_translate("settingsTab", "Form", None))
         self.monitorAudio.setText(_translate("settingsTab", "Monitor Audio", None))
-
-
-class settingsTab(QtGui.QWidget, Ui_settingsTab):
-    def __init__(self, parent=None, f=QtCore.Qt.WindowFlags()):
-        QtGui.QWidget.__init__(self, parent, f)
-
-        self.setupUi(self)
 

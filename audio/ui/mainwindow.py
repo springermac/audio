@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/Users/jonathanspringer/projects/audio/audio_program/audio/ui/mainwindow.ui'
+# Form implementation generated from reading ui file '/Users/jonathanspringer/projects/audio/audio_program/audio/resources/mainwindow.ui'
 #
-# Created: Wed Feb 19 19:52:25 2014
+# Created: Fri Feb 21 02:32:34 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -33,13 +33,13 @@ class Ui_MainWindow(object):
         self.gridLayout_6.setObjectName(_fromUtf8("gridLayout_6"))
         self.tabWidget = QtGui.QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName(_fromUtf8("tabWidget"))
-        self.recordingTab = recordingTab()
+        self.recordingTab = RecordingTab()
         self.recordingTab.setObjectName(_fromUtf8("recordingTab"))
         self.tabWidget.addTab(self.recordingTab, _fromUtf8(""))
-        self.burnTab = QtGui.QWidget()
+        self.burnTab = BurnTab()
         self.burnTab.setObjectName(_fromUtf8("burnTab"))
         self.tabWidget.addTab(self.burnTab, _fromUtf8(""))
-        self.settingsTab = settingsTab()
+        self.settingsTab = SettingsTab()
         self.settingsTab.setObjectName(_fromUtf8("settingsTab"))
         self.tabWidget.addTab(self.settingsTab, _fromUtf8(""))
         self.gridLayout_6.addWidget(self.tabWidget, 0, 1, 1, 1)
@@ -116,13 +116,7 @@ class Ui_MainWindow(object):
         self.action_Help.setText(_translate("MainWindow", "&Help", None))
         self.action_Help.setStatusTip(_translate("MainWindow", "Help", None))
 
-from recordingtab import recordingTab
-from settingstab import settingsTab
+from settingstabform import SettingsTab
+from recordingtabform import RecordingTab
+from burntabform import BurnTab
 import resources_rc
-
-class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
-    def __init__(self, parent=None, f=QtCore.Qt.WindowFlags()):
-        QtGui.QMainWindow.__init__(self, parent, f)
-
-        self.setupUi(self)
-

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/Users/jonathanspringer/projects/audio/audio_program/audio/ui/burntab.ui'
+# Form implementation generated from reading ui file '/Users/jonathanspringer/projects/audio/audio_program/audio/resources/burntab.ui'
 #
-# Created: Wed Feb 19 19:52:25 2014
+# Created: Fri Feb 21 02:32:34 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -35,11 +35,4 @@ class Ui_burnTab(object):
 
     def retranslateUi(self, burnTab):
         burnTab.setWindowTitle(_translate("burnTab", "Form", None))
-
-
-class burnTab(QtGui.QWidget, Ui_burnTab):
-    def __init__(self, parent=None, f=QtCore.Qt.WindowFlags()):
-        QtGui.QWidget.__init__(self, parent, f)
-
-        self.setupUi(self)
 

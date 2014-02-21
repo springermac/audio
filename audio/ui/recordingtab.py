@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/Users/jonathanspringer/projects/audio/audio_program/audio/ui/recordingtab.ui'
+# Form implementation generated from reading ui file '/Users/jonathanspringer/projects/audio/audio_program/audio/resources/recordingtab.ui'
 #
-# Created: Wed Feb 19 19:52:25 2014
+# Created: Fri Feb 21 02:32:34 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -106,11 +106,4 @@ class Ui_recordingTab(object):
         recordingTab.setWindowTitle(_translate("recordingTab", "Form", None))
         self.pushButton.setText(_translate("recordingTab", "Record", None))
         self.pushButton_2.setText(_translate("recordingTab", "Stop", None))
-
-
-class recordingTab(QtGui.QWidget, Ui_recordingTab):
-    def __init__(self, parent=None, f=QtCore.Qt.WindowFlags()):
-        QtGui.QWidget.__init__(self, parent, f)
-
-        self.setupUi(self)
 
