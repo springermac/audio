@@ -24,8 +24,14 @@ class Recorder(QtCore.QObject):
             self.level = gst.element_factory_make("level", "level")
             self.wavenc = gst.element_factory_make("wavenc", "wavenc")
             self.filesink = gst.element_factory_make("filesink", "filesink")
+            if not self.pipeline or not self.osxaudiosrc or not self.audioconvert or not self.level or not self.wavenc or not self.filesink:
+                print("Not all elements could be loaded", sys.stderr)
+                exit(-1)
+
             self.pipeline.add(self.osxaudiosrc, self.audioconvert, self.level, self.wavenc, self.filesink)
-            gst.element_link_many(self.osxaudiosrc, self.audioconvert, self.level, self.wavenc, self.filesink)
+            if not gst.element_link_many(self.osxaudiosrc, self.audioconvert, self.level, self.wavenc, self.filesink):
+                print("Elements could not be linked", sys.stderr)
+                exit(-1)
         else:
             self.pipeline = gst.Pipeline("Recording Pipeline")
             self.audiosrc = gst.element_factory_make("autoaudiosrc", "audiosrc")
@@ -33,8 +39,13 @@ class Recorder(QtCore.QObject):
             self.level = gst.element_factory_make("level", "level")
             self.wavenc = gst.element_factory_make("wavenc", "wavenc")
             self.filesink = gst.element_factory_make("filesink", "filesink")
+            if not self.pipeline or not self.audiosrc or not self.audioconvert or not self.level or not self.wavenc or not self.filesink:
+                print("Not all elements could be loaded", sys.stderr)
+
             self.pipeline.add(self.audiosrc, self.audioconvert, self.level, self.wavenc, self.filesink)
-            gst.element_link_many(self.audiosrc, self.audioconvert, self.level, self.wavenc, self.filesink)
+            if not gst.element_link_many(self.audiosrc, self.audioconvert, self.level, self.wavenc, self.filesink):
+                print("Elements could not be linked", sys.stderr)
+                exit(-1)
 
         self.bus = self.pipeline.get_bus()
         self.bus.add_signal_watch()
