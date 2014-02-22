@@ -18,6 +18,7 @@ for file_ in glob.glob(os.path.join(os.path.dirname(__file__), 'audio', 'resourc
         n = re.sub(r'(#\s*Created:.*)', '#', i)
         a = re.sub(r'(#\s*by:.*)', '#', n)
         outfile.write(a)
+    infile.close()
     outfile.close()
     if os.path.exists(file_):
         os.remove(file_)
