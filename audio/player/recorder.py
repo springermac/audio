@@ -12,13 +12,17 @@ import gst
 
 from PyQt4 import QtCore
 
+if getattr(sys, 'frozen', False):
+    basedir = sys._MEIPASS
+else:
+    basedir = os.path.dirname(__file__)
 
 class Recorder(QtCore.QObject):
     updatemeter = QtCore.pyqtSignal(int)
 
     def __init__(self, parent=None):
         super(Recorder, self).__init__(parent)
-        self.filepath = (os.path.join(os.path.dirname(__file__), 'output.wav'))
+        self.filepath = (os.path.join(basedir, 'output.wav'))
         self.playmode = False
 
         if sys.platform == 'darwin':
