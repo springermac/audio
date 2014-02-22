@@ -13,7 +13,6 @@ from audio.player.recorder import Recorder
 class Message(QtCore.QThread):
     def __init__(self):
         QtCore.QThread.__init__(self)
-        self.settings = QtCore.QSettings()
         self.recorder = Recorder()
         self.bus = self.recorder.bus
 
