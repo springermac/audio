@@ -10,10 +10,10 @@ import re
 from PyQt4 import QtGui
 from PyQt4.uic import compileUiDir
 
-compileUiDir(os.path.join(os.path.dirname(__file__), 'audio/resources'))
-for file_ in glob.glob(os.path.join(os.path.dirname(__file__), 'audio/resources/*.py')):
+compileUiDir(os.path.join(os.path.dirname(__file__), 'audio', 'resources'))
+for file_ in glob.glob(os.path.join(os.path.dirname(__file__), 'audio', 'resources', '*.py')):
     infile = open(file_)
-    outfile = open(os.path.join(os.path.dirname(__file__), 'audio/ui', os.path.basename(file_)), 'w')
+    outfile = open(os.path.join(os.path.dirname(__file__), 'audio', 'ui', os.path.basename(file_)), 'w')
     for i in infile:
         n = re.sub(r'(#\s*Created:.*)', '#', i)
         a = re.sub(r'(#\s*by:.*)', '#', n)
