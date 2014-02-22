@@ -4,6 +4,8 @@
 import os
 import sys
 
+import pygst
+pygst.require('0.10')
 import gst
 
 from PyQt4 import QtCore
@@ -24,7 +26,8 @@ class Recorder(QtCore.QObject):
             self.level = gst.element_factory_make("level", "level")
             self.wavenc = gst.element_factory_make("wavenc", "wavenc")
             self.filesink = gst.element_factory_make("filesink", "filesink")
-            if not self.pipeline or not self.osxaudiosrc or not self.audioconvert or not self.level or not self.wavenc or not self.filesink:
+            if not (self.pipeline and self.osxaudiosrc and self.audioconvert and self.level and self.wavenc and
+                    self.filesink):
                 print("Not all elements could be loaded", sys.stderr)
                 exit(-1)
 
@@ -39,7 +42,8 @@ class Recorder(QtCore.QObject):
             self.level = gst.element_factory_make("level", "level")
             self.wavenc = gst.element_factory_make("wavenc", "wavenc")
             self.filesink = gst.element_factory_make("filesink", "filesink")
-            if not self.pipeline or not self.audiosrc or not self.audioconvert or not self.level or not self.wavenc or not self.filesink:
+            if not (self.pipeline and self.audiosrc and self.audioconvert and self.level and self.wavenc and
+                    self.filesink):
                 print("Not all elements could be loaded", sys.stderr)
 
             self.pipeline.add(self.audiosrc, self.audioconvert, self.level, self.wavenc, self.filesink)
