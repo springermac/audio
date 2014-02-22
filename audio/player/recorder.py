@@ -12,7 +12,7 @@ from PyQt4 import QtCore
 
 
 class Recorder(QtCore.QObject):
-    updatemeter = QtCore.pyqtSignal()
+    updatemeter = QtCore.pyqtSignal(int)
 
     def __init__(self, parent=None):
         super(Recorder, self).__init__(parent)
