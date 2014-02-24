@@ -24,38 +24,37 @@ class Recorder(QtCore.QObject):
         super(Recorder, self).__init__(parent)
         self.filepath = (os.path.join(basedir, 'output.wav'))
         self.playmode = False
+        self.srcrate = "44100"
+        self.recordrate = "44100"
 
+        self.pipeline = gst.Pipeline("Recording Pipeline")
         if sys.platform == 'darwin':
-            self.pipeline = gst.Pipeline("Recording Pipeline")
-            self.osxaudiosrc = gst.element_factory_make("osxaudiosrc", "audiosrc")
-            self.audioconvert = gst.element_factory_make("audioconvert", "audioconvert")
-            self.level = gst.element_factory_make("level", "level")
-            self.wavenc = gst.element_factory_make("wavenc", "wavenc")
-            self.filesink = gst.element_factory_make("filesink", "filesink")
-            if not (self.pipeline and self.osxaudiosrc and self.audioconvert and self.level and self.wavenc and
-                    self.filesink):
-                print("Not all elements could be loaded", sys.stderr)
-                exit(-1)
-
-            self.pipeline.add(self.osxaudiosrc, self.audioconvert, self.level, self.wavenc, self.filesink)
-            if not gst.element_link_many(self.osxaudiosrc, self.audioconvert, self.level, self.wavenc, self.filesink):
-                print("Elements could not be linked", sys.stderr)
-                exit(-1)
+            self.audiosrc = gst.element_factory_make("osxaudiosrc", "audiosrc")
         else:
-            self.pipeline = gst.Pipeline("Recording Pipeline")
             self.audiosrc = gst.element_factory_make("autoaudiosrc", "audiosrc")
-            self.audioconvert = gst.element_factory_make("audioconvert", "audioconvert")
-            self.level = gst.element_factory_make("level", "level")
-            self.wavenc = gst.element_factory_make("wavenc", "wavenc")
-            self.filesink = gst.element_factory_make("filesink", "filesink")
-            if not (self.pipeline and self.audiosrc and self.audioconvert and self.level and self.wavenc and
-                    self.filesink):
-                print("Not all elements could be loaded", sys.stderr)
+        self.srcratecap = gst.Caps("audio/x-raw-float, rate=" + self.srcrate)
+        self.srcratefilter = gst.element_factory_make("capsfilter", "srcratefilter")
+        self.srcratefilter.set_property("caps", self.srcratecap)
+        self.audioconvert = gst.element_factory_make("audioconvert", "audioconvert")
+        self.audioresample = gst.element_factory_make("audioresample", "audioresample")
+        self.recordingratecap = gst.Caps("audio/x-raw-float, rate=" + self.recordrate)
+        self.recordingratefilter = gst.element_factory_make("capsfilter", "recordingratefilter")
+        self.recordingratefilter.set_property("caps", self.recordingratecap)
+        self.level = gst.element_factory_make("level", "level")
+        self.wavenc = gst.element_factory_make("wavenc", "wavenc")
+        self.filesink = gst.element_factory_make("filesink", "filesink")
+        if not (self.pipeline and self.audiosrc and self.audioconvert and self.audioresample and self.level and
+                self.wavenc and self.filesink and self.srcratecap and self.srcratefilter and self.recordingratecap
+                and self.recordingratefilter):
+            print("Not all elements could be loaded", sys.stderr)
+            exit(-1)
 
-            self.pipeline.add(self.audiosrc, self.audioconvert, self.level, self.wavenc, self.filesink)
-            if not gst.element_link_many(self.audiosrc, self.audioconvert, self.level, self.wavenc, self.filesink):
-                print("Elements could not be linked", sys.stderr)
-                exit(-1)
+        self.pipeline.add(self.audiosrc, self.srcratefilter, self.audioconvert, self.audioresample,
+                          self.recordingratefilter, self.level, self.wavenc, self.filesink)
+        if not gst.element_link_many(self.audiosrc, self.srcratefilter, self.audioconvert, self.audioresample,
+                                     self.recordingratefilter, self.level, self.wavenc, self.filesink):
+            print("Elements could not be linked", sys.stderr)
+            exit(-1)
 
         self.bus = self.pipeline.get_bus()
         self.bus.add_signal_watch()
