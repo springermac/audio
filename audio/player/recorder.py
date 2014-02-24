@@ -29,33 +29,31 @@ class Recorder(QtCore.QObject):
             self.pipeline = gst.Pipeline("Recording Pipeline")
             self.osxaudiosrc = gst.element_factory_make("osxaudiosrc", "audiosrc")
             self.audioconvert = gst.element_factory_make("audioconvert", "audioconvert")
-            self.audioresample = gst.element_factory_make("audioresample", "audioresample")
             self.level = gst.element_factory_make("level", "level")
             self.wavenc = gst.element_factory_make("wavenc", "wavenc")
             self.filesink = gst.element_factory_make("filesink", "filesink")
-            if not (self.pipeline and self.osxaudiosrc and self.audioconvert and self.audioresample and self.level and
-                    self.wavenc and self.filesink):
+            if not (self.pipeline and self.osxaudiosrc and self.audioconvert and self.level and self.wavenc and
+                    self.filesink):
                 print("Not all elements could be loaded", sys.stderr)
                 exit(-1)
 
-            self.pipeline.add(self.osxaudiosrc, self.audioconvert, self.audioresample, self.level, self.wavenc, self.filesink)
-            if not gst.element_link_many(self.osxaudiosrc, self.audioconvert, self.audioresample, self.level, self.wavenc, self.filesink):
+            self.pipeline.add(self.osxaudiosrc, self.audioconvert, self.level, self.wavenc, self.filesink)
+            if not gst.element_link_many(self.osxaudiosrc, self.audioconvert, self.level, self.wavenc, self.filesink):
                 print("Elements could not be linked", sys.stderr)
                 exit(-1)
         else:
             self.pipeline = gst.Pipeline("Recording Pipeline")
             self.audiosrc = gst.element_factory_make("autoaudiosrc", "audiosrc")
             self.audioconvert = gst.element_factory_make("audioconvert", "audioconvert")
-            self.audioresample = gst.element_factory_make("audioresample", "audioresample")
             self.level = gst.element_factory_make("level", "level")
             self.wavenc = gst.element_factory_make("wavenc", "wavenc")
             self.filesink = gst.element_factory_make("filesink", "filesink")
-            if not (self.pipeline and self.audiosrc and self.audioconvert and self.audioresample and self.level and self.wavenc and
+            if not (self.pipeline and self.audiosrc and self.audioconvert and self.level and self.wavenc and
                     self.filesink):
                 print("Not all elements could be loaded", sys.stderr)
 
-            self.pipeline.add(self.audiosrc, self.audioconvert, self.audioresample, self.level, self.wavenc, self.filesink)
-            if not gst.element_link_many(self.audiosrc, self.audioconvert, self.audioresample, self.level, self.wavenc, self.filesink):
+            self.pipeline.add(self.audiosrc, self.audioconvert, self.level, self.wavenc, self.filesink)
+            if not gst.element_link_many(self.audiosrc, self.audioconvert, self.level, self.wavenc, self.filesink):
                 print("Elements could not be linked", sys.stderr)
                 exit(-1)
 
