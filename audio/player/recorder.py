@@ -30,6 +30,8 @@ class Recorder(QtCore.QObject):
         self.pipeline = gst.Pipeline("Recording Pipeline")
         if sys.platform == 'darwin':
             self.audiosrc = gst.element_factory_make("osxaudiosrc", "audiosrc")
+        elif os.name == 'nt':
+            self.audiosrc = gst.element_factory_make("dshowaudiosrc", "audiosrc")
         else:
             self.audiosrc = gst.element_factory_make("autoaudiosrc", "audiosrc")
         self.srcratecap = gst.Caps("audio/x-raw-float, rate=" + self.srcrate)
