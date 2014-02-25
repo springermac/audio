@@ -30,16 +30,18 @@ class Recorder(QtCore.QObject):
         self.pipeline = gst.Pipeline("Recording Pipeline")
         if sys.platform == 'darwin':
             self.audiosrc = gst.element_factory_make("osxaudiosrc", "audiosrc")
+            self.srcratecap = gst.Caps("audio/x-raw-float, rate=" + self.srcrate)
+            self.recordingratecap = gst.Caps("audio/x-raw-float, rate=" + self.recordrate)
         elif os.name == 'nt':
             self.audiosrc = gst.element_factory_make("dshowaudiosrc", "audiosrc")
+            self.srcratecap = gst.Caps("audio/x-raw-int, rate=" + self.srcrate)
+            self.recordingratecap = gst.Caps("audio/x-raw-int, rate=" + self.recordrate)
         else:
             self.audiosrc = gst.element_factory_make("autoaudiosrc", "audiosrc")
-        self.srcratecap = gst.Caps("audio/x-raw-float, rate=" + self.srcrate)
         self.srcratefilter = gst.element_factory_make("capsfilter", "srcratefilter")
         self.srcratefilter.set_property("caps", self.srcratecap)
         self.audioconvert = gst.element_factory_make("audioconvert", "audioconvert")
         self.audioresample = gst.element_factory_make("audioresample", "audioresample")
-        self.recordingratecap = gst.Caps("audio/x-raw-float, rate=" + self.recordrate)
         self.recordingratefilter = gst.element_factory_make("capsfilter", "recordingratefilter")
         self.recordingratefilter.set_property("caps", self.recordingratecap)
         self.level = gst.element_factory_make("level", "level")
