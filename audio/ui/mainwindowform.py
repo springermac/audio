@@ -8,7 +8,6 @@ from PyQt4 import QtGui, QtCore
 from audio.ui.mainwindow import Ui_MainWindow
 from audio.help.helpform import HelpForm
 from audio.player.recorder import Recorder
-from audio.player.messages import Message
 from audio.ui.settingstabform import SettingsTab
 
 __version__ = "1.0.0"
@@ -22,7 +21,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.image = None
         self.settingstab = SettingsTab()
         self.recorder = Recorder()
-        self.messages = Message()
 
         self.setupUi(self)
         self.statusbar.showMessage("Ready", 5000)
@@ -35,7 +33,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.action_Help.setShortcut(QtGui.QKeySequence.HelpContents)
 
         self.loadsettings()
-        self.messages.start()
+        self.recorder.start()
 
     def closeEvent(self, event):
         """
@@ -45,7 +43,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         if self.oktocontinue():
             self.recorder.stop()
             self.savesettings()
-            event.accept()
         else:
             event.ignore()
 

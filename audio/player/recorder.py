@@ -17,14 +17,15 @@ if getattr(sys, 'frozen', False):
 else:
     basedir = os.path.dirname(__file__)
 
-class Recorder(QtCore.QObject):
-    updatemeter = QtCore.pyqtSignal(int)
+class Recorder(QtCore.QThread):
+    updatemeter = QtCore.pyqtSignal(gst.Message)
 
-    def __init__(self, parent=None):
-        super(Recorder, self).__init__(parent)
+    def __init__(self):
+        QtCore.QThread.__init__(self)
+        self.loop = gobject.MainLoop()
         self.filepath = (os.path.join(basedir, 'output.wav'))
         self.playmode = False
-        self.srcrate = "48000"
+        self.srcrate = "44100"
         self.recordrate = "44100"
 
         self.pipeline = gst.Pipeline("Recording Pipeline")
@@ -72,6 +73,9 @@ class Recorder(QtCore.QObject):
         self.bus = self.pipeline.get_bus()
         self.bus.add_signal_watch()
         self.bus.connect('message', self.on_message)
+
+    def run(self):
+        self.loop.run()
 
     def record(self):
         self.pipeline.set_state(gst.STATE_PLAYING)
