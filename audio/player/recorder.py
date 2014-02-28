@@ -3,6 +3,7 @@
 
 import os
 import sys
+import time
 
 import gobject
 gobject.threads_init()
@@ -87,8 +88,6 @@ class Recorder(QtCore.QThread):
 
     def stop(self):
         self.pipeline.send_event(gst.event_new_eos())
-        self.pipeline.set_state(gst.STATE_NULL)
-        self.playmode = False
 
     def on_message(self, bus, message):
         """
@@ -98,6 +97,7 @@ class Recorder(QtCore.QThread):
         """
         t = message.type
         if t == gst.MESSAGE_EOS:
+            print("EOS")
             self.pipeline.set_state(gst.STATE_NULL)
             self.playmode = False
         elif t == gst.MESSAGE_ERROR:
@@ -110,3 +110,9 @@ class Recorder(QtCore.QThread):
 
     def load_file(self):
         self.filesink.set_property("location", self.filepath)
+
+    def stop_loop(self):
+        self.pipeline.send_event(gst.event_new_eos())
+        while self.playmode:
+            time.sleep(0.1)
+        self.loop.quit()

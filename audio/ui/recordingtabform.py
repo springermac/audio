@@ -83,7 +83,7 @@ class Meter(QtCore.QObject):
         super(Meter, self).__init__(parent)
         self.settings = QtCore.QSettings()
         self.recordintab = RecordingTab()
-        self.recorder = Recorder()
+        self.recorder = self.recordintab.recorder
 
         self.recorder.updatemeter.connect(self.update)
 

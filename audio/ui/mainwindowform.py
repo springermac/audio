@@ -7,8 +7,8 @@ from PyQt4 import QtGui, QtCore
 
 from audio.ui.mainwindow import Ui_MainWindow
 from audio.help.helpform import HelpForm
-from audio.player.recorder import Recorder
 from audio.ui.settingstabform import SettingsTab
+from audio.ui.recordingtabform import RecordingTab
 
 __version__ = "1.0.0"
 
@@ -20,7 +20,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.filename = None
         self.image = None
         self.settingstab = SettingsTab()
-        self.recorder = Recorder()
+        self.recordingtab = RecordingTab()
+        self.recorder = self.recordingtab.recorder
 
         self.setupUi(self)
         self.statusbar.showMessage("Ready", 5000)
@@ -41,7 +42,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :param event:
         """
         if self.oktocontinue():
-            self.recorder.stop()
+            self.recorder.stop_loop()
             self.savesettings()
         else:
             event.ignore()
