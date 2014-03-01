@@ -80,9 +80,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.recentfiles = settings.value("RecentFiles").toStringList()
         self.restoreGeometry(settings.value("MainWindow/Geometry").toByteArray())
         self.restoreState(settings.value("MainWindow/State").toByteArray())
-        self.settingsTab.monitorAudio.setChecked(settings.value("MonitorCheckBox").toBool())
+        self.settingsTab.monitorAudio.setChecked(settings.value("MonitorCheckBox", True).toBool())
         samplerateindex = self.settingsTab.recordingSampleRate.findText(
-            settings.value("RecordingSampleRate").toString())
+            settings.value("RecordingSampleRate", 44100).toString())
         self.settingsTab.recordingSampleRate.setCurrentIndex(samplerateindex)
 
     def helpabout(self):

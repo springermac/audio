@@ -109,7 +109,7 @@ class Recorder(QtCore.QThread):
 
     def load(self):
         settings = QtCore.QSettings()
-        self.recordrate = str(settings.value("RecordingSampleRate").toString())
+        self.recordrate = str(settings.value("RecordingSampleRate", 44100).toString())
         self.recordingratecap = gst.Caps("audio/x-raw-int, rate=" + self.recordrate)
         self.recordingratefilter.set_property("caps", self.recordingratecap)
         self.filesink.set_property("location", self.filepath)
