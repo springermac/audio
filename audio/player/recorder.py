@@ -117,7 +117,8 @@ class Recorder(QtCore.QThread):
         self.recordingratecap = gst.Caps("audio/x-raw-int, rate=" + self.recordrate)
         self.recordingratefilter.set_property("caps", self.recordingratecap)
         self.filepath = os.path.join(
-            str(settings.value("RecordingDirectory", QtGui.QDesktopServices.MusicLocation).toString()),
+            str(settings.value("RecordingDirectory", QtGui.QDesktopServices.storageLocation(
+                QtGui.QDesktopServices.MusicLocation)).toString()),
             str(settings.value("RecordingFilename", "output.wav").toString()))
         self.filesink.set_property("location", self.filepath)
 

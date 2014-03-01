@@ -84,7 +84,9 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         samplerateindex = self.settingsTab.recordingSampleRate.findText(
             settings.value("RecordingSampleRate", 44100).toString())
         self.settingsTab.recordingSampleRate.setCurrentIndex(samplerateindex)
-        self.settingsTab.outputLocation.setText(settings.value("RecordingDirectory").toString())
+        self.settingsTab.outputLocation.setText(
+            settings.value("RecordingDirectory", QtGui.QDesktopServices.storageLocation(
+                QtGui.QDesktopServices.MusicLocation)).toString())
         self.settingsTab.outputFileName.setText(settings.value("RecordingFilename", "output.wav").toString())
 
     def helpabout(self):
