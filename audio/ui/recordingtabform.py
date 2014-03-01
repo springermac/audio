@@ -21,7 +21,7 @@ METER_STYLE = """
     QProgressBar {
         border: 0px;
         background-color: rgb(97%, 97%, 97%);
-        background-image: url(:/images/meter.png);
+        background-image: url(:/meter.png);
         background-repeat: repeat-x;
     }
 

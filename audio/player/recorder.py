@@ -6,17 +6,20 @@ import sys
 import time
 
 import gobject
+
 gobject.threads_init()
 import pygst
+
 pygst.require('0.10')
 import gst
 
-from PyQt4 import QtCore
+from PyQt4 import QtCore, QtGui
 
 if getattr(sys, 'frozen', False):
     basedir = sys._MEIPASS
 else:
     basedir = os.path.dirname(__file__)
+
 
 class Recorder(QtCore.QThread):
     updatemeter = QtCore.pyqtSignal(gst.Message)
@@ -24,7 +27,7 @@ class Recorder(QtCore.QThread):
     def __init__(self):
         QtCore.QThread.__init__(self)
         self.loop = gobject.MainLoop()
-        self.filepath = (os.path.join(basedir, 'output.wav'))
+        self.filepath = None
         self.playmode = False
         self.srcrate = "44100"
         self.recordrate = None
@@ -58,7 +61,7 @@ class Recorder(QtCore.QThread):
         self.filesink = gst.element_factory_make("filesink", "filesink")
 
         if not (self.pipeline and self.audiosrc and self.audioconvert and self.audioresample and self.level and
-                self.wavenc and self.filesink and self.srcratecap and self.srcratefilter and self.recordingratecap
+                    self.wavenc and self.filesink and self.srcratecap and self.srcratefilter and self.recordingratecap
                 and self.recordingratefilter):
             print("Not all elements could be loaded", sys.stderr)
             exit(-1)
@@ -109,13 +112,18 @@ class Recorder(QtCore.QThread):
 
     def load(self):
         settings = QtCore.QSettings()
+
         self.recordrate = str(settings.value("RecordingSampleRate", 44100).toString())
         self.recordingratecap = gst.Caps("audio/x-raw-int, rate=" + self.recordrate)
         self.recordingratefilter.set_property("caps", self.recordingratecap)
+        self.filepath = os.path.join(
+            str(settings.value("RecordingDirectory", QtGui.QDesktopServices.MusicLocation).toString()),
+            str(settings.value("RecordingFilename", "output.wav").toString()))
         self.filesink.set_property("location", self.filepath)
 
     def stop_loop(self):
         self.pipeline.send_event(gst.event_new_eos())
         while self.playmode:
             time.sleep(0.1)
+        self.pipeline.set_state(gst.STATE_NULL)
         self.loop.quit()
