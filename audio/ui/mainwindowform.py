@@ -74,14 +74,16 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.saveGeometry()))
         settings.setValue("MainWindow/State", QtCore.QVariant(
             self.saveState()))
-        self.settingstab.savesettings()
 
     def loadsettings(self):
         settings = QtCore.QSettings()
         self.recentfiles = settings.value("RecentFiles").toStringList()
         self.restoreGeometry(settings.value("MainWindow/Geometry").toByteArray())
         self.restoreState(settings.value("MainWindow/State").toByteArray())
-        self.settingstab.loadsettings()
+        self.settingsTab.monitorAudio.setChecked(settings.value("MonitorCheckBox").toBool())
+        samplerateindex = self.settingsTab.recordingSampleRate.findText(
+            settings.value("RecordingSampleRate").toString())
+        self.settingsTab.recordingSampleRate.setCurrentIndex(samplerateindex)
 
     def helpabout(self):
         QtGui.QMessageBox.about(self, "About Image Changer",

@@ -27,7 +27,7 @@ class Recorder(QtCore.QThread):
         self.filepath = (os.path.join(basedir, 'output.wav'))
         self.playmode = False
         self.srcrate = "44100"
-        self.recordrate = "44100"
+        self.recordrate = None
 
         self.pipeline = gst.Pipeline("Recording Pipeline")
 
@@ -49,7 +49,7 @@ class Recorder(QtCore.QThread):
         self.audioconvert = gst.element_factory_make("audioconvert", "audioconvert")
         self.audioresample = gst.element_factory_make("audioresample", "audioresample")
 
-        self.recordingratecap = gst.Caps("audio/x-raw-int, rate=" + self.recordrate)
+        self.recordingratecap = gst.caps_new_any()
         self.recordingratefilter = gst.element_factory_make("capsfilter", "recordingratefilter")
         self.recordingratefilter.set_property("caps", self.recordingratecap)
 
@@ -97,7 +97,6 @@ class Recorder(QtCore.QThread):
         """
         t = message.type
         if t == gst.MESSAGE_EOS:
-            print("EOS")
             self.pipeline.set_state(gst.STATE_NULL)
             self.playmode = False
         elif t == gst.MESSAGE_ERROR:
@@ -108,7 +107,11 @@ class Recorder(QtCore.QThread):
         elif message.src == self.level:
             self.updatemeter.emit(message)
 
-    def load_file(self):
+    def load(self):
+        settings = QtCore.QSettings()
+        self.recordrate = str(settings.value("RecordingSampleRate").toString())
+        self.recordingratecap = gst.Caps("audio/x-raw-int, rate=" + self.recordrate)
+        self.recordingratefilter.set_property("caps", self.recordingratecap)
         self.filesink.set_property("location", self.filepath)
 
     def stop_loop(self):

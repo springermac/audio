@@ -42,7 +42,7 @@ class RecordingTab(QtGui.QWidget, Ui_recordingTab):
 
         #self.meter = Meter()
         self.recorder = Recorder()
-        self.recorder.load_file()
+        self.recorder.load()
 
         self.setupUi(self)
         self.audioMeter.setStyleSheet(METER_STYLE)

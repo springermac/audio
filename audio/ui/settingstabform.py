@@ -4,6 +4,7 @@
 from PyQt4 import QtGui, QtCore
 
 from audio.ui.settingstab import Ui_settingsTab
+from audio.player.recorder import Recorder
 
 
 class SettingsTab(QtGui.QWidget, Ui_settingsTab):
@@ -12,20 +13,12 @@ class SettingsTab(QtGui.QWidget, Ui_settingsTab):
 
         self.setupUi(self)
 
-        self.monitorAudio.clicked.connect(self.savesettings)
+        self.recorder = Recorder()
 
-    def loadsettings(self):
-        print(1)
-        settings = QtCore.QSettings()
-        print(settings.value("MonitorCheckBox").toBool())
-        print(self.monitorAudio.isChecked())
-        self.monitorAudio.setChecked(settings.value("MonitorCheckBox").toBool())
-        print(self.monitorAudio.isChecked())
+        self.saveSettings.clicked.connect(self.savesettings)
 
     def savesettings(self):
-        print(2)
         settings = QtCore.QSettings()
-        print(settings.value("MonitorCheckBox").toBool())
-        print(self.monitorAudio.isChecked())
         settings.setValue("MonitorCheckBox", QtCore.QVariant(self.monitorAudio.isChecked()))
-        print(self.monitorAudio.isChecked())
+        settings.setValue("RecordingSampleRate", QtCore.QVariant(self.recordingSampleRate.currentText()))
+        self.recorder.load()
