@@ -3,27 +3,19 @@
 
 import os
 import sys
+import shutil
 import glob
-import re
 
 from PyQt4 import QtGui
 from PyQt4.uic import compileUiDir
-
 
 if getattr(sys, 'frozen', False):
     basedir = sys._MEIPASS
 else:
     basedir = os.path.dirname(__file__)
-    compileUiDir(os.path.join(basedir, 'audio', 'resources'))
-    for file_ in glob.glob(os.path.join(basedir, 'audio', 'resources', '*.py')):
-        infile = open(file_)
-        outfile = open(os.path.join(basedir, 'audio', 'ui', os.path.basename(file_)), 'w')
-        for i in infile:
-            n = re.sub(r'(#\s*Created:.*)', '#', i)
-            a = re.sub(r'(#\s*by:.*)', '#', n)
-            outfile.write(a)
-        infile.close()
-        outfile.close()
+    compileUiDir(os.path.join(basedir, 'audio/resources'))
+    for file_ in glob.glob(os.path.join(basedir, 'audio/resources/*.py')):
+        shutil.copy(file_, os.path.join(basedir, 'audio/ui'))
         if os.path.exists(file_):
             os.remove(file_)
 
