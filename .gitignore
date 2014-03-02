@@ -56,3 +56,11 @@ docs/_build/
 
 # Media Files
 *.wav
+
+audio/ui/settingstab.py
+
+audio/ui/recordingtab.py
+
+audio/ui/mainwindow.py
+
+audio/ui/burntab.py

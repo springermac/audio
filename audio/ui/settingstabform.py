@@ -31,7 +31,7 @@ class SettingsTab(QtGui.QWidget, Ui_settingsTab):
     def loaddirectory(self):
         oldrecordingdirector = str(self.outputLocation.text())
         newrecordingdirectory = str(QtGui.QFileDialog.getExistingDirectory(self, 'Set Directory', oldrecordingdirector,
-                                                                       QtGui.QFileDialog.ShowDirsOnly))
+                                                                           QtGui.QFileDialog.ShowDirsOnly))
         if newrecordingdirectory:
             newrecordingdirectory = os.path.normpath(newrecordingdirectory)
             if oldrecordingdirector.lower() == newrecordingdirectory.lower():

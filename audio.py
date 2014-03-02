@@ -3,12 +3,12 @@
 
 import os
 import sys
-import shutil
 import glob
 import re
 
 from PyQt4 import QtGui
 from PyQt4.uic import compileUiDir
+
 
 if getattr(sys, 'frozen', False):
     basedir = sys._MEIPASS

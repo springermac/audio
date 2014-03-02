@@ -1,17 +1,17 @@
 <RCC>
-  <qresource prefix="/">
-    <file alias="back.png">../images/back.png</file>
-    <file alias="filenew.png">../images/filenew.png</file>
-    <file alias="fileopen.png">../images/fileopen.png</file>
-    <file alias="fileprint.png">../images/fileprint.png</file>
-    <file alias="filequit.png">../images/filequit.png</file>
-    <file alias="filesave.png">../images/filesave.png</file>
-    <file alias="filesaveas.png">../images/filesaveas.png</file>
-    <file alias="home.png">../images/home.png</file>
-    <file alias="icon.png">../images/icon.png</file>
-    <file alias="meter.png">../images/meter.png</file>
-    <file>../help/helpfiles/editmenu.html</file>
-    <file>../help/helpfiles/filemenu.html</file>
-    <file>../help/helpfiles/index.html</file>
-  </qresource>
+    <qresource prefix="/">
+        <file alias="back.png">../images/back.png</file>
+        <file alias="filenew.png">../images/filenew.png</file>
+        <file alias="fileopen.png">../images/fileopen.png</file>
+        <file alias="fileprint.png">../images/fileprint.png</file>
+        <file alias="filequit.png">../images/filequit.png</file>
+        <file alias="filesave.png">../images/filesave.png</file>
+        <file alias="filesaveas.png">../images/filesaveas.png</file>
+        <file alias="home.png">../images/home.png</file>
+        <file alias="icon.png">../images/icon.png</file>
+        <file alias="meter.png">../images/meter.png</file>
+        <file>../help/helpfiles/editmenu.html</file>
+        <file>../help/helpfiles/filemenu.html</file>
+        <file>../help/helpfiles/index.html</file>
+    </qresource>
 </RCC>
