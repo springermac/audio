@@ -40,16 +40,17 @@ class RecordingTab(QtGui.QWidget, Ui_recordingTab):
     def __init__(self, parent=None, f=QtCore.Qt.WindowFlags()):
         super(RecordingTab, self).__init__(parent, f)
 
-        #self.meter = Meter()
         self.recorder = Recorder()
         self.recorder.load()
+        self.settings = QtCore.QSettings()
 
         self.setupUi(self)
         self.audioMeter.setStyleSheet(METER_STYLE)
 
         self.pushButton.clicked.connect(self.on_button_clicked)
         self.pushButton_2.clicked.connect(self.on_button_2_clicked)
-        #self.meter.updateMeter.connect(self.setvalue)
+
+        self.recorder.updatemeter.connect(self.update)
 
     def on_button_clicked(self):
         if not self.pushButton.isChecked():
@@ -67,26 +68,6 @@ class RecordingTab(QtGui.QWidget, Ui_recordingTab):
         self.pushButton.setText(QtCore.QString("Record"))
         self.recorder.stop()
 
-    # def setvalue(self, value):
-    #     """
-    #
-    #     :param value:
-    #     """
-    #     print(2)
-    #     self.audioMeter.setValue(value)
-
-
-class Meter(QtCore.QObject):
-    updateMeter = QtCore.pyqtSignal(float)
-
-    def __init__(self, parent=None):
-        super(Meter, self).__init__(parent)
-        self.settings = QtCore.QSettings()
-        self.recordintab = RecordingTab()
-        self.recorder = self.recordintab.recorder
-
-        self.recorder.updatemeter.connect(self.update)
-
     def update(self, message):
         """
 
@@ -97,14 +78,13 @@ class Meter(QtCore.QObject):
             struc = message.structure
             #if the structure message is rms
             if struc.has_field("rms"):
-                print("meter")
                 rms = struc["rms"]
                 #get the values of rms in a list
                 rms0 = abs(float(rms[0]))
                 #compute for rms to decibels
                 rmsdb = 10 * math.log(rms0 / 32768)
                 #compute for progress bar
-                vlrms = (rmsdb-MIN_DB) * 100 / (MAX_DB-MIN_DB)
+                vlrms = (rmsdb - MIN_DB) * 100 / (MAX_DB - MIN_DB)
                 #emit the signal to the qt progress bar
                 vlrms_inverted = ((abs(vlrms) / 100.0) * -100.0) + 100.0
-                self.recordintab.audioMeter.setValue(vlrms_inverted)
+                self.audioMeter.setValue(vlrms_inverted)
