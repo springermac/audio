@@ -6,7 +6,7 @@ import os
 from PyQt4 import QtGui, QtCore
 
 from audio.ui.settingstab import Ui_settingsTab
-from audio.player.recorder import Recorder
+from audio.core.registry import Registry
 
 
 class SettingsTab(QtGui.QWidget, Ui_settingsTab):
@@ -15,10 +15,12 @@ class SettingsTab(QtGui.QWidget, Ui_settingsTab):
 
         self.setupUi(self)
 
-        self.recorder = Recorder()
+        self.recorder = Registry().get('recorder')
 
         self.saveSettings.clicked.connect(self.savesettings)
         self.browseOutputDirectory.clicked.connect(self.loaddirectory)
+
+        Registry().register('settings_tab', self)
 
     def savesettings(self):
         settings = QtCore.QSettings()

@@ -7,8 +7,7 @@ from PyQt4 import QtGui, QtCore
 
 from audio.ui.mainwindow import Ui_MainWindow
 from audio.help.helpform import HelpForm
-from audio.ui.settingstabform import SettingsTab
-from audio.ui.recordingtabform import RecordingTab
+from audio.core.registry import Registry
 
 __version__ = "1.0.0"
 
@@ -19,9 +18,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.dirty = False
         self.filename = None
         self.image = None
-        self.settingstab = SettingsTab()
-        self.recordingtab = RecordingTab()
-        self.recorder = self.recordingtab.recorder
 
         self.setupUi(self)
         self.statusbar.showMessage("Ready", 5000)
@@ -32,6 +28,10 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.action_Quit.setShortcut(QtGui.QKeySequence.Quit)
         self.action_Help.triggered.connect(self.helphelp)
         self.action_Help.setShortcut(QtGui.QKeySequence.HelpContents)
+
+        Registry().register('main_window', self)
+
+        self.recorder = Registry().get('recorder')
 
         self.loadsettings()
         self.recorder.start()

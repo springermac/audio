@@ -7,6 +7,7 @@ from PyQt4 import QtGui, QtCore
 
 from audio.player.recorder import Recorder
 from audio.ui.recordingtab import Ui_recordingTab
+from audio.core.registry import Registry
 
 RECORDING_STYLE = """
     QPushButton {
@@ -40,7 +41,7 @@ class RecordingTab(QtGui.QWidget, Ui_recordingTab):
     def __init__(self, parent=None, f=QtCore.Qt.WindowFlags()):
         super(RecordingTab, self).__init__(parent, f)
 
-        self.recorder = Recorder()
+        self.recorder = Registry().get('recorder')
         self.recorder.load()
         self.settings = QtCore.QSettings()
 
@@ -51,6 +52,8 @@ class RecordingTab(QtGui.QWidget, Ui_recordingTab):
         self.pushButton_2.clicked.connect(self.on_button_2_clicked)
 
         self.recorder.updatemeter.connect(self.update)
+
+        Registry().register('recording_tab', self)
 
     def on_button_clicked(self):
         if not self.pushButton.isChecked():

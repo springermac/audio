@@ -1,2 +1,6 @@
+#!/usr/bin/env python
 # coding=utf-8
-__author__ = 'jonathanspringer'
+
+from audio.player.recorder import Recorder
+
+Recorder()

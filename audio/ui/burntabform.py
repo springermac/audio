@@ -4,6 +4,7 @@
 from PyQt4 import QtGui, QtCore
 
 from audio.ui.burntab import Ui_burnTab
+from audio.core.registry import Registry
 
 
 class BurnTab(QtGui.QWidget, Ui_burnTab):
@@ -11,3 +12,5 @@ class BurnTab(QtGui.QWidget, Ui_burnTab):
         super(BurnTab, self).__init__(parent, f)
 
         self.setupUi(self)
+
+        Registry().register('burn_tab', self)

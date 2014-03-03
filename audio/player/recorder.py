@@ -15,6 +15,8 @@ import gst
 
 from PyQt4 import QtCore, QtGui
 
+from audio.core.registry import Registry
+
 if getattr(sys, 'frozen', False):
     basedir = sys._MEIPASS
 else:
@@ -77,6 +79,8 @@ class Recorder(QtCore.QThread):
         self.bus = self.pipeline.get_bus()
         self.bus.add_signal_watch()
         self.bus.connect('message', self.on_message)
+
+        Registry().register('recorder', self)
 
     def run(self):
         self.loop.run()
