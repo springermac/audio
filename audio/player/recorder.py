@@ -4,6 +4,7 @@
 import os
 import sys
 import time
+import datetime
 
 import gobject
 
@@ -13,9 +14,9 @@ import pygst
 pygst.require('0.10')
 import gst
 
-from PyQt4 import QtCore, QtGui
+from PyQt4 import QtCore
 
-from audio.core.registry import Registry
+from audio.core import Registry, Settings
 
 if getattr(sys, 'frozen', False):
     basedir = sys._MEIPASS
@@ -63,7 +64,7 @@ class Recorder(QtCore.QThread):
         self.filesink = gst.element_factory_make("filesink", "filesink")
 
         if not (self.pipeline and self.audiosrc and self.audioconvert and self.audioresample and self.level and
-                    self.wavenc and self.filesink and self.srcratecap and self.srcratefilter and self.recordingratecap
+                self.wavenc and self.filesink and self.srcratecap and self.srcratefilter and self.recordingratecap
                 and self.recordingratefilter):
             print("Not all elements could be loaded", sys.stderr)
             exit(-1)
@@ -115,15 +116,14 @@ class Recorder(QtCore.QThread):
             self.updatemeter.emit(message)
 
     def load(self):
-        settings = QtCore.QSettings()
+        settings = Settings()
+        date = datetime.date.today()
 
-        self.recordrate = str(settings.value("RecordingSampleRate", 44100).toString())
+        self.recordrate = settings.value("RecordingSampleRate")
         self.recordingratecap = gst.Caps("audio/x-raw-int, rate=" + self.recordrate)
         self.recordingratefilter.set_property("caps", self.recordingratecap)
-        self.filepath = os.path.join(
-            str(settings.value("RecordingDirectory", QtGui.QDesktopServices.storageLocation(
-                QtGui.QDesktopServices.MusicLocation)).toString()),
-            str(settings.value("RecordingFilename", "output.wav").toString()))
+        self.filepath = os.path.join(settings.value("RecordingDirectory"),
+                                     date.strftime(settings.value("RecordingFilename")))
         self.filesink.set_property("location", self.filepath)
 
     def stop_loop(self):

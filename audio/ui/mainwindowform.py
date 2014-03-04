@@ -7,7 +7,7 @@ from PyQt4 import QtGui, QtCore
 
 from audio.ui.mainwindow import Ui_MainWindow
 from audio.help.helpform import HelpForm
-from audio.core.registry import Registry
+from audio.core import Registry, Settings
 
 __version__ = "1.0.0"
 
@@ -18,6 +18,8 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.dirty = False
         self.filename = None
         self.image = None
+        settings = QtCore.QSettings()
+        Registry().register('settings', settings)
 
         self.setupUi(self)
         self.statusbar.showMessage("Ready", 5000)
@@ -63,7 +65,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         return True
 
     def savesettings(self):
-        settings = QtCore.QSettings()
+        settings = Settings()
         filename = (QtCore.QVariant(QtCore.QString(self.filename))
                     if self.filename is not None else QtCore.QVariant())
         settings.setValue("LastFile", filename)
@@ -76,18 +78,18 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             self.saveState()))
 
     def loadsettings(self):
-        settings = QtCore.QSettings()
+        settings = Settings()
+
         self.recentfiles = settings.value("RecentFiles").toStringList()
         self.restoreGeometry(settings.value("MainWindow/Geometry").toByteArray())
         self.restoreState(settings.value("MainWindow/State").toByteArray())
-        self.settingsTab.monitorAudio.setChecked(settings.value("MonitorCheckBox", True).toBool())
+        self.settingsTab.monitorAudio.setChecked(settings.value("MonitorCheckBox"))
         samplerateindex = self.settingsTab.recordingSampleRate.findText(
-            settings.value("RecordingSampleRate", 44100).toString())
+            settings.value("RecordingSampleRate"))
         self.settingsTab.recordingSampleRate.setCurrentIndex(samplerateindex)
-        self.settingsTab.outputLocation.setText(
-            settings.value("RecordingDirectory", QtGui.QDesktopServices.storageLocation(
-                QtGui.QDesktopServices.MusicLocation)).toString())
-        self.settingsTab.outputFileName.setText(settings.value("RecordingFilename", "output.wav").toString())
+        self.settingsTab.recordingDirectory.setText(
+            settings.value("RecordingDirectory"))
+        self.settingsTab.recordingFilename.setText(settings.value("RecordingFilename"))
 
     def helpabout(self):
         QtGui.QMessageBox.about(self, "About Image Changer",

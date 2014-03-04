@@ -5,9 +5,8 @@ import math
 
 from PyQt4 import QtGui, QtCore
 
-from audio.player.recorder import Recorder
 from audio.ui.recordingtab import Ui_recordingTab
-from audio.core.registry import Registry
+from audio.core import Registry, Settings
 
 RECORDING_STYLE = """
     QPushButton {
@@ -43,7 +42,7 @@ class RecordingTab(QtGui.QWidget, Ui_recordingTab):
 
         self.recorder = Registry().get('recorder')
         self.recorder.load()
-        self.settings = QtCore.QSettings()
+        self.settings = Settings()
 
         self.setupUi(self)
         self.audioMeter.setStyleSheet(METER_STYLE)
@@ -76,7 +75,7 @@ class RecordingTab(QtGui.QWidget, Ui_recordingTab):
 
         :param message:
         """
-        if message and self.settings.value("MonitorCheckBox").toBool():
+        if message and self.settings.value("MonitorCheckBox"):
             #get the structure of the message
             struc = message.structure
             #if the structure message is rms

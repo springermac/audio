@@ -6,15 +6,169 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>215</width>
-    <height>191</height>
+    <width>468</width>
+    <height>286</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="4" column="0">
+  <layout class="QVBoxLayout" name="verticalLayout_3">
+   <property name="margin">
+    <number>0</number>
+   </property>
+   <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <property name="margin">
+      <number>12</number>
+     </property>
+     <item row="7" column="0">
+      <widget class="QLineEdit" name="recordingFilename"/>
+     </item>
+     <item row="5" column="3">
+      <widget class="QPushButton" name="browseRecordingDirectory">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/fileopen.png</normaloff>:/fileopen.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLineEdit" name="recordingDirectory"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QCheckBox" name="monitorAudio">
+       <property name="text">
+        <string>Monitor Audio</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QComboBox" name="recordingSampleRate">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+       </property>
+       <item>
+        <property name="text">
+         <string notr="true">44100</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">48000</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">96000</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QPushButton" name="resetRecordingFilename">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/back.png</normaloff>:/back.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QPushButton" name="resetRecordingDirectory">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/back.png</normaloff>:/back.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="2">
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>5</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
     <spacer name="verticalSpacer_2">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -22,132 +176,46 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>40</height>
+       <height>13</height>
       </size>
      </property>
     </spacer>
    </item>
-   <item row="5" column="2">
-    <widget class="QPushButton" name="saveSettings">
-     <property name="text">
-      <string>Save</string>
-     </property>
-     <property name="autoDefault">
-      <bool>false</bool>
-     </property>
-     <property name="default">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QPushButton" name="browseOutputDirectory">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>25</width>
-       <height>25</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>25</width>
-       <height>25</height>
-      </size>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="icon">
-      <iconset resource="resources.qrc">
-       <normaloff>:/fileopen.png</normaloff>:/fileopen.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>16</width>
-       <height>16</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QCheckBox" name="monitorAudio">
-     <property name="text">
-      <string>Monitor Audio</string>
-     </property>
-     <property name="checked">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QLineEdit" name="outputLocation">
-     <property name="maximumSize">
-      <size>
-       <width>600</width>
-       <height>16777215</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLineEdit" name="outputFileName">
-     <property name="maximumSize">
-      <size>
-       <width>600</width>
-       <height>16777215</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1">
-    <spacer name="horizontalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Preferred</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>0</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="1" column="0" colspan="2">
-    <widget class="QComboBox" name="recordingSampleRate">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="sizeAdjustPolicy">
-      <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="margin">
+      <number>12</number>
      </property>
      <item>
-      <property name="text">
-       <string notr="true">44100</string>
-      </property>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
      <item>
-      <property name="text">
-       <string notr="true">48000</string>
-      </property>
+      <widget class="QPushButton" name="saveSettings">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Save</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
-     <item>
-      <property name="text">
-       <string notr="true">96000</string>
-      </property>
-     </item>
-    </widget>
+    </layout>
    </item>
   </layout>
  </widget>
