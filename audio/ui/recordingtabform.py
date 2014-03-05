@@ -41,7 +41,6 @@ class RecordingTab(QtGui.QWidget, Ui_recordingTab):
     def __init__(self, parent=None, f=QtCore.Qt.WindowFlags()):
         super(RecordingTab, self).__init__(parent, f)
 
-        self.recorder = Registry().get('recorder')
         self.recorder = Recorder()
         self.recorder.load()
         self.settings = Settings()

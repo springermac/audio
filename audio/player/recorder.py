@@ -2,6 +2,7 @@
 # coding=utf-8
 
 import os
+import re
 import sys
 import time
 import datetime
@@ -117,13 +118,14 @@ class Recorder(QtCore.QThread):
 
     def load(self):
         settings = Settings()
-        date = datetime.date.today()
+        date = datetime.datetime.now()
 
         self.recordrate = settings.value("RecordingSampleRate")
         self.recordingratecap = gst.Caps("audio/x-raw-int, rate=" + self.recordrate)
         self.recordingratefilter.set_property("caps", self.recordingratecap)
-        self.filepath = os.path.join(settings.value("RecordingDirectory"),
-                                     date.strftime(settings.value("RecordingFilename")))
+        self.filepath = os.path.join(settings.value("RecordingDirectory"), re.sub(r'{0}'.format(os.sep), '-',
+                                                                                  date.strftime(settings.value(
+                                                                                      "RecordingFilename"))))
         self.filesink.set_property("location", self.filepath)
 
     def stop_loop(self):

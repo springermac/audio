@@ -1,17 +1,10 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-import os
-import re
-import locale
-
 from PyQt4 import QtCore, QtGui
 
 
 class Settings(QtCore.QSettings):
-    locale_format = locale.nl_langinfo(locale.D_FMT)
-    date_format = re.sub(r'{0}'.format(os.sep), '-', locale_format)
-
     __default_settings__ = {
         'LastFile': None,
         'RecentFiles': None,
@@ -20,7 +13,7 @@ class Settings(QtCore.QSettings):
         'MonitorCheckBox': True,
         'RecordingSampleRate': '44100',
         'RecordingDirectory': str(QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.MusicLocation)),
-        'RecordingFilename': date_format + '.wav'
+        'RecordingFilename': '%x.wav'
     }
 
     def __init__(self):
