@@ -17,7 +17,7 @@ import gst
 
 from PyQt4 import QtCore
 
-from audio.core import Registry, Settings
+from audio.core import Registry, Settings, Utils
 
 if getattr(sys, 'frozen', False):
     basedir = sys._MEIPASS
@@ -118,13 +118,14 @@ class Recorder(QtCore.QThread):
 
     def load(self):
         settings = Settings()
-        date = datetime.datetime.now()
+        utils = Utils()
+        now = datetime.datetime.now()
+        date = re.sub(r'/', '-', now.strftime(settings.value("RecordingFilename")))
 
         self.recordrate = settings.value("RecordingSampleRate")
         self.recordingratecap = gst.Caps("audio/x-raw-int, rate=" + self.recordrate)
         self.recordingratefilter.set_property("caps", self.recordingratecap)
-        recordingfilename = re.sub(r'{0}'.format(os.sep), '-', date.strftime(settings.value("RecordingFilename")))
-        self.filepath = os.path.join(settings.value("RecordingDirectory"), recordingfilename)
+        self.filepath = os.path.join(settings.value("RecordingDirectory"), utils.make_name(date))
         self.filesink.set_property("location", self.filepath)
 
     def stop_loop(self):

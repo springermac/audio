@@ -7,3 +7,4 @@ Registry().create()
 
 from .registry import Registry
 from .settings import Settings
+from .utils import Utils
