@@ -123,9 +123,8 @@ class Recorder(QtCore.QThread):
         self.recordrate = settings.value("RecordingSampleRate")
         self.recordingratecap = gst.Caps("audio/x-raw-int, rate=" + self.recordrate)
         self.recordingratefilter.set_property("caps", self.recordingratecap)
-        self.filepath = os.path.join(settings.value("RecordingDirectory"), re.sub(r'{0}'.format(os.sep), '-',
-                                                                                  date.strftime(settings.value(
-                                                                                      "RecordingFilename"))))
+        recordingfilename = re.sub(r'{0}'.format(os.sep), '-', date.strftime(settings.value("RecordingFilename")))
+        self.filepath = os.path.join(settings.value("RecordingDirectory"), recordingfilename)
         self.filesink.set_property("location", self.filepath)
 
     def stop_loop(self):
