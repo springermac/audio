@@ -6,7 +6,7 @@ import os
 from PyQt4 import QtGui, QtCore
 
 from audio.ui.settingstab import Ui_settingsTab
-from audio.core import Registry, Settings
+from audio.core import Registry, Settings, Utils
 
 
 class SettingsTab(QtGui.QWidget, Ui_settingsTab):
@@ -16,20 +16,30 @@ class SettingsTab(QtGui.QWidget, Ui_settingsTab):
         self.setupUi(self)
 
         self.recorder = Registry().get('recorder')
+        self.settings = Settings()
+        self.utils = Utils()
 
         self.saveSettings.clicked.connect(self.savesettings)
         self.browseRecordingDirectory.clicked.connect(self.loaddirectory)
         self.resetRecordingDirectory.clicked.connect(self.reset)
         self.resetRecordingFilename.clicked.connect(self.reset)
+        self.recordingFilename.textEdited.connect(self.check_line_edit)
+
+        self.check_line_edit(self.settings.value("RecordingFilename"))
 
         Registry().register('settings_tab', self)
 
+    def keyPressEvent(self, event):
+        if event.key() == QtCore.Qt.Key_Return or event.key() == QtCore.Qt.Key_Enter:
+            self.saveSettings.click()
+        else:
+            event.ignore()
+
     def savesettings(self):
-        settings = Settings()
-        settings.setValue("MonitorCheckBox", QtCore.QVariant(self.monitorAudio.isChecked()))
-        settings.setValue("RecordingSampleRate", QtCore.QVariant(self.recordingSampleRate.currentText()))
-        settings.setValue("RecordingDirectory", QtCore.QVariant(self.recordingDirectory.text()))
-        settings.setValue("RecordingFilename", QtCore.QVariant(self.recordingFilename.text()))
+        self.settings.setValue("MonitorCheckBox", QtCore.QVariant(self.monitorAudio.isChecked()))
+        self.settings.setValue("RecordingSampleRate", QtCore.QVariant(self.recordingSampleRate.currentText()))
+        self.settings.setValue("RecordingDirectory", QtCore.QVariant(self.recordingDirectory.text()))
+        self.settings.setValue("RecordingFilename", QtCore.QVariant(self.recordingFilename.text()))
         self.recorder.load()
 
     def loaddirectory(self):
@@ -54,3 +64,11 @@ class SettingsTab(QtGui.QWidget, Ui_settingsTab):
         elif button == 'resetRecordingFilename':
             default_setting = settings.getDefault('RecordingFilename')
             self.recordingFilename.setText(default_setting)
+
+    def check_line_edit(self, char):
+        if self.utils.clean_name(char, check=True):
+            self.saveSettings.setEnabled(True)
+            self.recordingFilename.setStyleSheet("")
+        else:
+            self.saveSettings.setEnabled(False)
+            self.recordingFilename.setStyleSheet("QLineEdit { background: red }")
