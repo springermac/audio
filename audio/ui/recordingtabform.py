@@ -91,3 +91,5 @@ class RecordingTab(QtGui.QWidget, Ui_recordingTab):
                 #emit the signal to the qt progress bar
                 vlrms_inverted = ((abs(vlrms) / 100.0) * -100.0) + 100.0
                 self.audioMeter.setValue(vlrms_inverted)
+        else:
+            self.audioMeter.setValue(100)
