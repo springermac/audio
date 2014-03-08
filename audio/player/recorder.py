@@ -101,6 +101,7 @@ class Recorder(QtCore.QThread):
         self.load()
 
         self.pipeline.set_state(gst.STATE_PLAYING)
+        self.sink.set_state(gst.STATE_NULL)
 
         self.bus = self.pipeline.get_bus()
         self.bus.add_signal_watch()
@@ -120,7 +121,6 @@ class Recorder(QtCore.QThread):
     def pause(self):
         self.valve.set_property("drop", True)
         self.sink.set_state(gst.STATE_PAUSED)
-        self.recording = False
 
     def stop(self):
         self.valve.set_property("drop", True)
@@ -143,7 +143,7 @@ class Recorder(QtCore.QThread):
         elif t == gst.MESSAGE_ERROR:
             self.pipeline.set_state(gst.STATE_NULL)
             err, debug = message.parse_error()
-            print("Error: %s" % err, debug)
+            print("Error: {0}".format(err), debug)
             self.pipelineactive = False
             self.recording = False
         elif message.src == self.level:
@@ -153,7 +153,7 @@ class Recorder(QtCore.QThread):
         now = datetime.datetime.now()
         date = re.sub(r'/', '-', now.strftime(self.settings.value("RecordingFilename")))
 
-        if not self.pipelineactive:
+        if not self.recording:
             self.recordrate = self.settings.value("RecordingSampleRate")
             self.recordingratecap = gst.Caps("audio/x-raw-int, rate=" + self.recordrate)
             self.recordingratefilter.set_property("caps", self.recordingratecap)
