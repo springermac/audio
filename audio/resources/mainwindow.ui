@@ -25,7 +25,7 @@
         <string>Record</string>
        </attribute>
        <attribute name="toolTip">
-        <string>Record Audio</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Record Audio&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </attribute>
       </widget>
       <widget class="BurnTab" name="burnTab">
@@ -33,7 +33,7 @@
         <string>Burn</string>
        </attribute>
        <attribute name="toolTip">
-        <string>Burn a CD</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Burn a CD&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </attribute>
       </widget>
       <widget class="SettingsTab" name="settingsTab">
@@ -41,7 +41,7 @@
         <string>Settings</string>
        </attribute>
        <attribute name="toolTip">
-        <string>Change Settings</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Change Settings&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </attribute>
       </widget>
      </widget>

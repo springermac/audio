@@ -33,7 +33,7 @@
        <item>
         <widget class="QCheckBox" name="monitorAudio">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Monitor audio even if the recording is paused or stopped&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Monitor audio even if the recording is paused or stopped&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string>Continuously Monitor Audio</string>
@@ -62,7 +62,7 @@
           </sizepolicy>
          </property>
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;The sample rate the recorded file is saved at&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;The sample rate the recorded file is saved at&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="sizeAdjustPolicy">
           <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
@@ -87,7 +87,7 @@
        <item>
         <widget class="QLabel" name="label_2">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;The sample rate the recorded file is saved at&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;The sample rate the recorded file is saved at&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string>Output Sample Rate</string>
@@ -123,7 +123,7 @@
        <item>
         <widget class="QLabel" name="label">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;The directory the recorded file should be saved to&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;The directory the recorded file should be saved to&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string>Recording Directory</string>
@@ -136,7 +136,7 @@
        <item>
         <widget class="QLineEdit" name="recordingDirectory">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;The directory the recorded file should be saved to&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;The directory the recorded file should be saved to&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
@@ -155,7 +155,7 @@
           </size>
          </property>
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Reset to the default directory&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot; font-size:11pt; font-style:italic;&quot;&gt;The default is the system music folder&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Reset to the default directory&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot;font-style:italic;&quot;&gt;The default is the system music folder&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="icon">
           <iconset resource="resources.qrc">
@@ -187,7 +187,7 @@
           </size>
          </property>
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Browse for the directory to save the recorded file&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Browse for the directory to save the recorded file&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="icon">
           <iconset resource="resources.qrc">
@@ -217,7 +217,7 @@
        <item>
         <widget class="QLabel" name="label_3">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;The name the recording should be saved as&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot; font-size:11pt; font-style:italic;&quot;&gt;Can have variables in the name to insert the current date and/or time&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;The name the recording should be saved as&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot;font-style:italic;&quot;&gt;Can have variables in the name to insert the current date and/or time&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string>Recording Filename</string>
@@ -230,7 +230,7 @@
        <item>
         <widget class="QLineEdit" name="recordingFilename">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;The name the recording should be saved as&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot; font-size:11pt; font-style:italic;&quot;&gt;Can have variables in the name to insert the current date and/or time&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;The name the recording should be saved as&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot;font-style:italic;&quot;&gt;Can have variables in the name to insert the current date and/or time&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
@@ -249,7 +249,7 @@
           </size>
          </property>
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Reset to the default filename&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; font-style:italic;&quot;&gt;The default is the current date&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Reset to the default filename&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-style:italic;&quot;&gt;The default is the current date&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string/>
@@ -313,7 +313,7 @@
         </sizepolicy>
        </property>
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Save the settings&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Save the settings&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string>Save</string>
