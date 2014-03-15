@@ -40,7 +40,6 @@ class SettingsTab(QtGui.QWidget, Ui_settingsTab):
         self.settings.setValue("RecordingSampleRate", QtCore.QVariant(self.recordingSampleRate.currentText()))
         self.settings.setValue("RecordingDirectory", QtCore.QVariant(self.recordingDirectory.text()))
         self.settings.setValue("RecordingFilename", QtCore.QVariant(self.recordingFilename.text()))
-        self.recorder.load()
 
     def loaddirectory(self):
         oldrecordingdirector = str(self.recordingDirectory.text())

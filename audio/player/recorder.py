@@ -63,45 +63,40 @@ class Recorder(QtCore.QThread):
 
         self.level = gst.element_factory_make("level", "level")
 
-        self.valve = gst.element_factory_make("valve", "valve")
-
         self.recordingratecap = gst.caps_new_any()
         self.recordingratefilter = gst.element_factory_make("capsfilter", "recordingratefilter")
         self.recordingratefilter.set_property("caps", self.recordingratecap)
+
+        self.valve = gst.element_factory_make("valve", "valve")
 
         self.sink = gst.Bin("Sink")
 
         self.wavenc = gst.element_factory_make("wavenc", "wavenc")
         self.filesink = gst.element_factory_make("filesink", "filesink")
 
-        self.sink.add_many(self.wavenc, self.filesink)
-
-        gst.element_link_many(self.wavenc, self.filesink)
+        self.sink.add(self.wavenc)
 
         self.sinkpad = self.wavenc.get_static_pad("sink")
         self.sinkghostpad = gst.GhostPad("sink", self.sinkpad)
         self.sinkghostpad.set_active(True)
         self.sink.add_pad(self.sinkghostpad)
 
-        if not (self.pipeline and self.audiosrc and self.audioconvert and self.level and self.valve and
-                self.srcratecap and self.srcratefilter):
+        if not (self.pipeline and self.audiosrc and self.srcratecap and self.srcratefilter and self.audioconvert and self.audioresample and self.level and self.recordingratecap and self.recordingratefilter and self.valve):
             print("Not all elements could be loaded", sys.stderr)
             exit(-1)
 
         self.pipeline.add(self.audiosrc, self.srcratefilter, self.audioconvert, self.audioresample, self.level,
-                          self.valve, self.sink)
+                          self.recordingratefilter, self.valve, self.sink)
 
         if not gst.element_link_many(self.audiosrc, self.srcratefilter, self.audioconvert, self.audioresample,
-                                     self.level, self.valve, self.sink):
+                                     self.level, self.recordingratefilter, self.valve, self.sink):
             print("Elements could not be linked", sys.stderr)
             exit(-1)
 
         self.valve.set_property("drop", True)
 
-        self.load()
-
         self.pipeline.set_state(gst.STATE_PLAYING)
-        self.sink.set_state(gst.STATE_NULL)
+        self.pipelineactive = True
 
         self.bus = self.pipeline.get_bus()
         self.bus.add_signal_watch()
@@ -113,9 +108,11 @@ class Recorder(QtCore.QThread):
         self.loop.run()
 
     def record(self):
+        self.load()
+        self.sink.add(self.filesink)
+        self.wavenc.link(self.filesink)
         self.sink.set_state(gst.STATE_PLAYING)
         self.valve.set_property("drop", False)
-        self.pipelineactive = True
         self.recording = True
 
     def pause(self):
@@ -126,6 +123,8 @@ class Recorder(QtCore.QThread):
         self.valve.set_property("drop", True)
         self.sink.send_event(gst.event_new_eos())
         self.sink.set_state(gst.STATE_NULL)
+        self.wavenc.unlink(self.filesink)
+        self.sink.remove(self.filesink)
         self.recording = False
 
     def on_message(self, bus, message):
