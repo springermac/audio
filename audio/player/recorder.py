@@ -71,17 +71,22 @@ class Recorder(QtCore.QThread):
 
         self.sink = gst.Bin("Sink")
 
+        self.audiorate = gst.element_factory_make("audiorate", "audiorate")
+        self.audiorate.set_property("skip-to-first", True)
         self.wavenc = gst.element_factory_make("wavenc", "wavenc")
         self.filesink = gst.element_factory_make("filesink", "filesink")
 
-        self.sink.add(self.wavenc)
+        self.sink.add_many(self.audiorate, self.wavenc)
+        self.audiorate.link(self.wavenc)
 
-        self.sinkpad = self.wavenc.get_static_pad("sink")
+        self.sinkpad = self.audiorate.get_static_pad("sink")
         self.sinkghostpad = gst.GhostPad("sink", self.sinkpad)
         self.sinkghostpad.set_active(True)
         self.sink.add_pad(self.sinkghostpad)
 
-        if not (self.pipeline and self.audiosrc and self.srcratecap and self.srcratefilter and self.audioconvert and self.audioresample and self.level and self.recordingratecap and self.recordingratefilter and self.valve):
+        if not (self.pipeline and self.audiosrc and self.srcratecap and self.srcratefilter and self.audioconvert and
+                self.audioresample and self.level and self.recordingratecap and self.recordingratefilter and
+                self.valve):
             print("Not all elements could be loaded", sys.stderr)
             exit(-1)
 
