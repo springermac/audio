@@ -56,39 +56,56 @@ class RecordingTab(QtGui.QWidget, Ui_recordingTab):
 
     def on_button_clicked(self):
         if not self.pushButton.isChecked():
-            self.pushButton.setText(QtCore.QString("Resume\n Recording"))
+            self.pushButton.setText("Resume\n Recording")
             self.pushButton.setStyleSheet(RECORDING_STYLE)
             self.recorder.pause()
         elif self.pushButton.isChecked():
-            self.pushButton.setText(QtCore.QString("Pause"))
+            self.pushButton.setText("Pause")
             self.pushButton.setStyleSheet(RECORDING_STYLE)
             self.recorder.record()
 
     def on_button_2_clicked(self):
         self.pushButton.setStyleSheet("")
         self.pushButton.setChecked(False)
-        self.pushButton.setText(QtCore.QString("Record"))
+        self.pushButton.setText("Record")
         self.recorder.stop()
 
-    def update(self, message):
+    def update(self, rms):
         """
 
-        :param message:
+        :param rms:
         """
-        if message and self.settings.value("MonitorCheckBox"):
-            #get the structure of the message
-            struc = message.structure
-            #if the structure message is rms
-            if struc.has_field("rms"):
-                rms = struc["rms"]
-                #get the values of rms in a list
-                rms0 = abs(float(rms[0]))
-                #compute for rms to decibels
-                rmsdb = 10 * math.log(rms0 / 32768)
-                #compute for progress bar
-                vlrms = (rmsdb - MIN_DB) * 100 / (MAX_DB - MIN_DB)
-                #emit the signal to the qt progress bar
-                vlrms_inverted = ((abs(vlrms) / 100.0) * -100.0) + 100.0
-                self.audioMeter.setValue(vlrms_inverted)
+        if rms and self.settings.value("MonitorCheckBox"):
+            #get the values of rms in a list
+            rms0 = abs(float(rms[0]))
+            #compute for rms to decibels
+            rmsdb = 10 * math.log(rms0 / 32768)
+            #compute for progress bar
+            vlrms = (rmsdb - MIN_DB) * 100 / (MAX_DB - MIN_DB)
+            #emit the signal to the qt progress bar
+            vlrms_inverted = ((abs(vlrms) / 100.0) * -100.0) + 100.0
+            self.audioMeter.setValue(int(vlrms_inverted))
         else:
             self.audioMeter.setValue(100)
+
+    def iec_scale(self, db):
+        pct = 0.0
+
+        if db < -70.0:
+            pct = 0.0
+        elif db < -60.0:
+            pct = (db + 70.0) * 0.25
+        elif db < -50.0:
+            pct = (db + 60.0) * 0.5 + 2.5
+        elif db < -40.0:
+            pct = (db + 50.0) * 0.75 + 7.5
+        elif db < -30.0:
+            pct = (db + 40.0) * 1.5 + 15.0
+        elif db < -20.0:
+            pct = (db + 30.0) * 2.0 + 30.0
+        elif db < 0.0:
+            pct = (db + 20.0) * 2.5 + 50.0
+        else:
+            pct = 100.0
+
+        return pct

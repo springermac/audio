@@ -18,8 +18,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.dirty = False
         self.filename = None
         self.image = None
-        settings = QtCore.QSettings()
-        Registry().register('settings', settings)
 
         self.setupUi(self)
         self.statusbar.showMessage("Ready", 5000)
@@ -34,6 +32,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         Registry().register('main_window', self)
 
         self.recorder = Registry().get('recorder')
+        self.settingstab = Registry().get('settings_tab')
 
         self.loadsettings()
         self.recorder.start()
@@ -66,30 +65,21 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
 
     def savesettings(self):
         settings = Settings()
-        filename = (QtCore.QVariant(QtCore.QString(self.filename))
-                    if self.filename is not None else QtCore.QVariant())
+
+        filename = (self.filename)
         settings.setValue("LastFile", filename)
-        recentfiles = (QtCore.QVariant(self.recentfiles)
-                       if self.recentfiles else QtCore.QVariant())
-        settings.setValue("RecentFiles", recentfiles)
-        settings.setValue("MainWindow/Geometry", QtCore.QVariant(
-            self.saveGeometry()))
-        settings.setValue("MainWindow/State", QtCore.QVariant(
-            self.saveState()))
+        settings.setValue("MainWindow/Geometry", self.saveGeometry())
+        settings.setValue("MainWindow/State", self.saveState())
+
+        self.settingstab.savesettings()
 
     def loadsettings(self):
         settings = Settings()
 
-        self.recentfiles = settings.value("RecentFiles").toStringList()
-        self.restoreGeometry(settings.value("MainWindow/Geometry").toByteArray())
-        self.restoreState(settings.value("MainWindow/State").toByteArray())
-        self.settingsTab.monitorAudio.setChecked(settings.value("MonitorCheckBox"))
-        samplerateindex = self.settingsTab.recordingSampleRate.findText(
-            settings.value("RecordingSampleRate"))
-        self.settingsTab.recordingSampleRate.setCurrentIndex(samplerateindex)
-        self.settingsTab.recordingDirectory.setText(
-            settings.value("RecordingDirectory"))
-        self.settingsTab.recordingFilename.setText(settings.value("RecordingFilename"))
+        self.restoreGeometry(settings.value("MainWindow/Geometry"))
+        self.restoreState(settings.value("MainWindow/State"))
+
+        self.settingstab.loadsettings()
 
     def helpabout(self):
         QtGui.QMessageBox.about(self, "About Image Changer",

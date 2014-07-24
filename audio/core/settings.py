@@ -8,8 +8,8 @@ class Settings(QtCore.QSettings):
     __default_settings__ = {
         'LastFile': None,
         'RecentFiles': None,
-        'MainWindow/Geometry': None,
-        'MainWindow/State': None,
+        'MainWindow/Geometry': QtCore.QByteArray(),
+        'MainWindow/State': QtCore.QByteArray(),
         'MonitorCheckBox': True,
         'RecordingSampleRate': '44100',
         'RecordingDirectory': str(QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.MusicLocation)),
@@ -26,11 +26,14 @@ class Settings(QtCore.QSettings):
 
     def _convert_value(self, setting, default_value):
         if isinstance(default_value, bool):
-            return setting.toBool()
+            if isinstance(setting, bool):
+                return setting
+            else:
+                return setting.toBool()
         if isinstance(default_value, int):
             return int(setting.toInt()[0])
         if isinstance(default_value, str):
-            return str(setting.toString())
+            return str(setting)
         return setting
 
     def getDefault(self, key):

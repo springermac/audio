@@ -64,24 +64,6 @@
          <property name="toolTip">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p style=&quot;white-space:pre&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;The sample rate the recorded file is saved at&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
-         <property name="sizeAdjustPolicy">
-          <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
-         </property>
-         <item>
-          <property name="text">
-           <string notr="true">44100</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string notr="true">48000</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string notr="true">96000</string>
-          </property>
-         </item>
         </widget>
        </item>
        <item>

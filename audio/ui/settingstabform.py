@@ -10,6 +10,16 @@ from audio.core import Registry, Settings, Utils
 
 
 class SettingsTab(QtGui.QWidget, Ui_settingsTab):
+    __sample_rate__ = [
+        8000,
+        11025,
+        22050,
+        32000,
+        44100,
+        48000,
+        96000
+    ]
+
     def __init__(self, parent=None, f=QtCore.Qt.WindowFlags()):
         super(SettingsTab, self).__init__(parent, f)
 
@@ -36,10 +46,10 @@ class SettingsTab(QtGui.QWidget, Ui_settingsTab):
             event.ignore()
 
     def savesettings(self):
-        self.settings.setValue("MonitorCheckBox", QtCore.QVariant(self.monitorAudio.isChecked()))
-        self.settings.setValue("RecordingSampleRate", QtCore.QVariant(self.recordingSampleRate.currentText()))
-        self.settings.setValue("RecordingDirectory", QtCore.QVariant(self.recordingDirectory.text()))
-        self.settings.setValue("RecordingFilename", QtCore.QVariant(self.recordingFilename.text()))
+        self.settings.setValue("MonitorCheckBox", self.monitorAudio.isChecked())
+        self.settings.setValue("RecordingSampleRate", self.recordingSampleRate.currentText())
+        self.settings.setValue("RecordingDirectory", self.recordingDirectory.text())
+        self.settings.setValue("RecordingFilename", self.recordingFilename.text())
 
     def loaddirectory(self):
         oldrecordingdirector = str(self.recordingDirectory.text())
@@ -71,3 +81,15 @@ class SettingsTab(QtGui.QWidget, Ui_settingsTab):
         else:
             self.saveSettings.setEnabled(False)
             self.recordingFilename.setStyleSheet("QLineEdit { background: red }")
+
+    def loadsettings(self):
+        self.monitorAudio.setChecked(self.settings.value("MonitorCheckBox"))
+        caps = self.recorder.audioconvert.get_static_pad('src').query_caps(None)
+        string = caps.get_structure(1)
+        for sample_rate in SettingsTab.__sample_rate__:
+            if sample_rate <= string.get_value('rate'):
+                self.recordingSampleRate.addItem(str(sample_rate))
+        samplerateindex = self.recordingSampleRate.findText(self.settings.value("RecordingSampleRate"))
+        self.recordingSampleRate.setCurrentIndex(samplerateindex)
+        self.recordingDirectory.setText(self.settings.value("RecordingDirectory"))
+        self.recordingFilename.setText(self.settings.value("RecordingFilename"))
