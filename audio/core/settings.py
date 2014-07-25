@@ -21,19 +21,7 @@ class Settings(QtCore.QSettings):
 
     def value(self, key):
         default_value = Settings.__default_settings__[key]
-        setting = super(Settings, self).value(key, default_value)
-        return self._convert_value(setting, default_value)
-
-    def _convert_value(self, setting, default_value):
-        if isinstance(default_value, bool):
-            if isinstance(setting, bool):
-                return setting
-            else:
-                return setting.toBool()
-        if isinstance(default_value, int):
-            return int(setting.toInt()[0])
-        if isinstance(default_value, str):
-            return str(setting)
+        setting = super(Settings, self).value(key, default_value, type(default_value))
         return setting
 
     def getDefault(self, key):
