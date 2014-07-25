@@ -17,11 +17,12 @@ if getattr(sys, 'frozen', False):
     # Gst.debug_set_active(True)
     # Gst.segtrap_set_enabled(False)
     # Gst.Registry.fork_set_enabled(False)
-# else:
+else:
     # dir = os.path.dirname(__file__)
     # basedir = os.path.join(dir, 'dist', 'audio')
-    # Gst.debug_set_default_threshold(3)
-    # Gst.debug_set_active(True)
+    Gst.debug_set_default_threshold(4)
+    Gst.debug_set_threshold_for_name('ringbuffer', 0)
+    Gst.debug_set_active(True)
     # Gst.Registry.fork_set_enabled(False)
     # os.environ['GST_PLUGIN_PATH'] = os.path.join(basedir, 'gst_plugins')
     # basedir = os.path.dirname(__file__)
@@ -117,6 +118,7 @@ class Recorder(QtCore.QThread):
 
         self.pipeline.set_state(Gst.State.PLAYING)
         self.pipelineactive = True
+        self.recording = False
 
         self.bus = self.pipeline.get_bus()
         self.bus.add_signal_watch()
@@ -144,6 +146,7 @@ class Recorder(QtCore.QThread):
 
     def stop(self):
         if self.recording:
+            self.sink.set_state(Gst.State.PLAYING)
             self.valve.set_property("drop", True)
             self.sink.send_event(Gst.Event.new_eos())
             self.sink.set_state(Gst.State.NULL)
