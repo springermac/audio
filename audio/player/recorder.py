@@ -53,10 +53,6 @@ class Recorder(QtCore.QThread):
             self.audiosrc = Gst.ElementFactory.make('osxaudiosrc')
             self.srcratecap = Gst.Caps.from_string("audio/x-raw, rate=" + self.srcrate)
 
-        elif os.name == 'nt':
-            self.audiosrc = Gst.ElementFactory.make("dshowaudiosrc", "audiosrc")
-            self.srcratecap = Gst.Caps.new_any()
-
         else:
             self.audiosrc = Gst.ElementFactory.make("autoaudiosrc", "audiosrc")
             self.srcratecap = Gst.Caps.new_any()
