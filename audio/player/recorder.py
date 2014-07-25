@@ -48,8 +48,6 @@ class Recorder(QtCore.QThread):
 
         self.settings = Settings()
         self.utils = Utils()
-        self.device_monitor = Gst.DeviceMonitor()
-        print(self.device_monitor.get_devices())
         self.pipeline = Gst.Pipeline()
         if sys.platform == 'darwin':
             self.audiosrc = Gst.ElementFactory.make('osxaudiosrc')
