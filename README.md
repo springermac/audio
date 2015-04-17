@@ -4,5 +4,5 @@ audio
 Screenshots
 ------------
 
-![Alt text](/../gh-pages/images/recording_tab.tiff?raw=true "Recording Tab Screenshot")
-![Alt text](/../gh-pages/images/settings_tab.tiff?raw=true "Settings Tab Screenshot")
+![recording tab screenshot](/../gh-pages/images/recording_tab.png?raw=true "Recording Tab Screenshot")
+![settings tab screenshot](/../gh-pages/images/settings_tab.png?raw=true "Settings Tab Screenshot")
