@@ -4,28 +4,11 @@
 import os
 import re
 import sys
-import time
 import datetime
 
 import gi
 gi.require_version('Gst', '1.0')
 from gi.repository import Gst, GLib
-
-if getattr(sys, 'frozen', False):
-    basedir = sys._MEIPASS
-    # Gst.debug_set_default_threshold(4)
-    # Gst.debug_set_active(True)
-    # Gst.segtrap_set_enabled(False)
-    # Gst.Registry.fork_set_enabled(False)
-else:
-    # dir = os.path.dirname(__file__)
-    # basedir = os.path.join(dir, 'dist', 'audio')
-    Gst.debug_set_default_threshold(4)
-    Gst.debug_set_threshold_for_name('ringbuffer', 0)
-    Gst.debug_set_active(True)
-    # Gst.Registry.fork_set_enabled(False)
-    # os.environ['GST_PLUGIN_PATH'] = os.path.join(basedir, 'gst_plugins')
-    # basedir = os.path.dirname(__file__)
 
 Gst.init(None)
 
@@ -43,7 +26,7 @@ class Recorder(QtCore.QThread):
         self.filepath = None
         self.pipelineactive = False
         self.recording = False
-        self.srcrate = "44100"
+        self.paused = False
         self.recordrate = None
 
         self.settings = Settings()
@@ -51,13 +34,10 @@ class Recorder(QtCore.QThread):
         self.pipeline = Gst.Pipeline()
         if sys.platform == 'darwin':
             self.audiosrc = Gst.ElementFactory.make('osxaudiosrc')
-            self.srcratecap = Gst.Caps.from_string("audio/x-raw, rate=" + self.srcrate)
-
+        elif os.name == 'nt':
+            self.audiosrc = Gst.ElementFactory.make("directsoundsrc", "audiosrc")
         else:
             self.audiosrc = Gst.ElementFactory.make("autoaudiosrc", "audiosrc")
-            self.srcratecap = Gst.Caps.new_any()
-        self.srcratefilter = Gst.ElementFactory.make("capsfilter", "srcratefilter")
-        self.srcratefilter.set_property("caps", self.srcratecap)
 
         self.audioconvert = Gst.ElementFactory.make("audioconvert", "audioconvert")
 
@@ -79,6 +59,10 @@ class Recorder(QtCore.QThread):
         self.wavenc = Gst.ElementFactory.make("wavenc", "wavenc")
         self.filesink = Gst.ElementFactory.make("filesink", "filesink")
 
+        if not (self.sink and self.audiorate and self.wavenc and self.filesink):
+            print("Not all elements could be loaded", sys.stderr)
+            exit(-1)
+
         self.sink.add(self.audiorate)
         self.sink.add(self.wavenc)
         self.audiorate.link(self.wavenc)
@@ -88,13 +72,12 @@ class Recorder(QtCore.QThread):
         self.sinkghostpad.set_active(True)
         self.sink.add_pad(self.sinkghostpad)
 
-        if not (self.pipeline and self.audiosrc and self.srcratefilter and self.audioconvert and self.audioresample
+        if not (self.pipeline and self.audiosrc and self.audioconvert and self.audioresample
                 and self.level and self.recordingratefilter and self.valve):
             print("Not all elements could be loaded", sys.stderr)
             exit(-1)
 
         self.pipeline.add(self.audiosrc)
-        self.pipeline.add(self.srcratefilter)
         self.pipeline.add(self.audioconvert)
         self.pipeline.add(self.audioresample)
         self.pipeline.add(self.level)
@@ -102,7 +85,7 @@ class Recorder(QtCore.QThread):
         self.pipeline.add(self.valve)
         self.pipeline.add(self.sink)
 
-        if not (self.audiosrc.link(self.srcratefilter), self.srcratefilter.link(self.audioconvert),
+        if not (self.audiosrc.link(self.audioconvert),
                 self.audioconvert.link(self.audioresample), self.audioresample.link(self.level),
                 self.level.link(self.recordingratefilter), self.recordingratefilter.link(self.valve),
                 self.valve.link(self.sink)):
@@ -133,11 +116,24 @@ class Recorder(QtCore.QThread):
             self.valve.set_property("drop", False)
             self.recording = True
         else:
-            pass
+            if self.paused:
+                self.sink.set_state(Gst.State.PLAYING)
+                self.valve.set_property("drop", False)
+                time = Gst.Segment()
+                Gst.Segment.init(time, Gst.Format.TIME)
+                time.start = self.valve.clock.get_time()
+                self.valve.send_event(Gst.Event.new_segment(time))
+                self.paused = False
+            else:
+                pass
 
     def pause(self):
-        self.valve.set_property("drop", True)
-        self.sink.set_state(Gst.State.PAUSED)
+        if not self.paused:
+            self.valve.set_property("drop", True)
+            self.sink.set_state(Gst.State.PAUSED)
+            self.paused = True
+        else:
+            pass
 
     def stop(self):
         if self.recording:
@@ -148,6 +144,7 @@ class Recorder(QtCore.QThread):
             self.wavenc.unlink(self.filesink)
             self.sink.remove(self.filesink)
             self.recording = False
+            self.paused = False
         else:
             pass
 
