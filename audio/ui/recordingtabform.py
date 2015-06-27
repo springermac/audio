@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-import math
+import sys
 
 from PyQt4 import QtGui, QtCore
 
@@ -19,78 +19,91 @@ RECORDING_STYLE = """
 """
 
 METER_STYLE = """
-    QProgressBar {
+    QProgressBar {{
+        background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(255, 0, 0, 255), stop:0.1
+        rgba(255, 0, 0, 255), stop:0.11 rgba(255, 255, 0, 255), stop:0.4 rgba(255, 255, 0, 255), stop:0.41
+        rgba(0, 255, 0, 255), stop:1 rgba(0, 255, 0, 255));
         border: 0px;
-        background-color: rgb(97%, 97%, 97%);
-        background-image: url(:/meter.png);
-        background-repeat: repeat-x;
-    }
+    }}
 
-    QProgressBar::chunk {
-         background: rgb(90%, 90%, 90%);
-         height: 10px;
-         margin-bottom: 1px;
-    }
-"""
+    QProgressBar::chunk {{
+        background: {0};
+    }}
+""".format('rgb(90%, 90%, 90%)' if sys.platform == 'darwin' else 'pallet(window)')
 
-MIN_DB = -45
+MIN_DB = -96
 MAX_DB = 0
 
 
-class RecordingTab(QtGui.QWidget, Ui_recordingTab):
-    def __init__(self, parent=None, f=QtCore.Qt.WindowFlags()):
-        super(RecordingTab, self).__init__(parent, f)
+class AudioMeter(QtGui.QWidget):
+    def __init__(self, parent=None):
+        super(AudioMeter, self).__init__(parent)
+        self.rms_percent = 0.0
+        self.peak_percent = 0.0
+        self.decay_percent = 0.0
+        self.level_color_low = QtGui.QColor(QtCore.Qt.green)
+        self.level_color_med = QtGui.QColor(QtCore.Qt.yellow)
+        self.level_color_high = QtGui.QColor(QtCore.Qt.red)
+        self.peak_color = QtGui.QColor(QtCore.Qt.yellow)
 
-        self.recorder = Recorder()
-        self.settings = Settings()
+        self.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Preferred)
+        self.setMinimumWidth(30)
 
-        self.setupUi(self)
-        self.audioMeter.setStyleSheet(METER_STYLE)
+    def reset(self):
+        self.rms_percent = 0.0
+        self.peak_percent = 0.0
+        self.decay_percent = 0.0
 
-        self.pushButton.clicked.connect(self.on_button_clicked)
-        self.pushButton_2.clicked.connect(self.on_button_2_clicked)
+        self.update()
 
-        self.recorder.updatemeter.connect(self.update)
+    def level_changed(self, rms_level, peak_level, decay_level):
+        self.rms_percent = self.iec_scale(rms_level)
+        self.peak_percent = self.iec_scale(peak_level)
+        self.decay_percent = self.iec_scale(decay_level)
 
-        Registry().register('recording_tab', self)
+        self.update()
 
-    def on_button_clicked(self):
-        if not self.pushButton.isChecked():
-            self.pushButton.setText("Resume\n Recording")
-            self.pushButton.setStyleSheet(RECORDING_STYLE)
-            self.recorder.pause()
-        elif self.pushButton.isChecked():
-            self.pushButton.setText("Pause")
-            self.pushButton.setStyleSheet(RECORDING_STYLE)
-            self.recorder.record()
+    def paintEvent(self, event):
+        painter = QtGui.QPainter()
+        painter.begin(self)
+        painter.fillRect(self.rect(), QtGui.QPalette().color(QtGui.QPalette.Background))
+        bar = self.rect()
 
-    def on_button_2_clicked(self):
-        self.pushButton.setStyleSheet("")
-        self.pushButton.setChecked(False)
-        self.pushButton.setText("Record")
-        self.recorder.stop()
+        rms_peak = bar.bottom() - int(bar.height() * (self.rms_percent / 100))
+        rms_low = bar.bottom() - int(bar.height() * (75.0 / 100))
+        rms_med = bar.bottom() - int(bar.height() * (97.5 / 100))
 
-    def update(self, rms):
-        """
+        # bar.setTop(self.peak_hold_level)
+        # bar.setBottom(bar.top() + 5)
+        # painter.fillRect(bar, self.rms_color)
+        # bar.setBottom(self.rect().bottom())
 
-        :param rms:
-        """
-        if rms and self.settings.value("MonitorCheckBox"):
-            #get the values of rms in a list
-            rms0 = abs(float(rms[0]))
-            #compute for rms to decibels
-            rmsdb = 10 * math.log(rms0 / 32768)
-            #compute for progress bar
-            vlrms = (rmsdb - MIN_DB) * 100 / (MAX_DB - MIN_DB)
-            #emit the signal to the qt progress bar
-            vlrms_inverted = ((abs(vlrms) / 100.0) * -100.0) + 100.0
-            self.audioMeter.setValue(int(vlrms_inverted))
-        else:
-            self.audioMeter.setValue(100)
+        # bar.setTop(self.peak_percent)
+        # painter.fillRect(bar, self.peak_color)
+
+        if self.rms_percent > 0:
+            if self.rms_percent <= 75:
+                bar.setTop(rms_peak)
+                painter.fillRect(bar, self.level_color_low)
+            elif 75 < self.rms_percent <= 97.5:
+                bar.setTop(rms_low)
+                painter.fillRect(bar, self.level_color_low)
+                bar.setBottom(rms_low)
+                bar.setTop(rms_peak)
+                painter.fillRect(bar, self.level_color_med)
+            else:
+                bar.setTop(rms_low)
+                painter.fillRect(bar, self.level_color_low)
+                bar.setBottom(rms_low)
+                bar.setTop(rms_med)
+                painter.fillRect(bar, self.level_color_med)
+                bar.setBottom(rms_med)
+                bar.setTop(rms_peak)
+                painter.fillRect(bar, self.level_color_high)
+
+        painter.end()
 
     def iec_scale(self, db):
-        pct = 0.0
-
         if db < -70.0:
             pct = 0.0
         elif db < -60.0:
@@ -109,3 +122,48 @@ class RecordingTab(QtGui.QWidget, Ui_recordingTab):
             pct = 100.0
 
         return pct
+
+
+class RecordingTab(QtGui.QWidget, Ui_recordingTab):
+    def __init__(self, parent=None):
+        super(RecordingTab, self).__init__(parent)
+
+        self.recorder = Recorder()
+        self.settings = Settings()
+        self.audio_meter = AudioMeter(self)
+
+        self.setupUi(self)
+        self.gridLayout.addWidget(self.audio_meter, 0, 1)
+
+        self.recorder.updatemeter.connect(self.update)
+
+        Registry().register('recording_tab', self)
+
+    @QtCore.pyqtSlot()
+    def on_recordButton_clicked(self):
+        if not self.recordButton.isChecked():
+            self.recordButton.setText("Resume\n Recording")
+            self.recordButton.setStyleSheet(RECORDING_STYLE)
+            self.recorder.pause()
+        elif self.recordButton.isChecked():
+            self.recordButton.setText("Pause")
+            self.recordButton.setStyleSheet(RECORDING_STYLE)
+            self.recorder.record()
+
+    @QtCore.pyqtSlot()
+    def on_stopButton_clicked(self):
+        self.recordButton.setStyleSheet("")
+        self.recordButton.setChecked(False)
+        self.recordButton.setText("Record")
+        self.recorder.stop()
+
+    def update(self, message):
+        """
+
+        :param message:
+        """
+        if message.get_value('rms') and self.settings.value("MonitorCheckBox"):
+            self.audio_meter.level_changed(message.get_value('rms')[0], message.get_value('peak')[0],
+                                           message.get_value('decay')[0])
+        else:
+            self.audio_meter.reset()

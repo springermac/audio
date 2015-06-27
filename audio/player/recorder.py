@@ -64,6 +64,7 @@ class Recorder(QtCore.QThread):
         self.audioresample = Gst.ElementFactory.make("audioresample", "audioresample")
 
         self.level = Gst.ElementFactory.make("level", "level")
+        self.level.set_property("interval", 50000000)
 
         self.recordingratecap = Gst.Caps.new_any()
         self.recordingratefilter = Gst.ElementFactory.make("capsfilter", "recordingratefilter")
@@ -166,7 +167,7 @@ class Recorder(QtCore.QThread):
             self.pipelineactive = False
             self.recording = False
         elif message.src == self.level:
-            self.updatemeter.emit(message.get_structure().get_value("rms"))
+            self.updatemeter.emit(message.get_structure())
 
     def load(self):
         now = datetime.datetime.now()

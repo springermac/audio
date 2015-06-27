@@ -20,8 +20,8 @@ class SettingsTab(QtGui.QWidget, Ui_settingsTab):
         96000
     ]
 
-    def __init__(self, parent=None, f=QtCore.Qt.WindowFlags()):
-        super(SettingsTab, self).__init__(parent, f)
+    def __init__(self, parent=None):
+        super(SettingsTab, self).__init__(parent)
 
         self.setupUi(self)
 
@@ -68,10 +68,10 @@ class SettingsTab(QtGui.QWidget, Ui_settingsTab):
         settings = Settings()
         button = self.sender().objectName()
         if button == 'resetRecordingDirectory':
-            default_setting = settings.getDefault('RecordingDirectory')
+            default_setting = settings.get_default('RecordingDirectory')
             self.recordingDirectory.setText(default_setting)
         elif button == 'resetRecordingFilename':
-            default_setting = settings.getDefault('RecordingFilename')
+            default_setting = settings.get_default('RecordingFilename')
             self.recordingFilename.setText(default_setting)
 
     def check_line_edit(self, char):
@@ -85,9 +85,9 @@ class SettingsTab(QtGui.QWidget, Ui_settingsTab):
     def loadsettings(self):
         self.monitorAudio.setChecked(self.settings.value("MonitorCheckBox"))
         caps = self.recorder.audioconvert.get_static_pad('src').query_caps(None)
-        string = caps.get_structure(1)
+        string = caps.get_structure(0)
         for sample_rate in SettingsTab.__sample_rate__:
-            if sample_rate <= string.get_value('rate'):
+            if sample_rate <= string.get_int('rate')[1]:
                 self.recordingSampleRate.addItem(str(sample_rate))
         samplerateindex = self.recordingSampleRate.findText(self.settings.value("RecordingSampleRate"))
         self.recordingSampleRate.setCurrentIndex(samplerateindex)

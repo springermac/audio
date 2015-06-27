@@ -41,12 +41,9 @@ class HelpForm(QtGui.QDialog):
         layout.addWidget(self.textbrowser, 1)
         self.setLayout(layout)
 
-        self.connect(backaction, QtCore.SIGNAL("triggered()"),
-                     self.textbrowser, QtCore.SLOT("backward()"))
-        self.connect(homeaction, QtCore.SIGNAL("triggered()"),
-                     self.textbrowser, QtCore.SLOT("home()"))
-        self.connect(self.textbrowser, QtCore.SIGNAL("sourceChanged(QUrl)"),
-                     self.updatepagetitle)
+        backaction.triggered.connect(self.textbrowser.backward)
+        homeaction.triggered.connect(self.textbrowser.home)
+        self.textbrowser.sourceChanged.connect(self.updatepagetitle)
 
         self.textbrowser.setSearchPaths([":/help/helpfiles"])
         self.textbrowser.setSource(QtCore.QUrl(page))

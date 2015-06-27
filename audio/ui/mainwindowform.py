@@ -13,8 +13,8 @@ __version__ = "1.0.0"
 
 
 class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
-    def __init__(self, parent=None, f=QtCore.Qt.WindowFlags()):
-        super(MainWindow, self).__init__(parent, f)
+    def __init__(self, parent=None):
+        super(MainWindow, self).__init__(parent)
         self.dirty = False
         self.filename = None
         self.image = None
@@ -66,7 +66,7 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
     def savesettings(self):
         settings = Settings()
 
-        filename = (self.filename)
+        filename = self.filename
         settings.setValue("LastFile", filename)
         settings.setValue("MainWindow/Geometry", self.saveGeometry())
         settings.setValue("MainWindow/State", self.saveState())
