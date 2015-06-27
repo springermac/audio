@@ -24,5 +24,5 @@ class Settings(QtCore.QSettings):
         setting = super(Settings, self).value(key, default_value, type(default_value))
         return setting
 
-    def getDefault(self, key):
+    def get_default(self, key):
         return Settings.__default_settings__[key]

@@ -8,7 +8,7 @@ import re
 class Utils(object):
     def __init__(self):
         super(Utils, self).__init__()
-        if os.name =='nt':
+        if os.name == 'nt':
             self.badchars = re.compile(r'[\\/:\*?"<>\|]')
             self.badnames = re.compile(r'(aux|com[1-9]|con|lpt[1-9]|prn)(\.|$)')
         else:
