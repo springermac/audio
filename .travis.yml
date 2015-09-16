@@ -3,8 +3,6 @@ install:
   - git clone https://github.com/MacPython/terryfy.git
   - source terryfy/travis_tools.sh
   - install_macports
-  - sudo port -s install rdepof:qt4-mac macosx_deployment_target=10.8 | cat
-  - sudo port -s install qt4-mac macosx_deployment_target=10.8 | cat & while sleep 5; do cat $(port logfile qt4-mac) | tail -n 1; done
-  - sudo port -s install py34-pyqt4 macosx_deployment_target=10.8 | cat
+  - sudo port install py34-pyqt4 | cat
 script:
   - python3.4 audio.py
