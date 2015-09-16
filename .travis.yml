@@ -12,12 +12,9 @@ install:
 script:
 - pyinstaller -wdy audio.py
 deploy:
-  provider: releases
-  api_key:
-    secure: ljgbfwEoh1CtbyOx0YF4R1B08Fe9I32mrYPp0jtaABRzmUnHny5+NWi7rAbz/Q0qUG/Tr1T85z7yOheIkP7TXTAGpP7JPLQZFEuBrwtwFWS+XSUQAdsLqBUn+jpaHFnAk2ptdQ3euhxKhsFhi42C3OWQ+VgoAkgcwLlvwXNNEguTjnxAtW49DfsA3QHOt3XDxztUvF4aDGBynXACec0CzZHU0B913xbT3/Q5A6EUgRlh3QIQRUtuXyEN6cVJSRzdC2BmGtqTCG7t4kI9cSmHjJaVSLJlLWbk0VUw9zDaZeFya5qQCiThGQx9h5R9KiNdkRrGWQSK9xstOivMLZrs9aUPnDCdVr99J8KW2eRf0EoAAKn9yvcIGbrcjlGuI9EAhY8YlsC5g+xkveK22IAaeYxcbvUwbyU8m7VX/9CAYSBrpa19/okhu81V/sQVae1RJmGsNGzAKKrnNiFsbs4yhLeFgpFOUJGO2JupufK7KA2j2qggqAozpxVcQTvRBnd2UT7+b/1d/2zYzXlmj6lWpNL6fHvSaagvpcT/bj5Rv1YzxodUahDC4YoTKKWuDzpCDjZ5Kb9+iD7i2y4urJjZovbwkkagKATkoElmlXsqhMmqxKHC2vgGzFSXLMIQ5hN16plyQ4HYB0NyEGVfqspX4z31GnXohydCCJGkicu0DQA=
-  file: build/audio.app
+  provider: script
+  script: ./deploy.sh
   on:
-    repo: springermac/audio
     branch: gst
 notifications:
   slack:
