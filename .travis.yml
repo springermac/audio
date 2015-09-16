@@ -3,6 +3,6 @@ install:
   - git clone https://github.com/MacPython/terryfy.git
   - source terryfy/travis_tools.sh
   - get_python_environment macports 3.4
-  - sudo port install py34-pyqt4
+  - sudo port -q install py34-pyqt4
 script:
   - python audio.py
