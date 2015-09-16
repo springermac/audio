@@ -6,6 +6,7 @@ install:
 - get_python_environment homebrew 3
 - brew install sip --with-python3 --without-python
 - brew install pyqt --with-python3 --without-python
+- brew install pygobject3 --with-python3 --without-python
 - brew install gst-python --with-python3 --without-python
 - brew install gst-plugins-bad gst-plugins-ugly
 - pip3 install --pre PyInstaller
@@ -14,6 +15,7 @@ script:
 deploy:
   provider: script
   script: ./deploy.sh
+  skip_cleanup: true
   on:
     branch: gst
 notifications:
