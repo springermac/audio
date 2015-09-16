@@ -1,10 +1,8 @@
-language: python
-cache: pip
-os:
-  - osx
-before_install:
-  - brew update
-  - brew install pyqt --with-python3
-  - brew install gst-python
+language: objective-c
+install:
+  - git clone https://github.com/MacPython/terryfy.git
+  - source terryfy/travis_tools.sh
+  - get_python_environment macports 3.4
+  - sudo port install py34-pyqt4
 script:
   - python audio.py
