@@ -7,5 +7,6 @@ install:
   - brew install pyqt --with-python3 --without-python
   - brew install gst-python --with-python3 --without-python
   - brew install gst-plugins-bad gst-plugins-ugly
+  - pip3 install --pre PyInstaller
 script:
-  - python3 audio.py
+  - pyinstaller -wdy audio.py
