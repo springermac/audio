@@ -1,0 +1,12 @@
+language: python
+cache: pip
+os:
+  - osx
+python:
+  - "3.4"
+before_install:
+  - brew update
+  - brew install pyqt --with-python3
+  - brew install gst-python
+script:
+  - python audio.py
