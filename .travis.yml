@@ -6,6 +6,7 @@ install:
 - brew uninstall --ignore-dependencies python@2 || true
 - brew uninstall --ignore-dependencies python@3 || true
 - brew uninstall --ignore-dependencies python || true
+- brew install python
 - brew install python@2
 - get_python_environment homebrew 3
 - pip3 install travispls
