@@ -19,6 +19,15 @@ from audio.core import Registry, Settings, Utils
 
 class Recorder(QtCore.QThread):
     updatemeter = QtCore.pyqtSignal(object)
+    __sample_rates__ = [
+        8000,
+        11025,
+        22050,
+        32000,
+        44100,
+        48000,
+        96000
+    ]
 
     def __init__(self):
         QtCore.QThread.__init__(self)
@@ -173,6 +182,28 @@ class Recorder(QtCore.QThread):
             self.filesink.set_property("location", self.filepath)
         else:
             pass
+
+    def get_current_sample_rate(self):
+        return self.audiosrc.get_static_pad('src').get_current_caps().get_structure(0).get_value('rate')
+
+    def get_capable_sample_rates(self):
+        caps = self.audiosrc.get_static_pad('src').get_allowed_caps()
+        print(self.audiosrc.children)
+        print(caps.to_string())
+        current_rate = self.get_current_sample_rate()
+        available_rates = set()
+        for cap in caps:
+            rate = cap.get_value('rate')
+            if type(rate) == int:
+                available_rates.add(rate)
+        if len(available_rates) <= 1:
+            available_rates.update(self.__sample_rates__)
+        sample_rates = []
+        for rate in available_rates:
+            if rate <= current_rate:
+                sample_rates.append(rate)
+        sample_rates.sort()
+        return sample_rates
 
     def stop_loop(self):
         self.pipeline.send_event(Gst.Event.new_eos())

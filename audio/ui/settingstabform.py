@@ -10,16 +10,6 @@ from audio.core import Registry, Settings, Utils
 
 
 class SettingsTab(QtWidgets.QWidget, Ui_settingsTab):
-    __sample_rate__ = [
-        8000,
-        11025,
-        22050,
-        32000,
-        44100,
-        48000,
-        96000
-    ]
-
     def __init__(self, parent=None):
         super(SettingsTab, self).__init__(parent)
 
@@ -85,11 +75,9 @@ class SettingsTab(QtWidgets.QWidget, Ui_settingsTab):
 
     def loadsettings(self):
         self.monitorAudio.setChecked(self.settings.value("MonitorCheckBox"))
-        caps = self.recorder.audioconvert.get_static_pad('src').query_caps(None)
-        string = caps.get_structure(0)
-        for sample_rate in SettingsTab.__sample_rate__:
-            if sample_rate <= string.get_int('rate')[1]:
-                self.recordingSampleRate.addItem(str(sample_rate))
+        sample_rates = self.recorder.get_capable_sample_rates()
+        for sample_rate in sample_rates:
+            self.recordingSampleRate.addItem(str(sample_rate))
         samplerateindex = self.recordingSampleRate.findText(self.settings.value("RecordingSampleRate"))
         self.recordingSampleRate.setCurrentIndex(samplerateindex)
         self.recordingDirectory.setText(self.settings.value("RecordingDirectory"))
