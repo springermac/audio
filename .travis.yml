@@ -4,12 +4,12 @@ install:
 - source terryfy/travis_tools.sh
 - brew update
 - get_python_environment homebrew 3
-- brew install sip --with-python3 --without-python
-- brew install pyqt --with-python3 --without-python
-- brew install pygobject3 --with-python3 --without-python
-- brew install springermac/springermac/gst-python --with-python3 --without-python
-- brew install gst-plugins-bad gst-plugins-ugly
-- pip3 install --pre PyInstaller
+- brew install sip --without-python@2
+- brew install pyqt --without-python@2
+- brew install pygobject3
+- brew install gst-python
+- brew install gst-plugins-bad gst-plugins-ugly gst-plugins-good
+- pip3 install https://github.com/pyinstaller/pyinstaller/archive/develop.zip
 script:
 - pyinstaller -wdy audio-run.py
 deploy:
