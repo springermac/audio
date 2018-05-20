@@ -14,7 +14,7 @@ Gst.init(None)
 
 from PyQt4 import QtCore
 
-from audio.core import Registry, Settings, Utils, is_macosx, is_win
+from audio.core import Registry, Settings, Utils
 
 
 class Recorder(QtCore.QThread):
@@ -32,12 +32,7 @@ class Recorder(QtCore.QThread):
         self.settings = Settings()
         self.utils = Utils()
         self.pipeline = Gst.Pipeline()
-        if is_macosx():
-            self.audiosrc = Gst.ElementFactory.make('osxaudiosrc')
-        elif is_win():
-            self.audiosrc = Gst.ElementFactory.make("directsoundsrc", "audiosrc")
-        else:
-            self.audiosrc = Gst.ElementFactory.make("autoaudiosrc", "audiosrc")
+        self.audiosrc = Gst.ElementFactory.make("autoaudiosrc", "audiosrc")
 
         self.audioconvert = Gst.ElementFactory.make("audioconvert", "audioconvert")
 
