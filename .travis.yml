@@ -11,7 +11,7 @@ install:
 - brew install gst-plugins-bad gst-plugins-ugly
 - pip3 install --pre PyInstaller
 script:
-- pyinstaller -wdy audio.py
+- pyinstaller -wdy audio-run.py
 deploy:
   provider: script
   script: ./deploy.sh
