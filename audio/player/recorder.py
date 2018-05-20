@@ -13,13 +13,14 @@ from gi.repository import Gst, GLib
 Gst.init(None)
 
 from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5 import QtCore
 
 from audio.core import Registry, Settings, Utils
+from audio.player.level import Level
 from audio.player.spectrum import Spectrum
 
 
 class Recorder(QtCore.QThread):
-    updatemeter = QtCore.pyqtSignal(object)
     __sample_rates__ = [
         8000,
         11025,
@@ -56,8 +57,7 @@ class Recorder(QtCore.QThread):
 
         self.spectrum = Spectrum()
 
-        self.level = Gst.ElementFactory.make("level", "level")
-        self.level.set_property("interval", 50000000)
+        self.level = Level()
 
         self.levelvalve = Gst.ElementFactory.make("valve", "valve")
 
@@ -104,14 +104,14 @@ class Recorder(QtCore.QThread):
         self.pipeline.add(self.audioresample)
         self.pipeline.add(self.audiotee)
         self.pipeline.add(self.spectrum.bin)
-        self.pipeline.add(self.level)
+        self.pipeline.add(self.level.bin)
         self.pipeline.add(self.levelvalve)
         self.pipeline.add(self.audiosink)
 
         if not (self.audiosrc.link(self.captureratefilter), self.captureratefilter.link(self.audioconvert),
                 self.audioconvert.link(self.audioresample), self.audioresample.link(self.audiotee),
-                self.audiotee.link(self.spectrum.bin), self.audiotee.link(self.level),
-                self.level.link(self.levelvalve), self.levelvalve.link(self.audiosink)):
+                self.audiotee.link(self.spectrum.bin), self.audiotee.link(self.level.bin),
+                self.level.bin.link(self.levelvalve), self.levelvalve.link(self.audiosink)):
             print("Elements could not be linked", sys.stderr)
             exit(-1)
 
@@ -186,11 +186,9 @@ class Recorder(QtCore.QThread):
             self.pipeline.set_state(Gst.State.NULL)
             self.pipelineactive = False
             self.recording = False
-        elif message.src == self.level:
-            self.updatemeter.emit(message.get_structure())
+        elif message.src == self.level.level:
+            self.level.update(message.get_structure())
         elif message.src == self.spectrum.spectrum_element:
-            # print(datetime.datetime.now(), datetime.datetime.now() - self.old_time)
-            self.old_time = datetime.datetime.now()
             self.spectrum.message.emit(message)
 
     def load(self):
