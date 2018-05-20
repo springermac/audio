@@ -15,6 +15,7 @@ Gst.init(None)
 from PyQt5 import QtCore, QtWidgets, QtGui
 
 from audio.core import Registry, Settings, Utils
+from audio.player.spectrum import Spectrum
 
 
 class Recorder(QtCore.QThread):
@@ -51,12 +52,12 @@ class Recorder(QtCore.QThread):
 
         self.audioresample = Gst.ElementFactory.make("audioresample", "audioresample")
 
+        self.audiotee = Gst.ElementFactory.make("tee", "tee")
+
+        self.spectrum = Spectrum()
+
         self.level = Gst.ElementFactory.make("level", "level")
         self.level.set_property("interval", 50000000)
-
-        self.recordingratecap = Gst.Caps.new_any()
-        self.recordingratefilter = Gst.ElementFactory.make("capsfilter", "recordingratefilter")
-        self.recordingratefilter.set_property("caps", self.recordingratecap)
 
         self.levelvalve = Gst.ElementFactory.make("valve", "valve")
 
@@ -64,6 +65,11 @@ class Recorder(QtCore.QThread):
 
         self.audiorate = Gst.ElementFactory.make("audiorate", "audiorate")
         self.audiorate.set_property("skip-to-first", True)
+
+        self.recordingratecap = Gst.Caps.new_any()
+        self.recordingratefilter = Gst.ElementFactory.make("capsfilter", "recordingratefilter")
+        self.recordingratefilter.set_property("caps", self.recordingratecap)
+
         self.wavenc = Gst.ElementFactory.make("wavenc", "wavenc")
         self.filesink = Gst.ElementFactory.make("filesink", "filesink")
 
@@ -87,8 +93,8 @@ class Recorder(QtCore.QThread):
         self.audiosinkghostpad.set_active(True)
         self.audiosink.add_pad(self.audiosinkghostpad)
 
-        if not (self.pipeline and self.audiosrc and self.audioconvert and self.audioresample
-                and self.level and self.recordingratefilter and self.levelvalve):
+        if not (self.pipeline and self.audiosrc and self.audioconvert and self.audioresample and self.level and
+                self.levelvalve):
             print("Not all elements could be loaded", sys.stderr)
             exit(-1)
 
@@ -96,12 +102,15 @@ class Recorder(QtCore.QThread):
         self.pipeline.add(self.captureratefilter)
         self.pipeline.add(self.audioconvert)
         self.pipeline.add(self.audioresample)
+        self.pipeline.add(self.audiotee)
+        self.pipeline.add(self.spectrum.bin)
         self.pipeline.add(self.level)
         self.pipeline.add(self.levelvalve)
         self.pipeline.add(self.audiosink)
 
-        if not (self.audiosrc.link(self.audioconvert),
-                self.audioconvert.link(self.audioresample), self.audioresample.link(self.level),
+        if not (self.audiosrc.link(self.captureratefilter), self.captureratefilter.link(self.audioconvert),
+                self.audioconvert.link(self.audioresample), self.audioresample.link(self.audiotee),
+                self.audiotee.link(self.spectrum.bin), self.audiotee.link(self.level),
                 self.level.link(self.levelvalve), self.levelvalve.link(self.audiosink)):
             print("Elements could not be linked", sys.stderr)
             exit(-1)
@@ -179,6 +188,10 @@ class Recorder(QtCore.QThread):
             self.recording = False
         elif message.src == self.level:
             self.updatemeter.emit(message.get_structure())
+        elif message.src == self.spectrum.spectrum_element:
+            # print(datetime.datetime.now(), datetime.datetime.now() - self.old_time)
+            self.old_time = datetime.datetime.now()
+            self.spectrum.message.emit(message)
 
     def load(self):
         now = datetime.datetime.now()
@@ -219,3 +232,4 @@ class Recorder(QtCore.QThread):
         self.pipeline.send_event(Gst.Event.new_eos())
         self.pipeline.set_state(Gst.State.NULL)
         self.loop.quit()
+        self.spectrum.spectrum_widget.close()
