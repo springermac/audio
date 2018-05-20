@@ -4,8 +4,9 @@ install:
 - source terryfy/travis_tools.sh
 - brew update
 - get_python_environment homebrew 3
+- pip3 install travispls
 - brew install sip --without-python@2
-- brew install pyqt --without-python@2
+- travis-pls brew install pyqt --without-python@2
 - brew install pygobject3
 - brew install gst-python
 - brew install gst-plugins-bad gst-plugins-ugly gst-plugins-good
