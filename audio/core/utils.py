@@ -3,6 +3,19 @@
 
 import os
 import re
+import sys
+
+
+def is_linux():
+    return sys.platform.startswith('linux')
+
+
+def is_macosx():
+    return sys.platform.startswith('darwin')
+
+
+def is_win():
+    return os.name.startswith('nt')
 
 
 class Utils(object):

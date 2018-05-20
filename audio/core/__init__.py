@@ -7,4 +7,4 @@ Registry().create()
 
 from .registry import Registry
 from .settings import Settings
-from .utils import Utils
+from .utils import Utils, is_linux, is_macosx, is_win
