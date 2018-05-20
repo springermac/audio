@@ -9,11 +9,10 @@ install:
 - brew install python@3
 - pip3 install --upgrade pip setuptools wheel
 - pip3 install travispls
-- brew install sip --without-python@2
-- travis-pls brew install pyqt --without-python@2
 - brew install pygobject3
 - brew install gst-python
 - brew install gst-plugins-bad gst-plugins-ugly gst-plugins-good
+- pip3 install pyqt5
 - pip3 install https://github.com/pyinstaller/pyinstaller/archive/develop.zip
 script:
 - pyinstaller -wdy audio-run.py
