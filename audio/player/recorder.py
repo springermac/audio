@@ -42,6 +42,10 @@ class Recorder(QtCore.QThread):
         self.utils = Utils()
         self.pipeline = Gst.Pipeline()
         self.audiosrc = Gst.ElementFactory.make("autoaudiosrc", "audiosrc")
+        self.captureratecap = Gst.Caps.new_any()
+
+        self.captureratefilter = Gst.ElementFactory.make("capsfilter", "captureratefilter")
+        self.captureratefilter.set_property("caps", self.captureratecap)
 
         self.audioconvert = Gst.ElementFactory.make("audioconvert", "audioconvert")
 
@@ -54,49 +58,55 @@ class Recorder(QtCore.QThread):
         self.recordingratefilter = Gst.ElementFactory.make("capsfilter", "recordingratefilter")
         self.recordingratefilter.set_property("caps", self.recordingratecap)
 
-        self.valve = Gst.ElementFactory.make("valve", "valve")
+        self.levelvalve = Gst.ElementFactory.make("valve", "valve")
 
-        self.sink = Gst.Bin()
+        self.audiosink = Gst.Bin()
 
         self.audiorate = Gst.ElementFactory.make("audiorate", "audiorate")
         self.audiorate.set_property("skip-to-first", True)
         self.wavenc = Gst.ElementFactory.make("wavenc", "wavenc")
         self.filesink = Gst.ElementFactory.make("filesink", "filesink")
 
-        if not (self.sink and self.audiorate and self.wavenc and self.filesink):
-            print("Not all elements could be loaded", sys.stderr)
+        unavailable_elements = []
+        for element in [self.audiosink, self.captureratefilter, self.audiorate, self.recordingratefilter, self.wavenc,
+                        self.filesink]:
+            if not element:
+                unavailable_elements.append(element)
+        if len(unavailable_elements) >= 1:
+            print("Elements could not be loaded: {0}".format(unavailable_elements), sys.stderr)
             exit(-1)
 
-        self.sink.add(self.audiorate)
-        self.sink.add(self.wavenc)
-        self.audiorate.link(self.wavenc)
+        self.audiosink.add(self.audiorate)
+        self.audiosink.add(self.recordingratefilter)
+        self.audiosink.add(self.wavenc)
+        self.audiorate.link(self.recordingratefilter)
+        self.recordingratefilter.link(self.wavenc)
 
-        self.sinkpad = self.audiorate.get_static_pad("sink")
-        self.sinkghostpad = Gst.GhostPad.new("sink", self.sinkpad)
-        self.sinkghostpad.set_active(True)
-        self.sink.add_pad(self.sinkghostpad)
+        self.audiosinkpad = self.audiorate.get_static_pad("sink")
+        self.audiosinkghostpad = Gst.GhostPad.new("sink", self.audiosinkpad)
+        self.audiosinkghostpad.set_active(True)
+        self.audiosink.add_pad(self.audiosinkghostpad)
 
         if not (self.pipeline and self.audiosrc and self.audioconvert and self.audioresample
-                and self.level and self.recordingratefilter and self.valve):
+                and self.level and self.recordingratefilter and self.levelvalve):
             print("Not all elements could be loaded", sys.stderr)
             exit(-1)
 
         self.pipeline.add(self.audiosrc)
+        self.pipeline.add(self.captureratefilter)
         self.pipeline.add(self.audioconvert)
         self.pipeline.add(self.audioresample)
         self.pipeline.add(self.level)
-        self.pipeline.add(self.recordingratefilter)
-        self.pipeline.add(self.valve)
-        self.pipeline.add(self.sink)
+        self.pipeline.add(self.levelvalve)
+        self.pipeline.add(self.audiosink)
 
         if not (self.audiosrc.link(self.audioconvert),
                 self.audioconvert.link(self.audioresample), self.audioresample.link(self.level),
-                self.level.link(self.recordingratefilter), self.recordingratefilter.link(self.valve),
-                self.valve.link(self.sink)):
+                self.level.link(self.levelvalve), self.levelvalve.link(self.audiosink)):
             print("Elements could not be linked", sys.stderr)
             exit(-1)
 
-        self.valve.set_property("drop", True)
+        self.levelvalve.set_property("drop", True)
 
         self.pipeline.set_state(Gst.State.PLAYING)
         self.pipelineactive = True
@@ -114,39 +124,39 @@ class Recorder(QtCore.QThread):
     def record(self):
         if not self.recording:
             self.load()
-            self.sink.add(self.filesink)
+            self.audiosink.add(self.filesink)
             self.wavenc.link(self.filesink)
-            self.sink.set_state(Gst.State.PLAYING)
-            self.valve.set_property("drop", False)
+            self.audiosink.set_state(Gst.State.PLAYING)
+            self.levelvalve.set_property("drop", False)
             self.recording = True
         else:
             if self.paused:
-                self.sink.set_state(Gst.State.PLAYING)
-                self.valve.set_property("drop", False)
+                self.audiosink.set_state(Gst.State.PLAYING)
+                self.levelvalve.set_property("drop", False)
                 time = Gst.Segment()
                 Gst.Segment.init(time, Gst.Format.TIME)
-                time.start = self.valve.clock.get_time()
-                self.valve.send_event(Gst.Event.new_segment(time))
+                time.start = self.levelvalve.clock.get_time()
+                self.levelvalve.send_event(Gst.Event.new_segment(time))
                 self.paused = False
             else:
                 pass
 
     def pause(self):
         if not self.paused:
-            self.valve.set_property("drop", True)
-            self.sink.set_state(Gst.State.PAUSED)
+            self.levelvalve.set_property("drop", True)
+            self.audiosink.set_state(Gst.State.PAUSED)
             self.paused = True
         else:
             pass
 
     def stop(self):
         if self.recording:
-            self.sink.set_state(Gst.State.PLAYING)
-            self.valve.set_property("drop", True)
-            self.sink.send_event(Gst.Event.new_eos())
-            self.sink.set_state(Gst.State.NULL)
+            self.audiosink.set_state(Gst.State.PLAYING)
+            self.levelvalve.set_property("drop", True)
+            self.audiosink.send_event(Gst.Event.new_eos())
+            self.audiosink.set_state(Gst.State.NULL)
             self.wavenc.unlink(self.filesink)
-            self.sink.remove(self.filesink)
+            self.audiosink.remove(self.filesink)
             self.recording = False
             self.paused = False
         else:
@@ -160,7 +170,7 @@ class Recorder(QtCore.QThread):
         """
         t = message.type
         if t == Gst.MessageType.EOS:
-            self.sink.set_state(Gst.State.NULL)
+            self.audiosink.set_state(Gst.State.NULL)
             self.pipelineactive = True
             self.recording = False
         elif t == Gst.MessageType.ERROR:
