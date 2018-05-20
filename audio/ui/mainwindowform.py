@@ -3,7 +3,7 @@
 
 import platform
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, QtWidgets
 
 from audio.ui.mainwindow import Ui_MainWindow
 from audio.help.helpform import HelpForm
@@ -12,7 +12,7 @@ from audio.core import Registry, Settings
 __version__ = "1.0.0"
 
 
-class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
+class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.dirty = False
@@ -55,11 +55,12 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
         if self.dirty:
-            reply = QtGui.QMessageBox.question(self, "Image Changer - Unsaved Changes", "Save unsaved changes?",
-                                               QtGui.QMessageBox.Yes | QtGui.QMessageBox.No | QtGui.QMessageBox.Cancel)
-            if reply == QtGui.QMessageBox.Cancel:
+            reply = QtWidgets.QMessageBox.question(self, "Image Changer - Unsaved Changes", "Save unsaved changes?",
+                                                   QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No |
+                                                   QtWidgets.QMessageBox.Cancel)
+            if reply == QtWidgets.QMessageBox.Cancel:
                 return False
-            elif reply == QtGui.QMessageBox.Yes:
+            elif reply == QtWidgets.QMessageBox.Yes:
                 return self.filesave()
         return True
 
@@ -82,17 +83,17 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
         self.settingstab.loadsettings()
 
     def helpabout(self):
-        QtGui.QMessageBox.about(self, "About Image Changer",
-                                """<b>Image Changer</b> v {0}
-                                <p>Copyright &copy; 2008 Qtrac Ltd.
-                                All rights reserved.
-                                <p>This application can be used to perform
-                                simple image manipulations.
-                                <p>Python {1} - Qt {2} - PyQt {3} on {4}""".format(__version__,
-                                                                                   platform.python_version(),
-                                                                                   QtCore.QT_VERSION_STR,
-                                                                                   QtCore.PYQT_VERSION_STR,
-                                                                                   platform.system()))
+        QtWidgets.QMessageBox.about(self, "About Image Changer",
+                                    """<b>Image Changer</b> v {0}
+                                    <p>Copyright &copy; 2008 Qtrac Ltd.
+                                    All rights reserved.
+                                    <p>This application can be used to perform
+                                    simple image manipulations.
+                                    <p>Python {1} - Qt {2} - PyQt {3} on {4}""".format(__version__,
+                                                                                       platform.python_version(),
+                                                                                       QtCore.QT_VERSION_STR,
+                                                                                       QtCore.PYQT_VERSION_STR,
+                                                                                       platform.system()))
 
     def helphelp(self):
         form = HelpForm("index.html", self)

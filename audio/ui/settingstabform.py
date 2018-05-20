@@ -3,13 +3,13 @@
 
 import os
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtCore, QtWidgets
 
 from audio.ui.settingstab import Ui_settingsTab
 from audio.core import Registry, Settings, Utils
 
 
-class SettingsTab(QtGui.QWidget, Ui_settingsTab):
+class SettingsTab(QtWidgets.QWidget, Ui_settingsTab):
     __sample_rate__ = [
         8000,
         11025,
@@ -53,8 +53,9 @@ class SettingsTab(QtGui.QWidget, Ui_settingsTab):
 
     def loaddirectory(self):
         oldrecordingdirector = str(self.recordingDirectory.text())
-        newrecordingdirectory = str(QtGui.QFileDialog.getExistingDirectory(self, 'Set Directory', oldrecordingdirector,
-                                                                           QtGui.QFileDialog.ShowDirsOnly))
+        newrecordingdirectory = str(QtWidgets.QFileDialog.getExistingDirectory(self, 'Set Directory',
+                                                                               oldrecordingdirector,
+                                                                               QtWidgets.QFileDialog.ShowDirsOnly))
         if newrecordingdirectory:
             newrecordingdirectory = os.path.normpath(newrecordingdirectory)
             if oldrecordingdirector.lower() == newrecordingdirectory.lower():

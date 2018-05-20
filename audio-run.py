@@ -6,8 +6,8 @@ import sys
 import shutil
 import glob
 
-from PyQt4 import QtGui
-from PyQt4.uic import compileUiDir
+from PyQt5 import QtGui, QtWidgets
+from PyQt5.uic import compileUiDir
 
 if getattr(sys, 'frozen', False):
     basedir = sys._MEIPASS
@@ -114,7 +114,7 @@ __version__ = "1.0.0"
 
 
 def main():
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     app.setOrganizationName("springermac")
     app.setApplicationName("Audio")
     app.setWindowIcon(QtGui.QIcon(":/icon.png"))

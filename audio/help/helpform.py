@@ -10,10 +10,10 @@
 # warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
 # the GNU General Public License for more details.
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class HelpForm(QtGui.QDialog):
+class HelpForm(QtWidgets.QDialog):
     def __init__(self, page, parent=None):
         """
 
@@ -24,19 +24,19 @@ class HelpForm(QtGui.QDialog):
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)
         self.setAttribute(QtCore.Qt.WA_GroupLeader)
 
-        backaction = QtGui.QAction(QtGui.QIcon(":/back.png"), "&Back", self)
+        backaction = QtWidgets.QAction(QtGui.QIcon(":/back.png"), "&Back", self)
         backaction.setShortcut(QtGui.QKeySequence.Back)
-        homeaction = QtGui.QAction(QtGui.QIcon(":/home.png"), "&Home", self)
+        homeaction = QtWidgets.QAction(QtGui.QIcon(":/home.png"), "&Home", self)
         homeaction.setShortcut("Home")
-        self.pagelabel = QtGui.QLabel()
+        self.pagelabel = QtWidgets.QLabel()
 
-        toolbar = QtGui.QToolBar()
+        toolbar = QtWidgets.QToolBar()
         toolbar.addAction(backaction)
         toolbar.addAction(homeaction)
         toolbar.addWidget(self.pagelabel)
-        self.textbrowser = QtGui.QTextBrowser()
+        self.textbrowser = QtWidgets.QTextBrowser()
 
-        layout = QtGui.QVBoxLayout()
+        layout = QtWidgets.QVBoxLayout()
         layout.addWidget(toolbar)
         layout.addWidget(self.textbrowser, 1)
         self.setLayout(layout)
@@ -49,7 +49,7 @@ class HelpForm(QtGui.QDialog):
         self.textbrowser.setSource(QtCore.QUrl(page))
         self.resize(400, 600)
         self.setWindowTitle("{0} Help".format(
-            QtGui.QApplication.applicationName()))
+            QtWidgets.QApplication.applicationName()))
 
     def updatepagetitle(self):
         self.pagelabel.setText(self.textbrowser.documentTitle())
@@ -58,7 +58,7 @@ class HelpForm(QtGui.QDialog):
 if __name__ == "__main__":
     import sys
 
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     form = HelpForm("index.html")
     form.show()
     app.exec_()

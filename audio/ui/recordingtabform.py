@@ -3,7 +3,7 @@
 
 import sys
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, QtWidgets
 
 from audio.ui.recordingtab import Ui_recordingTab
 from audio.core import Registry, Settings
@@ -35,7 +35,7 @@ MIN_DB = -96
 MAX_DB = 0
 
 
-class AudioMeter(QtGui.QWidget):
+class AudioMeter(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super(AudioMeter, self).__init__(parent)
         self.rms_percent = 0.0
@@ -46,7 +46,7 @@ class AudioMeter(QtGui.QWidget):
         self.level_color_high = QtGui.QColor(QtCore.Qt.red)
         self.peak_color = QtGui.QColor(QtCore.Qt.yellow)
 
-        self.setSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Preferred)
+        self.setSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
         self.setMinimumWidth(30)
 
     def reset(self):
@@ -124,7 +124,7 @@ class AudioMeter(QtGui.QWidget):
         return pct
 
 
-class RecordingTab(QtGui.QWidget, Ui_recordingTab):
+class RecordingTab(QtWidgets.QWidget, Ui_recordingTab):
     def __init__(self, parent=None):
         super(RecordingTab, self).__init__(parent)
 

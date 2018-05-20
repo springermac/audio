@@ -12,7 +12,7 @@ from gi.repository import Gst, GLib
 
 Gst.init(None)
 
-from PyQt4 import QtCore
+from PyQt5 import QtCore, QtWidgets, QtGui
 
 from audio.core import Registry, Settings, Utils
 

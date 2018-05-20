@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui
 
 
 class Settings(QtCore.QSettings):
@@ -12,7 +12,7 @@ class Settings(QtCore.QSettings):
         'MainWindow/State': QtCore.QByteArray(),
         'MonitorCheckBox': True,
         'RecordingSampleRate': '44100',
-        'RecordingDirectory': str(QtGui.QDesktopServices.storageLocation(QtGui.QDesktopServices.MusicLocation)),
+        'RecordingDirectory': str(QtCore.QStandardPaths.standardLocations(QtCore.QStandardPaths.MusicLocation)),
         'RecordingFilename': '%x.wav'
     }
 
