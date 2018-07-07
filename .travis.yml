@@ -1,5 +1,9 @@
 language: generic
 os: osx
+cache:
+  directories:
+    - $HOME/Library/Caches/pip
+    - $HOME/Library/Caches/Homebrew
 install:
 - brew update
 - brew uninstall --ignore-dependencies python@2 || true
@@ -7,7 +11,6 @@ install:
 - brew uninstall --ignore-dependencies python || true
 - brew install python@3
 - pip3 install --upgrade pip setuptools wheel
-- pip3 install travispls
 - brew install pygobject3
 - brew install gst-python
 - brew install gst-plugins-bad gst-plugins-ugly gst-plugins-good
