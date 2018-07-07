@@ -14,13 +14,16 @@ install:
 - pip3 install pyqt5
 - pip3 install https://github.com/pyinstaller/pyinstaller/archive/develop.zip
 script:
-- pyinstaller -wy -d all audio-run.py
-deploy:
-  provider: script
-  script: ./deploy.sh
-  skip_cleanup: true
-  on:
-    branch: gst
+- pyinstaller -wy -d all -n audio audio-run.py
+addons:
+  artifacts:
+    s3_region: "us-east-2"
+#deploy:
+#  provider: script
+#  script: ./deploy.sh
+#  skip_cleanup: true
+#  on:
+#    branch: gst
 notifications:
   slack:
     secure: juocjqSjDTDkA7h6s18jCffGQMdU+JgAeDyl9LBB+02sFxn3HUpEF35JqJQ+SCZySv1htxPWyjOZYsJ8aU6kM+El1w/SfsUyiJoXK6eIM0CWamXmJZBjrGuZvPc4SAZrHhxCeB9NAy5Ogs17gNYT4mOM+wHtmY1nbHHAr/jMzi+cQinpaeqx//1Ct8ncv08DB0yX/uN7ByN8EK12J0B6oKM5nP2sVSFtZhlgBgJ+HWxnSzASRAxdidNu9Qhy5d6X9V54rRfYhpBwSycenFDoTUEzcYMOCO6Hsb3zkNPqfHeSAy99ITun0LwEsrm9t025I2N5t8B5Fb9aGVUucYmaSnD02WSORLPfpsIOr7cat8rWlHsOconQQocY/kxA7ki2nMJRa0ui5XM6xCsmqsLaGKorJDoyxuxWHcsLt7ARmA8E5JkT4HAsgzOQIL+F1mEoIsfDNejdATwUte550z7XzG2zt/lxR5HO1avxPGyj+G6EIfdoSood2i4X0aNFh+Q1Sdx5s1XBAumAW+AyzJwql33qSSgrth7SBk9sz2hvLJwC8rE2U+Tg3sw2NyfI0jwlSu5McU+KgqueBqZoirmNsGr7vezzk38UScLl8XLU0Dy7WoLEQfxfTh3fAIsjLau6ugJPf/A73x3opNh3z5xzoj3pTr9Wve5nJ4XrtBBVM0s=
