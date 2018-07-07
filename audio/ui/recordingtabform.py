@@ -21,7 +21,7 @@ class RecordingTab(QtWidgets.QWidget, Ui_recordingTab):
     def __init__(self, parent=None):
         super(RecordingTab, self).__init__(parent)
 
-        self.recorder = Recorder()
+        self.recorder = Registry().get('recorder')
         self.settings = Settings()
 
         self.setupUi(self)

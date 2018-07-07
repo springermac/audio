@@ -15,7 +15,7 @@ class Level(QtCore.QObject):
         super(Level, self).__init__()
         self.settings = Settings()
 
-        self.bin = Gst.Bin()
+        self.bin = Gst.Bin('levelbin')
 
         self.levelqueue = Gst.ElementFactory.make("queue", "levelqueue")
 

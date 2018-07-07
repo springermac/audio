@@ -15,7 +15,7 @@ class SettingsTab(QtWidgets.QWidget, Ui_settingsTab):
 
         self.setupUi(self)
 
-        self.recorder = Registry().get('recorder')
+        self.pipeline = Registry().get('pipeline')
         self.settings = Settings()
         self.utils = Utils()
 
@@ -75,7 +75,7 @@ class SettingsTab(QtWidgets.QWidget, Ui_settingsTab):
 
     def loadsettings(self):
         self.monitorAudio.setChecked(self.settings.value("MonitorCheckBox"))
-        sample_rates = self.recorder.get_capable_sample_rates()
+        sample_rates = self.pipeline.get_capable_sample_rates()
         for sample_rate in sample_rates:
             self.recordingSampleRate.addItem(str(sample_rate))
         samplerateindex = self.recordingSampleRate.findText(self.settings.value("RecordingSampleRate"))

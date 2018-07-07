@@ -16,7 +16,7 @@ class Spectrum(QtCore.QObject):
         self.sample_rate = 0
         self.threshold = -80
 
-        self.bin = Gst.Bin()
+        self.bin = Gst.Bin('spectrumbin')
 
         self.audioqueue = Gst.ElementFactory.make("queue", "spectrumqueue")
 
