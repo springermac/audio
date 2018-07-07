@@ -19,7 +19,7 @@ install:
 script:
 - pyinstaller -wy -d all -n audio audio-run.py
 after_success:
-  - zip -r archive.zip dist/audio.app
+  - zip -qr archive.zip dist/audio.app
 addons:
   artifacts:
     paths:
