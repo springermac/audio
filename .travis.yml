@@ -18,6 +18,7 @@ script:
 addons:
   artifacts:
     s3_region: "us-east-2"
+    debug: true
 #deploy:
 #  provider: script
 #  script: ./deploy.sh
