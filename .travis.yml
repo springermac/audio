@@ -15,9 +15,12 @@ install:
 - pip3 install https://github.com/pyinstaller/pyinstaller/archive/develop.zip
 script:
 - pyinstaller -wy -d all -n audio audio-run.py
+after_success:
+  - zip -r archive.zip dist/audio.app
 addons:
   artifacts:
-    working_dir: dist
+    paths:
+    - archive.zip
     debug: true
 #deploy:
 #  provider: script
