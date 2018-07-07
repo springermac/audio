@@ -1,11 +1,7 @@
-language: objective-c
+language: generic
+os: osx
 install:
-#- git clone https://github.com/MacPython/terryfy.git
-#- source terryfy/travis_tools.sh
 - brew update
-- brew uninstall --ignore-dependencies python@2 || true
-- brew uninstall --ignore-dependencies python@3 || true
-- brew uninstall --ignore-dependencies python || true
 - brew install python@3
 - pip3 install --upgrade pip setuptools wheel
 - pip3 install travispls
@@ -15,7 +11,7 @@ install:
 - pip3 install pyqt5
 - pip3 install https://github.com/pyinstaller/pyinstaller/archive/develop.zip
 script:
-- pyinstaller -wdy audio-run.py
+- pyinstaller -wy -d all audio-run.py
 deploy:
   provider: script
   script: ./deploy.sh
