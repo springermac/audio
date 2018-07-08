@@ -3,8 +3,8 @@
 
 import os
 import sys
-import shutil
 import glob
+import re
 
 from PyQt5 import QtGui, QtWidgets
 from PyQt5.uic import compileUiDir
@@ -13,9 +13,16 @@ if getattr(sys, 'frozen', False):
     basedir = sys._MEIPASS
 else:
     basedir = os.path.dirname(__file__)
-    compileUiDir(os.path.join(basedir, 'audio/resources'), from_imports=True)
-    for file_ in glob.glob(os.path.join(basedir, 'audio/resources/*.py')):
-        shutil.copy(file_, os.path.join(basedir, 'audio/ui'))
+    compileUiDir(os.path.join(basedir, 'audio', 'resources'), from_imports=True)
+    for file_ in glob.glob(os.path.join(basedir, 'audio', 'resources', '*.py')):
+        infile = open(file_)
+        outfile = open(os.path.join(basedir, 'audio', 'ui', os.path.basename(file_)), 'w')
+        for i in infile:
+            n = re.sub(r'(#\s*Created:.*)', '#', i)
+            a = re.sub(r'(#\s*by:.*)', '#', n)
+            outfile.write(a)
+        infile.close()
+        outfile.close()
         if os.path.exists(file_):
             os.remove(file_)
 
