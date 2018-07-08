@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/Users/jonathanspringer/projects/audio/audio/resources/audiometer.ui'
+# Form implementation generated from reading ui file '/audio/resources/audiometer.py'
 #
 # Created by: PyQt5 UI code generator 5.10.1
 #

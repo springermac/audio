@@ -4,7 +4,6 @@
 import os
 import sys
 import glob
-import re
 
 from PyQt5 import QtGui, QtWidgets
 from PyQt5.uic import compileUiDir
@@ -18,9 +17,8 @@ else:
         infile = open(file_)
         outfile = open(os.path.join(basedir, 'audio', 'ui', os.path.basename(file_)), 'w')
         for i in infile:
-            n = re.sub(r'(#\s*Created:.*)', '#', i)
-            a = re.sub(r'(#\s*by:.*)', '#', n)
-            outfile.write(a)
+            i = i.replace(os.path.splitext(file_)[0] + '.ui', file_.split(basedir)[1])
+            outfile.write(i)
         infile.close()
         outfile.close()
         if os.path.exists(file_):

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/Users/jonathanspringer/projects/audio/audio/resources/recordingtab.ui'
+# Form implementation generated from reading ui file '/audio/resources/recordingtab.py'
 #
 # Created by: PyQt5 UI code generator 5.10.1
 #
