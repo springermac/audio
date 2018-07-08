@@ -12,11 +12,11 @@ install:
 - brew uninstall --ignore-dependencies python || true
 - curl -LO https://homebrew.bintray.com/bottles/python-3.6.5_1.el_capitan.bottle.tar.gz
 - brew install -f python-3.6.5_1.el_capitan.bottle.tar.gz
-- brew install pygobject3
-- brew install gst-python
-- brew install gst-plugins-bad gst-plugins-ugly gst-plugins-good
 - brew switch python 3.6.5_1
 - pip3 install --upgrade pip setuptools wheel
+- brew install -s py3cairo pygobject3
+- brew install -s gst-python
+- brew install gst-plugins-bad gst-plugins-ugly gst-plugins-good
 - pip3 install pyqt5
 - pip3 install https://github.com/springermac/pyinstaller/archive/green-tests.zip
 script:
