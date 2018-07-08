@@ -50,7 +50,8 @@ class Spectrum(QtCore.QObject):
     def message_handler(self, message):
         bands = BANDS
         if self.sample_rate == 0:
-            self.sample_rate = self.spectrum_element.get_static_pad('src').get_current_caps().get_structure(0).get_value('rate')
+            self.sample_rate = self.spectrum_element.get_static_pad('src').get_current_caps().get_structure(0)\
+                .get_value('rate')
         half_sample = self.sample_rate / 2
         quarter_sample = self.sample_rate / 4
         struct = message.get_structure()

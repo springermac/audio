@@ -2,9 +2,7 @@
 # coding=utf-8
 
 import os
-import re
 import sys
-import datetime
 
 os.putenv("GST_DEBUG_DUMP_DOT_DIR", ".")
 

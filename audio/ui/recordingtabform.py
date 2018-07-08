@@ -5,7 +5,6 @@ from PyQt5 import QtCore, QtWidgets
 
 from audio.ui.recordingtab import Ui_recordingTab
 from audio.core import Registry, Settings
-from audio.player.recorder import Recorder
 
 RECORDING_STYLE = """
     QPushButton {
