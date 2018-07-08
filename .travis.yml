@@ -12,7 +12,7 @@ install:
 - brew uninstall --ignore-dependencies python || true
 - curl -LO https://homebrew.bintray.com/bottles/python-3.6.5_1.el_capitan.bottle.tar.gz
 - brew install -f python-3.6.5_1.el_capitan.bottle.tar.gz
-#- brew install python@3
+- brew switch python 3.6.5_1
 - pip3 install --upgrade pip setuptools wheel
 - brew install pygobject3
 - brew install gst-python
