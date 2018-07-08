@@ -18,7 +18,7 @@ install:
 - brew switch python 3.6.5_1
 - pip3 install --upgrade pip setuptools wheel
 - pip3 install pyqt5
-- pip3 install https://github.com/pyinstaller/pyinstaller/archive/develop.zip
+- pip3 install https://github.com/springermac/pyinstaller/archive/green-tests.zip
 script:
 - pyinstaller -wy -d all -n audio audio-run.py
 after_success:
@@ -27,7 +27,6 @@ addons:
   artifacts:
     paths:
     - archive.zip
-    debug: true
 #deploy:
 #  provider: script
 #  script: ./deploy.sh
