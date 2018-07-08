@@ -10,7 +10,7 @@ install:
 - brew uninstall --ignore-dependencies python@2 || true
 - brew uninstall --ignore-dependencies python@3 || true
 - brew uninstall --ignore-dependencies python || true
-- curl -O https://homebrew.bintray.com/bottles/python-3.6.5_1.el_capitan.bottle.tar.gz
+- curl -LO https://homebrew.bintray.com/bottles/python-3.6.5_1.el_capitan.bottle.tar.gz
 - brew install -f python-3.6.5_1.el_capitan.bottle.tar.gz
 #- brew install python@3
 - pip3 install --upgrade pip setuptools wheel
