@@ -8,10 +8,9 @@ cache:
 install:
 - brew update
 - brew uninstall --ignore-dependencies python@2 || true
-- brew uninstall --ignore-dependencies python@3 || true
 - brew uninstall --ignore-dependencies python || true
 - brew install python@3
-- brew uninstall python@3
+- brew uninstall --ignore-dependencies python@3
 - curl -LO https://homebrew.bintray.com/bottles/python-3.6.5_1.el_capitan.bottle.tar.gz
 - brew install -f python-3.6.5_1.el_capitan.bottle.tar.gz
 - brew switch python 3.6.5_1
