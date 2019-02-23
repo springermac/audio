@@ -23,8 +23,8 @@ class AudioMeterForm(QtWidgets.QWidget, Ui_AudioMeter):
         self.setSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         self.setMinimumWidth(30)
 
-        self.level.updatemeter.connect(self.level_changed)
-        self.level.reset.connect(self.reset)
+        # self.level.updatemeter.connect(self.level_changed)
+        # self.level.reset.connect(self.reset)
 
     def reset(self):
         self.rms_percent = 0.0
