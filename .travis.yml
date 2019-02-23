@@ -20,7 +20,7 @@ install:
 script:
   - pyinstaller audio-run.py -wy -d all -n audio-debug --log-level=DEBUG
 after_success:
-  - zip -qr archive.zip dist/audio.app
+  - zip -qr archive.zip dist/audio-debug.app
 addons:
   artifacts:
     paths:
