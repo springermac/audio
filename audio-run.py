@@ -4,6 +4,7 @@
 import os
 import sys
 import glob
+import trace
 
 from PyQt5 import QtGui, QtWidgets
 from PyQt5.uic import compileUiDir
@@ -128,4 +129,5 @@ def main():
     app.exec_()
 
 
-main()
+tracer = trace.Trace(trace=1)
+tracer.run('main()')
