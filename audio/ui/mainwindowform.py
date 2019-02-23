@@ -20,7 +20,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.filename = None
         self.image = None
 
-        # self.pipeline = Pipeline()
+        self.pipeline = Pipeline()
 
         self.setupUi(self)
         self.statusbar.showMessage("Ready", 5000)
@@ -37,7 +37,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.settingstab = Registry().get('settings_tab')
 
         self.loadsettings()
-        # self.pipeline.start()
+        self.pipeline.start()
 
     def closeEvent(self, event):
         """
@@ -45,7 +45,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         :param event:
         """
         if self.oktocontinue():
-            # self.pipeline.stop_loop()
+            self.pipeline.stop_loop()
             self.savesettings()
         else:
             event.ignore()
