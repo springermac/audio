@@ -8,7 +8,7 @@ from PyQt5 import QtGui, QtCore, QtWidgets
 from audio.ui.mainwindow import Ui_MainWindow
 from audio.help.helpform import HelpForm
 from audio.core import Registry, Settings
-# from audio.player.pipeline import Pipeline
+from audio.player.pipeline import Pipeline
 
 __version__ = "1.0.0"
 
