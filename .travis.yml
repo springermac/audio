@@ -28,8 +28,8 @@ matrix:
       install:
         - choco install -y msys2
 
-after_success:
-  - zip -qr archive.zip dist/audio-debug.*
+#after_success:
+#  - zip -qr archive.zip dist/audio-debug.*
 #addons:
 #  artifacts:
 #    paths:
