@@ -30,10 +30,10 @@ matrix:
 
 after_success:
   - zip -qr archive.zip dist/audio-debug.*
-addons:
-  artifacts:
-    paths:
-    - archive.zip
+#addons:
+#  artifacts:
+#    paths:
+#    - archive.zip
 #deploy:
 #  provider: script
 #  script: ./deploy.sh
