@@ -27,7 +27,8 @@ matrix:
       language: sh
       install:
         - choco install -y msys2
-        - powershell C:\tools\msys64\usr\bin\bash -lc 'pacman -S mingw-w64-x86_64-gst-python'
+        - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S mingw-w64-x86_64-gst-python'"
+        - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S mingw-w64-x86_64-python3-pyqt5'"
 
 #after_success:
 #  - zip -qr archive.zip dist/audio-debug.*
