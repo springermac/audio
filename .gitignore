@@ -57,6 +57,4 @@ docs/_build/
 # Media Files
 *.wav
 
-*.spec
-
 *.dot
