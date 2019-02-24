@@ -6,23 +6,23 @@ cache:
     - $HOME/Library/Caches/pip
     - $HOME/Library/Caches/Homebrew
 install:
-- brew update
-- brew uninstall --ignore-dependencies python@2 || true
-- brew uninstall --ignore-dependencies python@3 || true
-- brew uninstall --ignore-dependencies python || true
-- brew install python@3
 - pip3 install --upgrade pip setuptools wheel
-- brew install py3cairo pygobject3
-- brew install gst-python
-- brew install gst-plugins-bad gst-plugins-ugly gst-plugins-good
-- brew install pyqt5
-#- pip3 install pyqt5
-- pip3 install https://github.com/springermac/pyinstaller/archive/green-tests.zip
+- pip3 install https://github.com/pyinstaller/pyinstaller/archive/develop.zip
 script:
   - pyinstaller audio-debug.spec
 after_success:
   - zip -qr archive.zip dist/audio-debug.app
 addons:
+  homebrew:
+    packages:
+      - python@3
+      - pygobject3
+      - gst-python
+      - gst-plugins-bad
+      - gst-plugins-ugly
+      - gst-plugins-good
+      - pyqt5
+    update: true
   artifacts:
     paths:
     - archive.zip
