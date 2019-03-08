@@ -37,7 +37,7 @@ matrix:
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pyqt5'"
       script: true
       before_cache:
-        - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -Sc --noconfirm'
+        - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -Sc --noconfirm'"
         - ls -la cache
         - mv /c/tools/msys64/var/cache/pacman/pkg cache/msys2
 
