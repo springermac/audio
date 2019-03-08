@@ -27,10 +27,10 @@ matrix:
       language: sh
       cache:
         directories:
-          - cache
+          - cache/msys2
       install:
-        - choco install -y --no-progress msys2 --params "/NoUpdate"
-        - mv cache /c/tools/msys64/var/cache/pacman/pkg
+        - choco install -y --no-progress msys2 --package-parameters'"/NoUpdate"'
+        - mv cache/msys2 /c/tools/msys64/var/cache/pacman/pkg
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -Syu --noconfirm'"
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -Su --noconfirm'"
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-gst-python'"
@@ -39,7 +39,7 @@ matrix:
       before_cache:
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -Sc --noconfirm'
         - ls -la cache
-        - mv /c/tools/msys64/var/cache/pacman/pkg cache
+        - mv /c/tools/msys64/var/cache/pacman/pkg cache/msys2
 
 #after_success:
 #  - zip -qr archive.zip dist/audio-debug.*
