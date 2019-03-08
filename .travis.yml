@@ -35,6 +35,10 @@ matrix:
       script: true
       before_cache:
         - cd /; ls -la
+        - ls /tools/msys64/
+        - ls /tools/msys64/var/
+        - ls /tools/msys64/var/cache/
+        - ls /tools/msys64/var/cache/pacman/
         - ls /tools/msys64/var/cache/pacman/pkg
 
 #after_success:
