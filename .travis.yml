@@ -30,16 +30,12 @@ matrix:
 #          - /tools/msys64/var/cache/pacman/pkg
       install:
         - choco install -y --no-progress msys2
-        - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-gst-python'"
-        - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pyqt5'"
+#        - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-gst-python'"
+#        - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pyqt5'"
       script: true
       before_cache:
         - cd /; ls -la
-        - ls /tools/msys64/
-        - ls /tools/msys64/var/
-        - ls /tools/msys64/var/cache/
-        - ls /tools/msys64/var/cache/pacman/
-        - ls /tools/msys64/var/cache/pacman/pkg
+        - cd ..; ls -la
 
 #after_success:
 #  - zip -qr archive.zip dist/audio-debug.*
