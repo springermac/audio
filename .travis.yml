@@ -25,9 +25,9 @@ matrix:
 #        - pyinstaller audio-debug.spec
     - os: windows
       language: sh
-      cache:
-        directories:
-          - /tools/msys64/var/cache/pacman/pkg
+#      cache:
+#        directories:
+#          - /tools/msys64/var/cache/pacman/pkg
       install:
         - choco install -y --no-progress msys2
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-gst-python'"
