@@ -27,7 +27,7 @@ matrix:
       language: sh
       cache:
         directories:
-          - "C:\tools\msys64\var\cache\pacman\pkg"
+          - 'C:\tools\msys64\var\cache\pacman\pkg'
       install:
         - choco install -y --no-progress msys2
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-gst-python'"
