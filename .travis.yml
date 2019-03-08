@@ -29,7 +29,9 @@ matrix:
         directories:
           - /c/tools/msys64/var/cache/pacman/pkg
       install:
+        - mv /c/tools/msys64/var/cache/pacman/pkg /tmp/cache
         - choco install -y --no-progress msys2
+        - mv /tmp/cache /c/tools/msys64/var/cache/pacman/pkg
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-gst-python'"
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pyqt5'"
       script: true
