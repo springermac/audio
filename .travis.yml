@@ -35,7 +35,7 @@ matrix:
       script: true
       before_cache:
         - cd /; ls -la
-        - cd ..; ls -la
+        - cd /c/; ls -la
 
 #after_success:
 #  - zip -qr archive.zip dist/audio-debug.*
