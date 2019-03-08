@@ -29,7 +29,7 @@ matrix:
         directories:
           - cache/msys2
       install:
-        - choco install -y --no-progress msys2 --package-parameters'"/NoUpdate"'
+        - choco install -y --no-progress msys2 --package-parameters='"/NoUpdate"'
         - mv cache/msys2 /c/tools/msys64/var/cache/pacman/pkg
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -Syu --noconfirm'"
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -Su --noconfirm'"
