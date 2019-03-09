@@ -35,12 +35,13 @@ matrix:
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -Su --noconfirm'"
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-gst-python'"
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pyqt5'"
-      script: true
+        - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pip'"
+        - powershell "C:\tools\msys64\usr\bin\bash -lc 'pip3 install https://github.com/pyinstaller/pyinstaller/archive/develop.zip'"
+      script:
+        - powershell "C:\tools\msys64\usr\bin\bash -lc 'python3 pyinstaller -h'"
       before_cache:
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -Sc --noconfirm'"
         - mv /c/tools/msys64/var/cache/pacman/pkg cache/msys2
-        - ls -la cache
-        - ls -la cache/msys2
 
 #after_success:
 #  - zip -qr archive.zip dist/audio-debug.*
