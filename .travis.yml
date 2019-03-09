@@ -38,8 +38,9 @@ matrix:
       script: true
       before_cache:
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -Sc --noconfirm'"
-        - ls -la cache
         - mv /c/tools/msys64/var/cache/pacman/pkg cache/msys2
+        - ls -la cache
+        - ls -la cache/msys2
 
 #after_success:
 #  - zip -qr archive.zip dist/audio-debug.*
