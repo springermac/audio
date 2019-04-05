@@ -29,6 +29,9 @@ matrix:
         directories:
           - cache/msys2
       install:
+        - powershell Start-Process -PassThru -Wait PowerShell -ArgumentList "'-Command Set-MpPreference -DisableArchiveScanning \$true'"
+        - powershell Start-Process -PassThru -Wait PowerShell -ArgumentList "'-Command Set-MpPreference -DisableBehaviorMonitoring \$true'"
+        - powershell Start-Process -PassThru -Wait PowerShell -ArgumentList "'-Command Set-MpPreference -DisableRealtimeMonitoring \$true'"
         - choco install -y --no-progress msys2 --package-parameters='"/NoUpdate"'
         - mv cache/msys2 /c/tools/msys64/var/cache/pacman/pkg
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -Syu --noconfirm'"
