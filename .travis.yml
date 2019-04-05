@@ -36,7 +36,7 @@ matrix:
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-gst-python'"
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pyqt5'"
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pip'"
-        - powershell "C:\tools\msys64\usr\bin\bash -lc 'ls /usr/bin/'"
+        - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -Ql --noconfirm mingw-w64-x86_64-python3-pip'"
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pip install https://github.com/pyinstaller/pyinstaller/archive/develop.zip'"
       script:
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'python pyinstaller -h'"
