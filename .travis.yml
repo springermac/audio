@@ -44,7 +44,7 @@ matrix:
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'unzip develop.zip; cd pyinstaller-develop; /mingw64/bin/python3.exe setup.py install'"
 #        - powershell "C:\tools\msys64\usr\bin\bash -lc '/mingw64/bin/pip3.exe install https://github.com/pyinstaller/pyinstaller/archive/develop.zip'"
       script:
-        - powershell "C:\tools\msys64\usr\bin\bash -lc 'python3.exe pyinstaller -h'"
+        - powershell "C:\tools\msys64\usr\bin\bash -lc 'python3.exe -m PyInstaller -h'"
       before_cache:
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -Sc --noconfirm'"
         - mv /c/tools/msys64/var/cache/pacman/pkg cache/msys2
