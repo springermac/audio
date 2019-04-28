@@ -25,29 +25,28 @@ matrix:
 #        - pyinstaller audio-debug.spec
     - os: windows
       language: sh
-      cache:
-        directories:
-          - cache/msys2
+#      cache:
+#        directories:
+#          - cache/msys2
       install:
         - powershell Start-Process -PassThru -Wait PowerShell -ArgumentList "'-Command Set-MpPreference -DisableArchiveScanning \$true'"
         - powershell Start-Process -PassThru -Wait PowerShell -ArgumentList "'-Command Set-MpPreference -DisableBehaviorMonitoring \$true'"
         - powershell Start-Process -PassThru -Wait PowerShell -ArgumentList "'-Command Set-MpPreference -DisableRealtimeMonitoring \$true'"
-        - choco install -y --no-progress msys2 --package-parameters='"/NoUpdate"'
-        - mv cache/msys2 /c/tools/msys64/var/cache/pacman/pkg
-        - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -Syu --noconfirm'"
-        - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -Su --noconfirm'"
+        - choco install -y --no-progress msys2'
+#        - mv cache/msys2 /c/tools/msys64/var/cache/pacman/pkg
+#        - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -Syu --noconfirm'"
+#        - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -Su --noconfirm'"
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm unzip'"
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-gst-python'"
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pyqt5'"
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pip'"
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'curl -L -o develop.zip https://github.com/pyinstaller/pyinstaller/archive/develop.zip'"
         - powershell "C:\tools\msys64\usr\bin\bash -lc 'unzip develop.zip; cd pyinstaller-develop; /mingw64/bin/python3.exe setup.py install'"
-#        - powershell "C:\tools\msys64\usr\bin\bash -lc '/mingw64/bin/pip3.exe install https://github.com/pyinstaller/pyinstaller/archive/develop.zip'"
       script:
         - powershell "C:\tools\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -m PyInstaller -h'"
-      before_cache:
-        - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -Sc --noconfirm'"
-        - mv /c/tools/msys64/var/cache/pacman/pkg cache/msys2
+#      before_cache:
+#        - powershell "C:\tools\msys64\usr\bin\bash -lc 'pacman -Sc --noconfirm'"
+#        - mv /c/tools/msys64/var/cache/pacman/pkg cache/msys2
 
 #after_success:
 #  - zip -qr archive.zip dist/audio-debug.*
