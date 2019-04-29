@@ -18,6 +18,9 @@ matrix:
             - gst-plugins-good
             - pyqt5
           update: true
+        artifacts:
+          paths:
+            - archive.zip
       install:
         - pip3 install --upgrade pip setuptools wheel
         - pip3 install https://github.com/pyinstaller/pyinstaller/archive/develop.zip
@@ -25,10 +28,6 @@ matrix:
         - pyinstaller audio-debug.spec
 after_success:
   - zip -qr archive.zip dist/audio-debug.*
-addons:
-  artifacts:
-    paths:
-    - archive.zip
 #deploy:
 #  provider: script
 #  script: ./deploy.sh
