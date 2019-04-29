@@ -7,7 +7,3 @@ install:
   - C:\msys64\usr\bin\bash -lc 'unzip develop.zip; cd pyinstaller-develop; /mingw64/bin/python3.exe setup.py install'
 build_script:
   - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -m PyInstaller -h'
-after_build:
-  - C:\msys64\usr\bin\bash -lc 'pacman -Sc --noconfirm'
-cache:
-  - C:\msys64\var\cache\pacman\pkg
