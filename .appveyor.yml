@@ -1,0 +1,9 @@
+install:
+  - C:\msys64\usr\bin\bash -lc 'pacman -S --noconfirm unzip'
+  - C:\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-gst-python'
+  - C:\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pyqt5'
+  - C:\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pip'
+  - C:\msys64\usr\bin\bash -lc 'curl -L -o develop.zip https://github.com/pyinstaller/pyinstaller/archive/develop.zip'
+  - C:\msys64\usr\bin\bash -lc 'unzip develop.zip; cd pyinstaller-develop; /mingw64/bin/python3.exe setup.py install'
+build_script:
+  - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -m PyInstaller -h'
