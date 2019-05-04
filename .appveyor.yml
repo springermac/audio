@@ -6,7 +6,7 @@ install:
   - C:\msys64\usr\bin\bash -lc 'curl -L -o develop.zip https://github.com/pyinstaller/pyinstaller/archive/develop.zip'
   - C:\msys64\usr\bin\bash -lc 'unzip develop.zip; cd pyinstaller-develop; /mingw64/bin/python3.exe setup.py install'
 build_script:
-  - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -m PyInstaller /../projects/audio/audio-run.py -wy -d all -n audio-debug --log-level=DEBUG --exclude-module PyQt5.QtWebEngine --exclude-module PyQt5.QtWebEngineCore --exclude-module PyQt5.QtWebEngineWidgets --exclude-module PyQt5.QtQuickWidgets --exclude-module PyQt5.QtQuick --exclude-module PyQt5.QtQml --exclude-module PyQt5.QtWebChannel --exclude-module PyQt5.QtQtWebSockets --exclude-module PyQt5.QtWebKit PyQt5.uic'
+  - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -m PyInstaller /../projects/audio/audio-run.py -wy -d all -n audio-debug --log-level=DEBUG --exclude-module PyQt5.QtWebEngine --exclude-module PyQt5.QtWebEngineCore --exclude-module PyQt5.QtWebEngineWidgets --exclude-module PyQt5.QtQuickWidgets --exclude-module PyQt5.QtQuick --exclude-module PyQt5.QtQml --exclude-module PyQt5.QtWebChannel --exclude-module PyQt5.QtQtWebSockets --exclude-module PyQt5.QtWebKit --exclude-module PyQt5.uic'
 artifacts:
   - path: C:\projects\audio\dist
     type: zip
