@@ -3,7 +3,7 @@ install:
   - C:\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-gst-python'
   - C:\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pyqt5'
   - C:\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pip'
-  - C:\msys64\usr\bin\bash -lc 'curl -L -o develop.zip https://github.com/pyinstaller/pyinstaller/archive/develop.zip'
+  - C:\msys64\usr\bin\bash -lc 'curl -L -o develop.zip https://github.com/springermac/pyinstaller/archive/_struct.zip'
   - C:\msys64\usr\bin\bash -lc 'unzip develop.zip; cd pyinstaller-develop; /mingw64/bin/python3.exe setup.py install'
 build_script:
   - C:\msys64\usr\bin\bash -lc 'cd /c/projects/audio; /mingw64/bin/python3.exe -m PyInstaller audio-run.py -cy -d all -n audio-debug --log-level=DEBUG --exclude-module PyQt5.QtWebEngine --exclude-module PyQt5.QtWebEngineCore --exclude-module PyQt5.QtWebEngineWidgets --exclude-module PyQt5.QtQuickWidgets --exclude-module PyQt5.QtQuick --exclude-module PyQt5.QtQml --exclude-module PyQt5.QtWebChannel --exclude-module PyQt5.QtQtWebSockets --exclude-module PyQt5.QtWebKit --exclude-module PyQt5.uic'
