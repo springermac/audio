@@ -6,11 +6,11 @@ import sys
 import glob
 
 from PyQt5 import QtGui, QtWidgets
-from PyQt5.uic import compileUiDir
 
 if getattr(sys, 'frozen', False):
     basedir = sys._MEIPASS
 else:
+    from PyQt5.uic import compileUiDir
     basedir = os.path.dirname(__file__)
     compileUiDir(os.path.join(basedir, 'audio', 'resources'), from_imports=True)
     for file_ in glob.glob(os.path.join(basedir, 'audio', 'resources', '*.py')):
