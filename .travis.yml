@@ -16,13 +16,14 @@ matrix:
             - gst-plugins-bad
             - gst-plugins-ugly
             - gst-plugins-good
-            - pyqt5
           update: true
         artifacts:
           paths:
             - archive.zip
       install:
         - pip3 install --upgrade pip setuptools wheel
+        - pip3 install PyQt5
+        - pip3 install PyQtChart
         - pip3 install https://github.com/pyinstaller/pyinstaller/archive/develop.zip
       script:
         - pyinstaller audio-debug.spec
