@@ -5,7 +5,7 @@ install:
   - C:\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pip'
   - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -c "import sys; print(sys.platform)"'
   - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -m pip install --upgrade pip'
-  - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -m pip -v -v -v download PyQt5'
+  - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -m pip -v -v -v download PySide2'
   - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -m pip install PyQtChart'
   - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -m pip install numpy'
   - C:\msys64\usr\bin\bash -lc 'curl -L -o develop.zip https://github.com/springermac/pyinstaller/archive/_struct.zip'
