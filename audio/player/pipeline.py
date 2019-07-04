@@ -12,11 +12,11 @@ from gi.repository import Gst, GLib
 
 Gst.init(None)
 
-Gst.debug_set_default_threshold(4)
+# Gst.debug_set_default_threshold(4)
 # Gst.debug_set_threshold_for_name('ringbuffer', 0)
 # Gst.debug_set_threshold_for_name('wavenc', 7)
 # Gst.debug_set_threshold_for_name('osxaudio', 7)
-Gst.debug_set_active(True)
+# Gst.debug_set_active(True)
 
 from PyQt5 import QtCore
 

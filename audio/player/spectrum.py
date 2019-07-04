@@ -5,7 +5,7 @@ from PyQt5 import QtCore
 
 from audio.ui.spectrumform import SpectrumForm
 
-BANDS = 700
+BANDS = 3000
 
 
 class Spectrum(QtCore.QObject):
@@ -58,12 +58,13 @@ class Spectrum(QtCore.QObject):
         magnitude = struct.get_value("magnitude")
         if magnitude:
             bars = list()
+            freqs = list()
             for i, x in enumerate(magnitude):
                 freq = (half_sample * i + quarter_sample) / BANDS
-                if freq > 8000:
-                    bands -= 1
-                    pass
+                if freq > 30000:
+                    continue
+                freqs.append(freq)
                 bars.append(x)
                 # print(x, pct)
             # print(bars)
-            self.spectrum_widget.set_bars(bars, bands)
+            self.spectrum_widget.set_bars(bars, freqs)
