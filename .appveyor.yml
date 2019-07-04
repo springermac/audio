@@ -3,7 +3,7 @@ install:
   - C:\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-gst-python'
   - C:\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-gst-plugins-good mingw-w64-x86_64-gst-plugins-bad'
   - C:\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pip'
-  - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -m pip -V'
+  - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe --version'
   - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -m pip install --upgrade pip'
   - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -m pip -v -v -v install PyQt5'
   - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -m pip install PyQtChart'
