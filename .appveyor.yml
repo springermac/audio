@@ -5,7 +5,6 @@ install:
   - C:\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pip'
   - C:\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pyqt5'
   - C:\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-numpy'
-  - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -m pip install PyQtChart'
   - C:\msys64\usr\bin\bash -lc 'curl -L -o PyQtChart_gpl-5.13.0.zip https://www.riverbankcomputing.com/static/Downloads/PyQtChart/5.13.0/PyQtChart_gpl-5.13.0.zip'
   - C:\msys64\usr\bin\bash -lc 'unzip PyQtChart_gpl-5.13.0.zip; cd PyQtChart_gpl-5.13.0; /mingw64/bin/python3.exe configure.py; make; make install'
   - C:\msys64\usr\bin\bash -lc 'curl -L -o develop.zip https://github.com/springermac/pyinstaller/archive/_struct.zip'
