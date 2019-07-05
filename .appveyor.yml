@@ -6,7 +6,7 @@ install:
   - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -c "import sys; print(sys.platform)"'
   - C:\msys64\usr\bin\bash -lc 'curl -L -o master.zip https://github.com/pypa/pip/archive/master.zip'
   - C:\msys64\usr\bin\bash -lc 'unzip master.zip; cd pip-master; /mingw64/bin/python3.exe setup.py install'
-  - C:\msys64\usr\bin\bash -lc '/mingw64/bin/pip3.exe debug'
+  - C:\msys64\usr\bin\bash -lc '/mingw64/bin/pip3.exe -v debug'
   - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -m pip -v -v -v install PyQt5'
   - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -m pip install PyQtChart'
   - C:\msys64\usr\bin\bash -lc '/mingw64/bin/python3.exe -m pip install numpy'
