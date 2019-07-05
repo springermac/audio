@@ -1,0 +1,53 @@
+--- PyQtChart_gpl-5.13.0/configure.py.old	2019-07-04 17:47:30.000000000 -0500
++++ PyQtChart_gpl-5.13.0/configure.py	2019-07-05 18:16:35.000000000 -0500
+@@ -31,6 +31,7 @@
+ import os
+ import optparse
+ import sys
++from sysconfig import _POSIX_BUILD
+
+
+ ###############################################################################
+@@ -592,7 +593,7 @@
+         self.module_dir = sysconfig.get_python_lib(plat_specific=1)
+         self.debug = hasattr(sys, 'gettotalrefcount')
+
+-        if sys.platform == 'win32':
++        if sys.platform == 'win32' and not _POSIX_BUILD:
+             try:
+                 # Python v3.3 and later.
+                 base_prefix = sys.base_prefix
+@@ -613,6 +614,12 @@
+             self.data_dir = sys.prefix + '/share'
+             self.lib_dir = sys.prefix + '/lib'
+
++        if _POSIX_BUILD and "MSYSTEM" in os.environ:
++            self.inc_dir = os.popen(' '.join(['cygpath', '--unix', self.inc_dir])).readline().strip()
++            self.module_dir = os.popen(' '.join(['cygpath', '--unix', self.module_dir])).readline().strip()
++            self.data_dir = os.popen(' '.join(['cygpath', '--unix', self.data_dir])).readline().strip()
++            self.lib_dir = os.popen(' '.join(['cygpath', '--unix', self.lib_dir])).readline().strip()
++
+
+ class _TargetQtConfiguration:
+     """ A container for the target Qt configuration. """
+@@ -905,7 +912,9 @@
+         # On Windows for Qt versions prior to v5.9.0 we need to be explicit
+         # about the qmake spec.
+         if self.qt_version < 0x050900 and self.py_platform == 'win32':
+-            if self.py_version >= 0x030500:
++            if _POSIX_BUILD:
++                self.qmake_spec = "win32-g++"
++            elif self.py_version >= 0x030500:
+                 self.qmake_spec = 'win32-msvc2015'
+             elif self.py_version >= 0x030300:
+                 self.qmake_spec = 'win32-msvc2010'
+@@ -1051,6 +1060,9 @@
+         if pkg_config.distinfo_name and opts.distinfo:
+             self.distinfo = True
+
++        if _POSIX_BUILD and "MSYSTEM" in os.environ:
++        	self.pyqt_sip_dir = os.popen(' '.join(['cygpath', '--unix', self.pyqt_sip_dir])).readline().strip()
++
+         pkg_config.apply_options(self, opts)
+
+     @staticmethod
