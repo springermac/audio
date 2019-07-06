@@ -28,7 +28,7 @@ prepare() {
 }
 
 build() {
-  for builddir in python{3}-${MINGW_CHOST}; do
+  for builddir in python3-${MINGW_CHOST}; do
     [[ -d $builddir ]] && rm -rf ${builddir}
     cp -r PyQtChart_gpl-${pkgver} ${builddir}
     pushd ${builddir} > /dev/null
