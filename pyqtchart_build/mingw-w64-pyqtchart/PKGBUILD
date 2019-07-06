@@ -2,7 +2,7 @@
 
 _realname=pyqtchart
 pkgbase=mingw-w64-${_realname}
-pkgname=("${MINGW_PACKAGE_PREFIX}-python2-${_realname}" "${MINGW_PACKAGE_PREFIX}-python3-${_realname}")
+pkgname="${MINGW_PACKAGE_PREFIX}-python3-${_realname}"
 pkgver=5.11.3
 pkgrel=0
 pkgdesc="Qt5 bindings for Python (mingw-w64)"
@@ -28,17 +28,12 @@ prepare() {
 }
 
 build() {
-  for builddir in python{2,3}-${MINGW_CHOST}; do
+  for builddir in python{3}-${MINGW_CHOST}; do
     [[ -d $builddir ]] && rm -rf ${builddir}
     cp -r PyQtChart_gpl-${pkgver} ${builddir}
     pushd ${builddir} > /dev/null
-    [[ "${builddir%-${MINGW_CHOST}}" == "python2" ]] && {
-      local _sipdir=Py2-Qt5
-    } || {
-      local _sipdir=PyQt5
-    }
     ${MINGW_PREFIX}/bin/${builddir%-${MINGW_CHOST}} configure.py \
-      --pyqt-sipdir ${MINGW_PREFIX}/share/sip/${_sipdir} \
+      --pyqt-sipdir ${MINGW_PREFIX}/share/sip/PyQt5 \
       --verbose
     make V=1
     popd > /dev/null
@@ -54,26 +49,9 @@ package_python3-pyqtchart(){
   make DESTDIR="${pkgdir}" INSTALL_ROOT="${pkgdir}" install
 }
 
-package_python2-pyqt5(){
-  pkgdesc="A set of Python 2.x bindings for the Qt5 toolkit"
-  depends=("${MINGW_PACKAGE_PREFIX}-python2-sip" "${MINGW_PACKAGE_PREFIX}-pyqt5-common" "${MINGW_PACKAGE_PREFIX}-python2")
-
-  cd python2-${MINGW_CHOST}
-  # INSTALL_ROOT is needed for the QtDesigner module, the other Makefiles use DESTDIR
-  make DESTDIR="${pkgdir}" INSTALL_ROOT="${pkgdir}" install
-}
-
 # Wrappers
-package_mingw-w64-i686-python2-pyqtchart() {
-  package_python2-pyqtchart
-}
-
 package_mingw-w64-i686-python3-pyqtchart() {
   package_python3-pyqtchart
-}
-
-package_mingw-w64-x86_64-python2-pyqtchart() {
-  package_python2-pyqtchart
 }
 
 package_mingw-w64-x86_64-python3-pyqtchart() {
