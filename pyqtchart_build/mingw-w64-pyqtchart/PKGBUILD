@@ -15,7 +15,7 @@ makedepends=("${MINGW_PACKAGE_PREFIX}-python2-sip"
              "${MINGW_PACKAGE_PREFIX}-python3-pyqt5"
              "${MINGW_PACKAGE_PREFIX}-make")
 options=('strip' 'staticlibs')
-source=(https://www.riverbankcomputing.com/static/Downloads/PyQt5Chart/${pkgver}/PyQtChart_gpl-${pkgver}.tar.gz
+source=(https://www.riverbankcomputing.com/static/Downloads/PyQtChart/${pkgver}/PyQtChart_gpl-${pkgver}.tar.gz
         001-mingw-python.patch)
 sha256sums=('89abf5e48c79c4db42a01f80433bb97d64b117f801be5e4cb0b9839efc99472f'
             'b4a4a5a693dfa26e30eb4ac249281da758ae4b74e529128b562606811bed9caf')
