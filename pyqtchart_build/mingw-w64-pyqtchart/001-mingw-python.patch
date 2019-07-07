@@ -41,13 +41,3 @@
                  self.qmake_spec = 'win32-msvc2015'
              elif self.py_version >= 0x030300:
                  self.qmake_spec = 'win32-msvc2010'
-@@ -1051,6 +1060,9 @@
-         if pkg_config.distinfo_name and opts.distinfo:
-             self.distinfo = True
-
-+        if _POSIX_BUILD and "MSYSTEM" in os.environ:
-+        	self.pyqt_sip_dir = os.popen(' '.join(['cygpath', '--unix', self.pyqt_sip_dir])).readline().strip()
-+
-         pkg_config.apply_options(self, opts)
-
-     @staticmethod

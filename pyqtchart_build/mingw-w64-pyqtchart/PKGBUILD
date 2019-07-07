@@ -18,7 +18,7 @@ options=('strip' 'staticlibs')
 source=(https://www.riverbankcomputing.com/static/Downloads/PyQtChart/${pkgver}/PyQtChart_gpl-${pkgver}.tar.gz
         001-mingw-python.patch)
 sha256sums=('89abf5e48c79c4db42a01f80433bb97d64b117f801be5e4cb0b9839efc99472f'
-            'b4a4a5a693dfa26e30eb4ac249281da758ae4b74e529128b562606811bed9caf')
+            'f0a3748daedb4ca807d0a50b6ca6b10c10eec7b82717ce4761edb529bdefffd8')
 
 prepare() {
  cd "${srcdir}"/PyQtChart_gpl-${pkgver}
@@ -33,7 +33,7 @@ build() {
     cp -r PyQtChart_gpl-${pkgver} ${builddir}
     pushd ${builddir} > /dev/null
     ${MINGW_PREFIX}/bin/${builddir%-${MINGW_CHOST}} configure.py \
-      --pyqt-sipdir /mingw64/share/sip/PyQt5 \
+      --pyqt-sipdir ${MINGW_PREFIX}/share/sip/PyQt5 \
       --verbose
     make V=1
     popd > /dev/null
