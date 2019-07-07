@@ -1,5 +1,5 @@
---- PyQtChart_gpl-5.13.0/configure.py.old	2019-07-04 17:47:30.000000000 -0500
-+++ PyQtChart_gpl-5.13.0/configure.py	2019-07-05 18:16:35.000000000 -0500
+--- PyQtChart_gpl-5.11.3/configure.py.old	2018-10-01 08:41:15.000000000 -0500
++++ PyQtChart_gpl-5.11.3/configure.py	2019-07-06 22:27:44.000000000 -0500
 @@ -31,6 +31,7 @@
  import os
  import optparse
@@ -17,20 +17,7 @@
              try:
                  # Python v3.3 and later.
                  base_prefix = sys.base_prefix
-@@ -613,6 +614,12 @@
-             self.data_dir = sys.prefix + '/share'
-             self.lib_dir = sys.prefix + '/lib'
-
-+        if _POSIX_BUILD and "MSYSTEM" in os.environ:
-+            self.inc_dir = os.popen(' '.join(['cygpath', '--unix', self.inc_dir])).readline().strip()
-+            self.module_dir = os.popen(' '.join(['cygpath', '--unix', self.module_dir])).readline().strip()
-+            self.data_dir = os.popen(' '.join(['cygpath', '--unix', self.data_dir])).readline().strip()
-+            self.lib_dir = os.popen(' '.join(['cygpath', '--unix', self.lib_dir])).readline().strip()
-+
-
- class _TargetQtConfiguration:
-     """ A container for the target Qt configuration. """
-@@ -905,7 +912,9 @@
+@@ -897,7 +898,9 @@
          # On Windows for Qt versions prior to v5.9.0 we need to be explicit
          # about the qmake spec.
          if self.qt_version < 0x050900 and self.py_platform == 'win32':
