@@ -33,7 +33,7 @@ build() {
     cp -r PyQtChart_gpl-${pkgver} ${builddir}
     pushd ${builddir} > /dev/null
     ${MINGW_PREFIX}/bin/${builddir%-${MINGW_CHOST}} configure.py \
-      --pyqt-sipdir ${MINGW_PREFIX}/share/sip/PyQt5 \
+      --no-dist-info \
       --verbose
     make V=1
     popd > /dev/null
