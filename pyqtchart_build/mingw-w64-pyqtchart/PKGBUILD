@@ -42,7 +42,7 @@ build() {
 
 package_python3-pyqtchart(){
   pkgdesc="A set of Python 3.x bindings for the Qt5 toolkit"
-  depends=("${MINGW_PACKAGE_PREFIX}-python3-sip" "${MINGW_PACKAGE_PREFIX}-pyqt5" "${MINGW_PACKAGE_PREFIX}-python3")
+  depends=("${MINGW_PACKAGE_PREFIX}-python3-sip" "${MINGW_PACKAGE_PREFIX}-python3-pyqt5" "${MINGW_PACKAGE_PREFIX}-python3")
 
   cd python3-${MINGW_CHOST}
   # INSTALL_ROOT is needed for the QtDesigner module, the other Makefiles use DESTDIR
