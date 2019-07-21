@@ -1,5 +1,5 @@
---- PyQtChart_gpl-5.11.3/configure.py.old	2018-10-01 08:41:15.000000000 -0500
-+++ PyQtChart_gpl-5.11.3/configure.py	2019-07-06 22:27:44.000000000 -0500
+--- PyQtChart_gpl-5.11.3/configure.py.old	2018-10-01 09:41:15.000000000 -0400
++++ PyQtChart_gpl-5.11.3/configure.py	2019-07-20 20:30:56.000000000 -0400
 @@ -31,6 +31,7 @@
  import os
  import optparse
@@ -17,14 +17,11 @@
              try:
                  # Python v3.3 and later.
                  base_prefix = sys.base_prefix
-@@ -897,7 +898,9 @@
-         # On Windows for Qt versions prior to v5.9.0 we need to be explicit
-         # about the qmake spec.
-         if self.qt_version < 0x050900 and self.py_platform == 'win32':
--            if self.py_version >= 0x030500:
-+            if _POSIX_BUILD:
-+                self.qmake_spec = "win32-g++"
-+            elif self.py_version >= 0x030500:
-                 self.qmake_spec = 'win32-msvc2015'
-             elif self.py_version >= 0x030300:
-                 self.qmake_spec = 'win32-msvc2010'
+@@ -1431,7 +1432,7 @@
+     PY_MODULE = %s.pyd
+     PY_MODULE_SRC = $(DESTDIR_TARGET)
+
+-    LIBS += -L%s
++    LIBS += -L%s -lpython3.7m
+ } else {
+     PY_MODULE = %s.so

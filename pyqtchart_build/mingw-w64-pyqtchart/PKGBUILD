@@ -18,7 +18,7 @@ options=('strip' 'staticlibs')
 source=(https://www.riverbankcomputing.com/static/Downloads/PyQtChart/${pkgver}/PyQtChart_gpl-${pkgver}.tar.gz
         001-mingw-python.patch)
 sha256sums=('89abf5e48c79c4db42a01f80433bb97d64b117f801be5e4cb0b9839efc99472f'
-            'a4677a925c0f117fb4455159d56b176686d52cccec8889958a5a74b1852e779d')
+            '2125850c6e1f73a0d7325425d083466e99cf55a369a55092748f4f97c63668ed')
 
 prepare() {
  cd "${srcdir}"/PyQtChart_gpl-${pkgver}
