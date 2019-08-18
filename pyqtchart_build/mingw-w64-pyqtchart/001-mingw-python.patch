@@ -1,27 +1,70 @@
---- PyQtChart_gpl-5.11.3/configure.py.old	2018-10-01 09:41:15.000000000 -0400
-+++ PyQtChart_gpl-5.11.3/configure.py	2019-07-20 20:30:56.000000000 -0400
+diff -ur PyQtChart_gpl-5.12/configure.py.orig PyQtChart_gpl-5.12/configure.py
+--- PyQtChart_gpl-5.12/configure.py.orig	2019-02-04 10:20:08.000000000 -0500
++++ PyQtChart_gpl-5.12/configure.py	2019-08-18 16:36:03.000000000 -0400
 @@ -31,6 +31,7 @@
  import os
  import optparse
  import sys
 +from sysconfig import _POSIX_BUILD
-
-
+ 
+ 
  ###############################################################################
-@@ -592,7 +593,7 @@
+@@ -178,6 +179,9 @@
+         if options.qtchart_no_sip_files:
+             target_configuration.qtchart_sip_dir = ''
+ 
++        if _POSIX_BUILD and "MSYSTEM" in os.environ:
++            target_configuration.qtchart_sip_dir = os.popen(' '.join(['cygpath', '--unix', target_configuration.qtchart_sip_dir])).readline().strip()
++
+     @staticmethod
+     def check_module(target_configuration):
+         """ Perform any module specific checks now that the target
+@@ -592,7 +596,7 @@
          self.module_dir = sysconfig.get_python_lib(plat_specific=1)
          self.debug = hasattr(sys, 'gettotalrefcount')
-
+ 
 -        if sys.platform == 'win32':
 +        if sys.platform == 'win32' and not _POSIX_BUILD:
              try:
                  # Python v3.3 and later.
                  base_prefix = sys.base_prefix
-@@ -1431,7 +1432,7 @@
+@@ -613,6 +617,8 @@
+             self.data_dir = sys.prefix + '/share'
+             self.lib_dir = sys.prefix + '/lib'
+ 
++        if _POSIX_BUILD and "MSYSTEM" in os.environ:
++            self.module_dir = os.popen(' '.join(['cygpath', '--unix', self.module_dir])).readline().strip() 
+ 
+ class _TargetQtConfiguration:
+     """ A container for the target Qt configuration. """
+@@ -1039,6 +1045,9 @@
+ 
+         pkg_config.apply_options(self, opts)
+ 
++        if _POSIX_BUILD and "MSYSTEM" in os.environ:
++            self.api_dir = os.popen(' '.join(['cygpath', '--unix', self.api_dir])).readline().strip()
++
+     @staticmethod
+     def _find_exe(*exes):
+         """ Find an executable, ie. the first on the path. """
+@@ -1433,7 +1442,7 @@
      PY_MODULE = %s.pyd
      PY_MODULE_SRC = $(DESTDIR_TARGET)
-
+ 
 -    LIBS += -L%s
 +    LIBS += -L%s -lpython3.7m
  } else {
      PY_MODULE = %s.so
+ 
+diff -ur PyQtChart_gpl-5.12/mk_distinfo.py.orig PyQtChart_gpl-5.12/mk_distinfo.py
+--- PyQtChart_gpl-5.12/mk_distinfo.py.orig	2019-02-04 07:02:04.000000000 -0500
++++ PyQtChart_gpl-5.12/mk_distinfo.py	2019-08-18 16:33:54.000000000 -0400
+@@ -32,6 +32,8 @@
+ distinfo_dir = sys.argv[2]
+ installed_fn = sys.argv[3]
+ 
++distinfo_dir = os.popen(' '.join(['cygpath', '--unix', distinfo_dir])).readline().strip()
++
+ # Read the list of installed files.
+ installed_f = open(installed_fn)
+ installed = installed_f.read().strip().split('\n')
