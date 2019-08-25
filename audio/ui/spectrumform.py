@@ -30,11 +30,7 @@ class SpectrumForm(QtChart.QChartView, Ui_Spectrum):
         self.chart = QtChart.QChart()
         self.chart.legend().hide()
         self.setChart(self.chart)
-        self.bars_number = 1
-        self.bars = list()
         self.threshold = threshold
-        self.bar_color = list()
-        self.black = QtGui.QColor(Qt.Qt.black)
         self.curve = QtChart.QLineSeries()
         self.add_data(self.curve, color=Qt.Qt.red)
 
@@ -60,10 +56,5 @@ class SpectrumForm(QtChart.QChartView, Ui_Spectrum):
         self.chart.setAxisY(yaxis)
         curve.attachAxis(xaxis)
 
-    def set_bands(self, bands):
-        self.bars_number = bands
-
-    def set_bars(self, values, freqs):
-        self.bars_number = freqs
-        self.bars = values
-        self.curve.replace(series_to_polyline(self.bars_number, self.bars))
+    def set_bars(self, magnitude, frequency):
+        self.curve.replace(series_to_polyline(frequency, magnitude))

@@ -15,6 +15,7 @@ class Spectrum(QtCore.QObject):
         super(Spectrum, self).__init__()
         self.sample_rate = 0
         self.threshold = -80
+        self.frequencies = list()
 
         self.bin = Gst.Bin('spectrumbin')
 
@@ -43,28 +44,23 @@ class Spectrum(QtCore.QObject):
         self.bin.add_pad(self.scopesinkghostpad)
 
         self.spectrum_widget = SpectrumForm(self.threshold)
-        # self.spectrum_widget.set_bands(BANDS)
 
         self.message.connect(self.message_handler)
 
     def message_handler(self, message):
-        bands = BANDS
-        if self.sample_rate == 0:
-            self.sample_rate = self.spectrum_element.get_static_pad('src').get_current_caps().get_structure(0)\
-                .get_value('rate')
-        half_sample = self.sample_rate / 2
-        quarter_sample = self.sample_rate / 4
-        struct = message.get_structure()
-        magnitude = struct.get_value("magnitude")
-        if magnitude:
-            bars = list()
-            freqs = list()
-            for i, x in enumerate(magnitude):
-                freq = (half_sample * i + quarter_sample) / BANDS
-                if freq > 30000:
-                    continue
-                freqs.append(freq)
-                bars.append(x)
-                # print(x, pct)
-            # print(bars)
-            self.spectrum_widget.set_bars(bars, freqs)
+        t = message.type
+        if t == Gst.MessageType.ELEMENT:
+            magnitude = message.get_structure().get_value("magnitude")
+            if magnitude:
+                self.spectrum_widget.set_bars(magnitude, self.frequencies)
+        elif t == Gst.MessageType.STATE_CHANGED:
+            oldstate, newstate, pending = message.parse_state_changed()
+            if oldstate == Gst.State.PAUSED and newstate == Gst.State.PLAYING:
+                self.sample_rate = self.spectrum_element.get_static_pad('src').get_current_caps().get_structure(0) \
+                    .get_value('rate')
+                half_sample = self.sample_rate / 2
+                quarter_sample = self.sample_rate / 4
+                self.frequencies = list()
+                for i in range(BANDS):
+                    freq = (half_sample * i + quarter_sample) / BANDS
+                    self.frequencies.append(freq)
