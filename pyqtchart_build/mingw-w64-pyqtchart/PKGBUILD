@@ -21,7 +21,7 @@ sha256sums=('49960a1483527857b38c1527f9b6328d30bdcc84521f579c0a561a892f54130e'
             '99284dbfe34709f0dd2540e3f9483edbbab62961165c81b33a8cab225e7e9bcc')
 
 prepare() {
- cd "${srcdir}"/PyQtChart_gpl-${pkgver}
+ cd "${srcdir}"/PyQtChart-${pkgver}
 
   #Apply patches
   patch -p1 -i "${srcdir}"/001-mingw-python.patch
@@ -30,7 +30,7 @@ prepare() {
 build() {
   for builddir in python3-${MINGW_CHOST}; do
     [[ -d $builddir ]] && rm -rf ${builddir}
-    cp -r PyQtChart_gpl-${pkgver} ${builddir}
+    cp -r PyQtChart-${pkgver} ${builddir}
     pushd ${builddir} > /dev/null
     ${MINGW_PREFIX}/bin/${builddir%-${MINGW_CHOST}} configure.py \
       --verbose
