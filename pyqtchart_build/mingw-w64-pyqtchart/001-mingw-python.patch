@@ -52,7 +52,7 @@ diff -ur PyQtChart_gpl-5.12/configure.py.orig PyQtChart_gpl-5.12/configure.py
      PY_MODULE_SRC = $(DESTDIR_TARGET)
  
 -    LIBS += -L%s
-+    LIBS += -L%s -lpython3.7m
++    LIBS += -L%s -lpython3.8
  } else {
      PY_MODULE = %s.so
  
