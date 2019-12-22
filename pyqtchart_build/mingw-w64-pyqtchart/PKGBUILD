@@ -3,21 +3,19 @@
 _realname=pyqtchart
 pkgbase=mingw-w64-${_realname}
 pkgname="${MINGW_PACKAGE_PREFIX}-python3-${_realname}"
-pkgver=5.13.1
+pkgver=5.14.0
 pkgrel=0
 pkgdesc="Qt5 bindings for Python (mingw-w64)"
 arch=('any')
 license=('GPL')
 url="http://www.riverbankcomputing.co.uk/software/pyqtchart"
-makedepends=(#"${MINGW_PACKAGE_PREFIX}-python2-sip"
-             "${MINGW_PACKAGE_PREFIX}-python3-sip"
-             #"${MINGW_PACKAGE_PREFIX}-python2-pyqt5"
+makedepends=("${MINGW_PACKAGE_PREFIX}-python3-sip"
              "${MINGW_PACKAGE_PREFIX}-python3-pyqt5"
              "${MINGW_PACKAGE_PREFIX}-make")
 options=('strip' 'staticlibs')
-source=(https://www.riverbankcomputing.com/static/Downloads/PyQtChart/${pkgver}/PyQtChart-${pkgver}.tar.gz
+source=(https://files.pythonhosted.org/packages/c8/6e/08e68bb5c3c64fbb56f1755c0b4748bb82775fa1b7c9fbaa61572eeaa76a/PyQtChart-5.14.0.tar.gz
         001-mingw-python.patch)
-sha256sums=('49960a1483527857b38c1527f9b6328d30bdcc84521f579c0a561a892f54130e'
+sha256sums=('f9004861441becab7a4a48e834da14c3976e4c03e5513c93e005d5df36085046'
             'e8bb8826d157cdd9560d11442f885b28d5b784ad13a223c1cd80d8001a47c93c')
 
 prepare() {
