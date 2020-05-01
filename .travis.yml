@@ -15,12 +15,13 @@ matrix:
         - brew unlink python@2
         - brew uses --recursive --installed python | xargs -n1 brew uninstall --ignore-dependencies
         - brew update
-        - brew install python || brew upgrade python
         - brew install pygobject3
         - brew install gst-python
         - brew install gst-plugins-good
         - brew install gst-plugins-bad
         - brew install gst-plugins-ugly
+        - brew unlink python
+        - brew link -f python@3.8
         - pip3 install --upgrade pip setuptools wheel
         - pip3 install -r requirements.txt
         - pip3 install https://github.com/pyinstaller/pyinstaller/archive/develop.zip
