@@ -22,9 +22,7 @@ matrix:
             - archive.zip
       install:
         - pip3 install --upgrade pip setuptools wheel
-        - pip3 install numpy
-        - pip3 install PyQt5
-        - pip3 install PyQtChart
+        - pip3 install -r requirements.txt
         - pip3 install https://github.com/pyinstaller/pyinstaller/archive/develop.zip
       script:
         - pyinstaller audio-debug.spec

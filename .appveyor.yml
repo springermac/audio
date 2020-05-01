@@ -7,7 +7,7 @@ install:
   - C:\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pip'
   - C:\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-pyqt5'
   - C:\msys64\usr\bin\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-python3-numpy'
-  - C:\msys64\usr\bin\bash -lc 'cd /c/projects/audio/pyqtchart_build/mingw-w64-pyqtchart/; MINGW_INSTALLS=mingw64 makepkg-mingw -sCLfi --noconfirm'
+  - C:\msys64\usr\bin\bash -lc 'pip3 install pyqtgraph=0.11.0rc0'
   - C:\msys64\usr\bin\bash -lc 'curl -L -o develop.zip https://github.com/pyinstaller/pyinstaller/archive/develop.zip'
   - C:\msys64\usr\bin\bash -lc 'unzip develop.zip; cd pyinstaller-develop; /mingw64/bin/python3.exe setup.py install'
 build_script:
