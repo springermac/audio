@@ -13,6 +13,7 @@ matrix:
             - archive.zip
       install:
         - brew unlink python@2
+        - brew uses --recursive --installed python | xargs -n1 brew uninstall
         - brew update
         - brew install python || brew upgrade python
         - brew install pygobject3
