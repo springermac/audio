@@ -1,6 +1,6 @@
 import gi
 gi.require_version('Gst', '1.0')
-from gi.repository import Gst, GLib
+from gi.repository import Gst
 from PyQt5 import QtCore
 
 from audio.ui.spectrumform import SpectrumForm
@@ -52,7 +52,7 @@ class Spectrum(QtCore.QObject):
         if t == Gst.MessageType.ELEMENT:
             magnitude = message.get_structure().get_value("magnitude")
             if magnitude:
-                self.spectrum_widget.set_bars(magnitude, self.frequencies)
+                self.spectrum_widget.set_bars(magnitude, self.frequencies, BANDS)
         elif t == Gst.MessageType.STATE_CHANGED:
             oldstate, newstate, pending = message.parse_state_changed()
             if oldstate == Gst.State.PAUSED and newstate == Gst.State.PLAYING:

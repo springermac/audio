@@ -6,19 +6,18 @@ from PyQt5 import Qt, QtGui, QtWidgets, QtChart, QtCore
 from audio.ui.spectrum import Ui_Spectrum
 
 
-def series_to_polyline(xdata, ydata):
+def series_to_polyline(xdata, ydata, xsize):
     """Convert series data to QPolygon(F) polyline
 
     This code is derived from PythonQwt's function named
     `qwt.plot_curve.series_to_polyline`"""
-    size = len(xdata)
-    polyline = QtGui.QPolygonF(size)
+    polyline = QtGui.QPolygonF(xsize)
     pointer = polyline.data()
     dtype, tinfo = np.float, np.finfo
     pointer.setsize(2 * polyline.size() * tinfo(dtype).dtype.itemsize)
     memory = np.frombuffer(pointer, dtype)
-    memory[:(size - 1) * 2 + 1:2] = xdata
-    memory[1:(size - 1) * 2 + 2:2] = ydata
+    memory[:(xsize - 1) * 2 + 1:2] = xdata
+    memory[1:(xsize - 1) * 2 + 2:2] = ydata
     return polyline
 
 
@@ -45,7 +44,7 @@ class SpectrumForm(QtChart.QChartView, Ui_Spectrum):
         pen.setWidthF(.1)
         curve.setPen(pen)
         curve.setUseOpenGL(True)
-        curve.append(series_to_polyline(np.linspace(0, 30000), np.linspace(self.threshold, 0)))
+        curve.append(series_to_polyline(np.linspace(0, 30000), np.linspace(self.threshold, 0), 50))
         xaxis = QtChart.QLogValueAxis()
         xaxis.setMinorTickCount(10)
         xaxis.setRange(0, 30000)
@@ -56,5 +55,5 @@ class SpectrumForm(QtChart.QChartView, Ui_Spectrum):
         self.chart.setAxisY(yaxis)
         curve.attachAxis(xaxis)
 
-    def set_bars(self, magnitude, frequency):
-        self.curve.replace(series_to_polyline(frequency, magnitude))
+    def set_bars(self, magnitude, frequency, freq_size):
+        self.curve.replace(series_to_polyline(frequency, magnitude, freq_size))
