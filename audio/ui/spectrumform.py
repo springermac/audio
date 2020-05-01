@@ -2,6 +2,7 @@ import math
 
 import numpy as np
 from PyQt5 import Qt, QtGui, QtWidgets, QtChart, QtCore
+from pyqtgraph import PlotWidget
 
 from audio.ui.spectrum import Ui_Spectrum
 
@@ -21,17 +22,22 @@ def series_to_polyline(xdata, ydata, xsize):
     return polyline
 
 
-class SpectrumForm(QtChart.QChartView, Ui_Spectrum):
+class SpectrumForm(PlotWidget, Ui_Spectrum):
     def __init__(self, threshold):
         super(SpectrumForm, self).__init__()
 
         self.setupUi(self)
-        self.chart = QtChart.QChart()
-        self.chart.legend().hide()
-        self.setChart(self.chart)
-        self.threshold = threshold
-        self.curve = QtChart.QLineSeries()
-        self.add_data(self.curve, color=Qt.Qt.red)
+        self.plot_item = self.getPlotItem()
+        self.plot_item.setLogMode(True)
+        view_box = self.plot_item.getViewBox()
+        view_box.setYRange(threshold, 0)
+        self.curve = self.plot_item.plot()
+        # self.chart = QtChart.QChart()
+        # self.chart.legend().hide()
+        # self.setChart(self.chart)
+        # self.threshold = threshold
+        # self.curve = QtChart.QLineSeries()
+        # self.add_data(self.curve, color=Qt.Qt.red)
 
         self.setMinimumSize(240, 320)
 
@@ -56,4 +62,5 @@ class SpectrumForm(QtChart.QChartView, Ui_Spectrum):
         curve.attachAxis(xaxis)
 
     def set_bars(self, magnitude, frequency, freq_size):
-        self.curve.replace(series_to_polyline(frequency, magnitude, freq_size))
+        self.curve.setData(frequency, list(magnitude))
+        # self.curve.replace(series_to_polyline(frequency, magnitude, freq_size))

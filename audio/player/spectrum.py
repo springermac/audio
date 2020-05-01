@@ -14,7 +14,7 @@ class Spectrum(QtCore.QObject):
     def __init__(self):
         super(Spectrum, self).__init__()
         self.sample_rate = 0
-        self.threshold = -80
+        self.threshold = -120
         self.frequencies = list()
 
         self.bin = Gst.Bin('spectrumbin')
