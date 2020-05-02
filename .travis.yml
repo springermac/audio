@@ -8,9 +8,7 @@ matrix:
           - $HOME/Library/Caches/pip
           - $HOME/Library/Caches/Homebrew
       addons:
-        artifacts:
-          paths:
-            - archive.zip
+        artifacts: true
       install:
         - brew unlink python@2
         - brew uses --recursive --installed python | xargs -n1 brew uninstall --ignore-dependencies
@@ -27,8 +25,8 @@ matrix:
         - pip3 install https://github.com/pyinstaller/pyinstaller/archive/develop.zip
       script:
         - pyinstaller --log-level=DEBUG audio-debug.spec
-after_success:
-  - zip -qr archive.zip dist/audio-debug.*
+#after_success:
+#  - zip -qr archive.zip dist/audio-debug.*
 #deploy:
 #  provider: script
 #  script: ./deploy.sh
