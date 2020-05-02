@@ -26,7 +26,7 @@ matrix:
         - pip3 install -r requirements.txt
         - pip3 install https://github.com/pyinstaller/pyinstaller/archive/develop.zip
       script:
-        - pyinstaller audio-debug.spec
+        - pyinstaller --log-level=DEBUG audio-debug.spec
 after_success:
   - zip -qr archive.zip dist/audio-debug.*
 #deploy:
