@@ -12,6 +12,8 @@ install:
   - C:\msys64\usr\bin\bash -lc 'unzip -q develop.zip; cd pyinstaller-develop; /mingw64/bin/python3.exe setup.py --quiet install'
 build_script:
   - C:\msys64\usr\bin\bash -lc 'cd /c/projects/audio; /mingw64/bin/python3.exe -m PyInstaller audio-run.py -cy -d bootloader -d imports -n audio-debug --log-level=DEBUG --hidden-import=packaging.specifiers --hidden-import=packaging.requirements --exclude-module PyQt5.QtWebEngine --exclude-module PyQt5.QtWebEngineCore --exclude-module PyQt5.QtWebEngineWidgets --exclude-module PyQt5.QtQuickWidgets --exclude-module PyQt5.QtQuick --exclude-module PyQt5.QtQml --exclude-module PyQt5.QtWebChannel --exclude-module PyQt5.QtQtWebSockets --exclude-module PyQt5.QtWebKit --exclude-module lib2to3 --exclude-module tkinter'
+on_failure:
+  - ps: $root = Resolve-Path .\build; [IO.Directory]::GetFiles($root.Path, '*.*', 'AllDirectories') | % { Push-AppveyorArtifact $_ -FileName $_.Substring($root.Path.Length + 1) }
 artifacts:
   - path: dist
     type: zip
