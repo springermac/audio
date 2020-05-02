@@ -24,9 +24,9 @@ matrix:
         - brew link -f python@3.8
         - pip3 install --upgrade pip setuptools wheel
         - pip3 install -r requirements.txt
-        - pip3 install https://github.com/pyinstaller/pyinstaller/archive/develop.zip
+        - pip3 install https://github.com/pyinstaller/springermac/archive/develop.zip
       script:
-        - pyinstaller --log-level=DEBUG audio-debug.spec
+        - pyinstaller --log-level=TRACE audio-debug.spec
 after_success:
   - zip -qr archive.zip dist build
 #deploy:
