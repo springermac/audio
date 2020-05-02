@@ -17,9 +17,9 @@ matrix:
         - brew update
         - brew install pygobject3
         - brew install gst-python
-        - brew install gst-plugins-good
-        - brew install gst-plugins-bad
-        - brew install gst-plugins-ugly
+#        - brew install gst-plugins-good
+#        - brew install gst-plugins-bad
+#        - brew install gst-plugins-ugly
         - brew unlink python
         - brew link -f python@3.8
         - pip3 install --upgrade pip setuptools wheel
